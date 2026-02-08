@@ -8,7 +8,7 @@ import java.util.List;
 public class RiderDAODB implements RiderDAO {
     @Override
     public void saveRider(Rider rider) {
-
+        //not implemented
     }
 
     @Override
