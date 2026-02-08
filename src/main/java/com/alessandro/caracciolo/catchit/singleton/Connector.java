@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class Connector {
     private static Connection conn = null;
     private static final String DB_URL = Configs.getInstance().getProperty("CONNECTION_URL");
-    private static final String DB_USER = Configs.getInstance().getProperty("RESTAURANT_USER");
-    private static final String DB_PSSW = Configs.getInstance().getProperty("RESTAURANT_PSSW");
+    private static final String DB_USER = Configs.getInstance().getProperty("LOGIN_USER");
+    private static final String DB_PSSW = Configs.getInstance().getProperty("LOGIN_PASS");
 
     private Connector(){}
 
