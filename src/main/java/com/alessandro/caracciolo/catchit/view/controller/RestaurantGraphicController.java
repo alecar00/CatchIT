@@ -24,13 +24,14 @@ public class RestaurantGraphicController {
     @FXML
     private VBox ordersContainer;
 
-    List<OrderBean> ordersBeans = new ArrayList<>();
+    private ProcessOrderController  appController;
+
 
     public void initialize() {
-        var ProcessOrderController = new ProcessOrderController();
+        this.appController = new ProcessOrderController();
 
-        ordersBeans = ProcessOrderController.discoverPendingOrders();
-        updateOrdersList(ordersBeans);
+        List<OrderBean> orderBeans = appController.discoverPendingOrders();
+        updateOrdersList(orderBeans);
     }
 
     // Metodo per popolare la lista graficamente
