@@ -13,17 +13,15 @@ public class Order extends Subject implements Serializable {
     private String telNumber;
     private Rider rider;
     private Time time;
-    private Date date;
     private OrderStatus status;
 
-    public Order(String idOrder, String address, String costumer,String telNumber, Time time, Date date) {
+    public Order(String idOrder, String address, String costumer,String telNumber, Time time, Date date, OrderStatus status) {
         this.idOrder = idOrder;
         this.address = address;
         this.costumer = costumer;
         this.telNumber = telNumber;
         this.rider = null;
         this.time = time;
-        this.date = date;
         this.status = OrderStatus.PENDING;
     }
 
@@ -60,10 +58,6 @@ public class Order extends Subject implements Serializable {
 
     public Time getTime() {
         return this.time;
-    }
-
-    public Date getDate() {
-        return this.date;
     }
 
     public void setRider(Rider rider) {

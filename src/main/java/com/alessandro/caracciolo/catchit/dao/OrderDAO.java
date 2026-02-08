@@ -14,16 +14,9 @@ public interface OrderDAO {
     /**
      * Recupera tutti gli ordini.
      * Per il metodo 'discoverPendingOrders' del Controller.
-     * @return Lista di tutti gli ordini.
+     * @return Lista di tutti gli ordini con lo stato PENDING.
      */
-    List<Order> getAllOrders();
-
-    /**
-     * Recupera un ordine specifico.
-     * @param id L'ID dell'ordine (String).
-     * @return L'oggetto Order.
-     */
-    Order getOrderById(String id);
+    List<Order> getPendingOrders();
 
     /**
      * Aggiorna un ordine esistente.

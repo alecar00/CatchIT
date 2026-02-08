@@ -12,13 +12,8 @@ public class OrderDAOFS implements OrderDAO {
     }
 
     @Override
-    public List<Order> getAllOrders() {
+    public List<Order> getPendingOrders() {
         return List.of();
-    }
-
-    @Override
-    public Order getOrderById(String id) {
-        return null;
     }
 
     @Override
