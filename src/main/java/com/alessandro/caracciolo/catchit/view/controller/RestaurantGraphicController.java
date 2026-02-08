@@ -67,9 +67,9 @@ public class RestaurantGraphicController {
         Label lblConsumer = new Label("Cliente: " + order.getConsumer());
         lblConsumer.setStyle("-fx-font-size: 12;");
 
-        //label time
-        Label lblTime = new Label("Orario: " + order.getTime());
-        lblConsumer.setStyle("-fx-font-size: 12;");
+        //label time per adesso viene esclusa la logica dell'orario
+        /*Label lblTime = new Label("Orario: " + order.getTime());
+        lblConsumer.setStyle("-fx-font-size: 12;");*/
 
         // assign button
         Button btnAssegna = new Button("Assegna");
