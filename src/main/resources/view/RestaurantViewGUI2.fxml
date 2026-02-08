@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alessandro.caracciolo.catchit.HelloController">
+<BorderPane style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alessandro.caracciolo.catchit.controller.ProcessOrderController">
 
     <!-- Header -->
     <top>
         <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #2a2a2a; -fx-padding: 15 30;">
             <ImageView fitHeight="66.0" fitWidth="112.0" preserveRatio="true">
             <image>
-               <Image url="@Logo.png" />
+               <Image url="@../Logo.png" />
             </image></ImageView>
             <Label text="Gestione Consegne" textFill="white">
                 <font>

@@ -8,4 +8,6 @@ module com.alessandro.caracciolo.catchit {
 
     opens com.alessandro.caracciolo.catchit to javafx.fxml;
     exports com.alessandro.caracciolo.catchit;
+    exports com.alessandro.caracciolo.catchit.controller;
+    opens com.alessandro.caracciolo.catchit.controller to javafx.fxml;
 }
