@@ -6,10 +6,6 @@ import com.alessandro.caracciolo.catchit.model.Order;
 import java.util.List;
 
 public class OrderDAOFS implements OrderDAO {
-    @Override
-    public void saveOrder(Order order) {
-
-    }
 
     @Override
     public List<Order> getPendingOrders() {

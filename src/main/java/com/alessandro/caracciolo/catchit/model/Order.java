@@ -44,7 +44,7 @@ public class Order extends Subject implements Serializable {
         return this.address;
     }
 
-    public String getConsumer() {
+    public String getCostumer() {
         return this.costumer;
     }
 
@@ -63,4 +63,6 @@ public class Order extends Subject implements Serializable {
     public void setRider(Rider rider) {
         this.rider = rider;
     }
+
+    public String getTelNumber() {return this.telNumber;}
 }

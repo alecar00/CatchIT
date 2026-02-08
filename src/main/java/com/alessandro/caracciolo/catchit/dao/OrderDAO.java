@@ -5,11 +5,6 @@ import com.alessandro.caracciolo.catchit.model.Order;
 import java.util.List;
 
 public interface OrderDAO {
-    /**
-     * Salva un nuovo ordine.
-     * @param order L'ordine appena creato (stato PENDING).
-     */
-    void saveOrder(Order order);
 
     /**
      * Recupera tutti gli ordini.

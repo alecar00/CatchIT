@@ -11,17 +11,17 @@ import java.sql.DriverManager;
 public class DBDAOFactory extends DAOFactory {
 
     @Override
-    public OrderDAO getOrderDAO() {
-        return null;
+    public OrderDAO createOrderDAO() {
+        return new OrderDAODB();
     }
 
     @Override
-    public RiderDAO getRiderDAO() {
-        return null;
+    public RiderDAO createRiderDAO() {
+        return new RiderDAODB();
     }
 
     @Override
-    public RestaurantDAO getRestaurantDAO() {
+    public RestaurantDAO createRestaurantDAO() {
         return null;
     }
 }

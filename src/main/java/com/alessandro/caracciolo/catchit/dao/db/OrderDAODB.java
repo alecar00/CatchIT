@@ -4,7 +4,7 @@ import com.alessandro.caracciolo.catchit.dao.OrderDAO;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.OrderStatus;
 import com.alessandro.caracciolo.catchit.model.Rider;
-import com.alessandro.caracciolo.catchit.query.SearchPendingOrders;
+import com.alessandro.caracciolo.catchit.query.SearchOrdersByStatus;
 import com.alessandro.caracciolo.catchit.singleton.Connector;
 
 import java.sql.ResultSet;
@@ -13,10 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAODB implements OrderDAO {
-    @Override
-    public void saveOrder(Order order) {
-
-    }
 
     @Override
     public List<Order> getPendingOrders() {
@@ -24,7 +20,7 @@ public class OrderDAODB implements OrderDAO {
         List<Order> orders = new ArrayList<>();
 
         try {
-            rs = SearchPendingOrders.SearchOrdersByStatus(Connector.getConnection(), OrderStatus.PENDING);
+            rs = SearchOrdersByStatus.getPendingOrders(Connector.getConnection(), OrderStatus.PENDING);
         } catch (SQLException e) {
             e.printStackTrace();
         }

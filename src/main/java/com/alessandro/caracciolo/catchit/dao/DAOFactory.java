@@ -51,9 +51,9 @@ public abstract class DAOFactory {
 
     // --- METODI ASTRATTI  ---
     // Le sottoclassi DEVONO implementare questi metodi per restituire i DAO specifici.
-    public abstract OrderDAO getOrderDAO();
+    public abstract OrderDAO createOrderDAO();
 
-    public abstract RiderDAO getRiderDAO();
+    public abstract RiderDAO createRiderDAO();
 
-    public abstract RestaurantDAO getRestaurantDAO();
+    public abstract RestaurantDAO createRestaurantDAO();
 }

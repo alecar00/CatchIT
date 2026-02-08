@@ -7,17 +7,17 @@ import com.alessandro.caracciolo.catchit.dao.RiderDAO;
 
 public class MemoryDAOFactory extends DAOFactory {
     @Override
-    public OrderDAO getOrderDAO() {
+    public OrderDAO createOrderDAO() {
         return null;
     }
 
     @Override
-    public RiderDAO getRiderDAO() {
+    public RiderDAO createRiderDAO() {
         return null;
     }
 
     @Override
-    public RestaurantDAO getRestaurantDAO() {
+    public RestaurantDAO createRestaurantDAO() {
         return null;
     }
 }

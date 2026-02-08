@@ -2,20 +2,14 @@ package com.alessandro.caracciolo.catchit.dao.memory;
 
 import com.alessandro.caracciolo.catchit.dao.OrderDAO;
 import com.alessandro.caracciolo.catchit.model.Order;
-import com.alessandro.caracciolo.catchit.model.OrderStatus;
-import com.alessandro.caracciolo.catchit.query.SearchPendingOrders;
-import com.alessandro.caracciolo.catchit.singleton.Connector;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAOMemory implements OrderDAO {
-    @Override
-    public void saveOrder(Order order) {
 
-    }
+    private static List<Order> orders = new ArrayList<>();
+
 
     @Override
     public List<Order> getPendingOrders() {

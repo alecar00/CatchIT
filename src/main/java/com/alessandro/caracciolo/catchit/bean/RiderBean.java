@@ -11,6 +11,10 @@ public class RiderBean {
         this.permitZTL = permitZTL;
     }
 
+    public RiderBean(String idRider) {
+        this.idRider = idRider;
+    }
+
     //getter setter
     public String getIdRider() {return idRider;}
     public String getName() {return name;}
