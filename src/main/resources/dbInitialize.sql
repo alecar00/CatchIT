@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Restaurant(
 CREATE TABLE IF NOT EXISTS Orders (
                         id_order INT AUTO_INCREMENT PRIMARY KEY,
                         address VARCHAR(255) NOT NULL,
-                        consumer VARCHAR(100) NOT NULL,
+                        costumer VARCHAR(100) NOT NULL,
                         tel_number VARCHAR(20),
                         order_time DATETIME,
                         status ENUM('PENDING', 'ASSIGNED', 'IN_DELIVERY', 'COMPLETED') DEFAULT 'PENDING',
@@ -47,29 +47,29 @@ INSERT INTO Restaurant (name) VALUES
 
 
 
-INSERT INTO Orders ( address, consumer, tel_number, status, id_rider, id_restaurant)
+INSERT INTO Orders ( address, costumer, tel_number, status, id_rider, id_restaurant)
 VALUES ('Via Roma 10', 'Giulia', '3331234567', 'PENDING', NULL, 'Pizzeria Da Alessandro');
 
 
-INSERT INTO Orders (address, consumer, tel_number, status, id_rider, id_restaurant)
+INSERT INTO Orders (address, costumer, tel_number, status, id_rider, id_restaurant)
 VALUES ( 'Piazza Dante 5', 'Marco', '3339876543', 'IN_DELIVERY', 'R1', 'Pizzeria Da Alessandro');
 
 
-INSERT INTO Orders ( address, consumer, tel_number, status, id_rider, id_restaurant)
+INSERT INTO Orders ( address, costumer, tel_number, status, id_rider, id_restaurant)
 VALUES ( 'Via Garibaldi 20', 'Luca Bianchi', '3335550001', 'PENDING', NULL, 'Pizzeria Da Alessandro');
 
 
-INSERT INTO Orders (address, consumer, tel_number, status, id_rider, id_restaurant)
+INSERT INTO Orders (address, costumer, tel_number, status, id_rider, id_restaurant)
 VALUES ( 'Corso Italia 100', 'Anna Verdi', '3401239876', 'PENDING', NULL, 'Pizzeria Da Alessandro');
 
 
-INSERT INTO Orders (address, consumer, tel_number, status, id_rider, id_restaurant)
+INSERT INTO Orders (address, costumer, tel_number, status, id_rider, id_restaurant)
 VALUES ('Viale Kennedy 12', 'Paolo Neri', '3387776666', 'ASSIGNED', 'R1', 'Pizzeria Da Alessandro');
 
 
-INSERT INTO Orders (address, consumer, tel_number, status, id_rider, id_restaurant)
+INSERT INTO Orders (address, costumer, tel_number, status, id_rider, id_restaurant)
 VALUES ( 'Piazza Venezia 1', 'Sofia Gialli', '3394445555', 'ASSIGNED', 'R2', 'Pizzeria Da Alessandro');
 
 
-INSERT INTO Orders (address, consumer, tel_number, status, id_rider, id_restaurant)
+INSERT INTO Orders (address, costumer, tel_number, status, id_rider, id_restaurant)
 VALUES ('Via Napoli 88', 'Davide Blu', '3319998888', 'COMPLETED', 'R1', 'Pizzeria Da Alessandro');
