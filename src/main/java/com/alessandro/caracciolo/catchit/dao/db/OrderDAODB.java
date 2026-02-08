@@ -32,12 +32,13 @@ public class OrderDAODB implements OrderDAO {
                 String statusString = rs.getString("status");
                 OrderStatus status = OrderStatus.valueOf(statusString);
 
-                var order = new Order(rs.getString("id"),
+                var order = new Order(rs.getString("id_order"),
                         rs.getString("address"),
                         rs.getString("costumer"),
-                        rs.getString("telNumber"),
-                        rs.getTime("time"),
-                        rs.getDate("date"),
+                        rs.getString("tel_number"),
+                        rs.getTime("order_time"),
+                        //rs.getDate("date"),
+                        //rs.getString("id_restaurant"),
                         status);
                 orders.add(order);
             }
