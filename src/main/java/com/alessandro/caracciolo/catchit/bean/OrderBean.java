@@ -23,6 +23,15 @@ public class OrderBean {
         this.status = status;
     }
 
+    public OrderBean(String idOrder, String address, String costumer, String telNumber, Time time, OrderStatus status) {
+        this.idOrder = idOrder;
+        this.address = address;
+        this.costumer = costumer;
+        this.telNumber = telNumber;
+        this.time = time;
+        this.status = status;
+    }
+
     // Getters Setters
     public String getIdOrder() {return idOrder;}
     public String getAddress() {return address;}
