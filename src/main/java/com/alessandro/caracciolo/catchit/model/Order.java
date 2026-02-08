@@ -14,8 +14,9 @@ public class Order extends Subject implements Serializable {
     private Rider rider;
     private Time time;
     private OrderStatus status;
+    private Restaurant restaurant;
 
-    public Order(String idOrder, String address, String costumer,String telNumber, Time time, Date date, OrderStatus status) {
+    public Order(String idOrder, String address, String costumer,String telNumber, Time time, OrderStatus status) {
         this.idOrder = idOrder;
         this.address = address;
         this.costumer = costumer;
@@ -23,6 +24,7 @@ public class Order extends Subject implements Serializable {
         this.rider = null;
         this.time = time;
         this.status = OrderStatus.PENDING;
+        this.restaurant = null;
     }
 
 
