@@ -5,9 +5,8 @@ module com.alessandro.caracciolo.catchit {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires java.sql;
-
     opens com.alessandro.caracciolo.catchit to javafx.fxml;
     exports com.alessandro.caracciolo.catchit;
     exports com.alessandro.caracciolo.catchit.controller;
-    opens com.alessandro.caracciolo.catchit.controller to javafx.fxml;
+    opens com.alessandro.caracciolo.catchit.view.controller to javafx.fxml;
 }
