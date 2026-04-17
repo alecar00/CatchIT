@@ -3,6 +3,6 @@ package com.alessandro.caracciolo.catchit.query;
 public class Query {
     private Query(){}
 
-    public static String GET_PENDING_ORDERS = "SELECT * FROM orders WHERE status = 1";
+    public static final String GET_PENDING_ORDERS = "SELECT * FROM Orders WHERE status = 1";
 
 }

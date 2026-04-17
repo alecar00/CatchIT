@@ -73,3 +73,6 @@ VALUES ( 'Piazza Venezia 1', 'Sofia Gialli', '3394445555', 'ASSIGNED', 'R2', 'Pi
 
 INSERT INTO Orders (address, costumer, tel_number, status, id_rider, id_restaurant)
 VALUES ('Via Napoli 88', 'Davide Blu', '3319998888', 'COMPLETED', 'R1', 'Pizzeria Da Alessandro');
+
+INSERT INTO Orders (address, costumer, tel_number, status, id_rider, id_restaurant)
+VALUES ('Via Roma 25', 'Michael Jackson', '3319998888', 'PENDING', NULL, 'Pizzeria Da Alessandro');
