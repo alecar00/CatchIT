@@ -1,5 +1,6 @@
 package com.alessandro.caracciolo.catchit.dao;
 
+import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.Rider;
 
 import java.util.List;
@@ -27,4 +28,6 @@ public interface RiderDAO {
      */
     Rider getRiderById(String id);
 
+
+    List<Rider> getAvailableRiders(Order order);
 }
