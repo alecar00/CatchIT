@@ -1,0 +1,57 @@
+/* Rende lo ScrollPane trasparente */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Impostazioni Generali della ScrollBar */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12px;
+}
+
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-height: 12px;
+}
+
+/* Il binario su cui scorre la barra */
+.scroll-bar .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+/* La barra*/
+.scroll-bar .thumb {
+    -fx-background-color: #f07631;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 2px;
+    -fx-opacity: 0.7;
+}
+
+/* Effetto Hover */
+.scroll-bar .thumb:hover {
+    -fx-background-color: #F57C00;
+}
+
+/* Effetto Pressed */
+.scroll-bar .thumb:pressed {
+    -fx-background-color: #E65100;
+}
+
+/* Nasconde le freccettine su e giù */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 0 0 0 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    visibility: hidden;
+}
+
+/* Nasconde l'angolino tra scroll verticale e orizzontale */
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
