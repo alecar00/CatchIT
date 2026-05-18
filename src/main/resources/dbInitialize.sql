@@ -19,10 +19,13 @@ CREATE TABLE IF NOT EXISTS Orders (
                         address VARCHAR(255) NOT NULL,
                         costumer VARCHAR(100) NOT NULL,
                         tel_number VARCHAR(20),
-                        order_time DATETIME,
+                        delivery_time DATETIME,
                         status ENUM('PENDING', 'ASSIGNED', 'IN_DELIVERY', 'COMPLETED') DEFAULT 'PENDING',
                         id_rider VARCHAR(50),
                         id_restaurant VARCHAR(100),
+
+                        CONSTRAINT chk_15_min_interval
+                            CHECK (MINUTE(delivery_time) IN (0, 15, 30, 45) AND SECOND(delivery_time) = 0)
 
                         FOREIGN KEY (id_rider) REFERENCES Rider(id_rider)
                             ON DELETE SET NULL
