@@ -3,7 +3,6 @@ package com.alessandro.caracciolo.catchit.dao.db;
 import com.alessandro.caracciolo.catchit.dao.OrderDAO;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.OrderStatus;
-import com.alessandro.caracciolo.catchit.model.Rider;
 import com.alessandro.caracciolo.catchit.query.SearchOrdersByStatus;
 import com.alessandro.caracciolo.catchit.singleton.Connector;
 
