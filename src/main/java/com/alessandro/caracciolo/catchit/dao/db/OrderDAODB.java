@@ -36,7 +36,7 @@ public class OrderDAODB implements OrderDAO {
                         rs.getString("address"),
                         rs.getString("costumer"),
                         rs.getString("tel_number"),
-                        rs.getTime("order_time"),
+                        rs.getTime("delivery_time"),
                         //rs.getDate("date"),
                         //rs.getString("id_restaurant"),
                         status);
