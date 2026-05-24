@@ -6,7 +6,7 @@ import java.sql.*;
 
 
 public class SearchAvailableRiders {
-    public static ResultSet getAvailableRiders(Connection conn, Order order, Time time) throws SQLException {
+    public static ResultSet getAvailableRiders(Connection conn, Time time) throws SQLException {
 
         PreparedStatement stmt = conn.prepareStatement(Query.GET_AVAILABLE_RIDERS);
 
