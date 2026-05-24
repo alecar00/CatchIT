@@ -2,17 +2,17 @@ package com.alessandro.caracciolo.catchit.query;
 
 import com.alessandro.caracciolo.catchit.model.Order;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+
 
 public class SearchAvailableRiders {
-    public static ResultSet getAvailableRiders(Connection conn, Order order) throws SQLException {
+    public static ResultSet getAvailableRiders(Connection conn, Order order, Time time) throws SQLException {
 
         PreparedStatement stmt = conn.prepareStatement(Query.GET_AVAILABLE_RIDERS);
-        return stmt.executeQuery();
 
+        stmt.setString(1, time.toString());
+
+        return stmt.executeQuery();
     }
 }
 
