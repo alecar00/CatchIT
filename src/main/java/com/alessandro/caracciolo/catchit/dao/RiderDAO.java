@@ -3,6 +3,7 @@ package com.alessandro.caracciolo.catchit.dao;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.Rider;
 
+import java.sql.Time;
 import java.util.List;
 
 public interface RiderDAO {
@@ -29,5 +30,5 @@ public interface RiderDAO {
     Rider getRiderById(String id);
 
 
-    List<Rider> getAvailableRiders(Order order);
+    List<Rider> getAvailableRiders(Order order, Time time);
 }
