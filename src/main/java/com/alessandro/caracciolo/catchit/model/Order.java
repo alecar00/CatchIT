@@ -3,7 +3,6 @@ package com.alessandro.caracciolo.catchit.model;
 import com.alessandro.caracciolo.catchit.Observer.Subject;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Time;
 import java.util.Objects;
 
