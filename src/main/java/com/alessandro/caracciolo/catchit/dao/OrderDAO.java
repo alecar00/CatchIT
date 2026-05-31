@@ -1,6 +1,8 @@
 package com.alessandro.caracciolo.catchit.dao;
 
+import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.model.Order;
+import com.alessandro.caracciolo.catchit.model.Rider;
 
 import java.util.List;
 
@@ -11,12 +13,15 @@ public interface OrderDAO {
      * Per il metodo 'discoverPendingOrders' del Controller.
      * @return Lista di tutti gli ordini con lo stato PENDING.
      */
-    List<Order> getPendingOrders();
+    List<Order> getPendingOrders()  throws DAOException;
 
     /**
      * Aggiorna un ordine esistente.
      * Per salvare l'assegnazione del Rider o il cambio di Stato.
+     *
      * @param order L'ordine modificato.
+     * @return
      */
-    void updateOrder(Order order);
+    boolean updateOrder(Order order, Rider rider) throws DAOException;
+    Order getOrderById(String id)  throws DAOException;
 }
