@@ -5,6 +5,8 @@ import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.dao.DAOFactory;
 import com.alessandro.caracciolo.catchit.dao.OrderDAO;
 import com.alessandro.caracciolo.catchit.dao.RiderDAO;
+import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
+import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.Rider;
 import com.alessandro.caracciolo.catchit.singleton.Configs;
@@ -33,7 +35,7 @@ public class ProcessOrderController {
                 orderBean.getStatus()
         );
 
-        OrderDAO orderDAO = DAOFactory.getDAOFactory().createOrderDAO();
+        //OrderDAO orderDAO = DAOFactory.getDAOFactory().createOrderDAO();
         RiderDAO riderDAO = DAOFactory.getDAOFactory().createRiderDAO();
 
         // logica di prelievo riders disponibili
@@ -83,13 +85,41 @@ public class ProcessOrderController {
             logger.info("Founded" + orderBean.toString());
 
         }
-
-        if (ordersBean == null) {
-            logger.severe("ERRORE CRITICO: La lista ordersBean è NULL!");
-        } else {
-            logger.info("Ho ricevuto dal DB: " + ordersBean.size() + " ordini.");
-        }
         return ordersBean;
     }
 
+    public void assignRider(OrderBean orderBean, RiderBean riderBean ) throws DAOException, BusinessException {
+        Rider rider = new Rider(
+                riderBean.getIdRider(),
+                riderBean.getName(),
+                riderBean.getPermitZTL()
+        );
+        Rider riderOrder = null;
+        if(orderBean.getRider() != null) {
+            RiderBean riderOrderBean = orderBean.getRider();
+            riderOrder = new Rider(
+                    riderOrderBean.getIdRider(),
+                    riderOrderBean.getName(),
+                    riderOrderBean.getPermitZTL()
+            );
+        }
+        Order order = new Order(
+                orderBean.getIdOrder(),
+                orderBean.getAddress(),
+                orderBean.getConsumer(),
+                orderBean.getTelNumber(),
+                riderOrder,
+                orderBean.getTime(),
+                orderBean.getStatus()
+        );
+
+        OrderDAO orderDAO = DAOFactory.getDAOFactory().createOrderDAO();
+
+        //interrogo il dao per sapere se l'ordine e' stato gia' assegnato
+        Order orderDao = orderDAO.getOrderById(order.getIdOrder());
+        if (!orderDao.isOutdatedComparedTo(order)) {
+            throw new BusinessException("Attenzione: l'ordine e' gia' stato assegnato!");
+        }
+        orderDAO.updateOrder(order, rider);
+    }
 }
