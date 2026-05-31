@@ -3,17 +3,25 @@ package com.alessandro.caracciolo.catchit.view.controller;
 import com.alessandro.caracciolo.catchit.bean.OrderBean;
 import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.controller.ProcessOrderController;
+import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
+import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantGraphicController {
+    @FXML
+    public HBox notificationBox;
+    @FXML
+    public Label notificationText;
     @FXML
     private Label statusLabel;
     @FXML
@@ -31,6 +39,7 @@ public class RestaurantGraphicController {
 
     //variable for handling tha highlight
     private VBox lastCardAssigned = null;
+    private OrderBean lastOrder = null;
 
     public void initialize() {
         this.appController = new ProcessOrderController();
@@ -84,7 +93,13 @@ public class RestaurantGraphicController {
                 "-fx-font-weight: bold; -fx-font-size: 13;");
 
         // click action
-        btnAssegna.setOnAction(event -> handleOrderClick(order, card));
+        btnAssegna.setOnAction(event -> {
+            try {
+                handleOrderClick(order, card);
+            } catch (DAOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         // add to the card
         card.getChildren().addAll(lblId, lblAddress, lblConsumer,lblTime, btnAssegna);
@@ -129,7 +144,13 @@ public class RestaurantGraphicController {
                 "-fx-font-weight: bold; -fx-font-size: 13;");
 
         // click action
-        btnAssegna.setOnAction(event -> handleAssignClick(rider));
+        btnAssegna.setOnAction(event -> {
+            try {
+                handleAssignClick(rider, lastOrder);
+            } catch (DAOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         // add to the card
         card.getChildren().addAll(lblName, lblPermitZTL, btnAssegna);
@@ -158,14 +179,65 @@ public class RestaurantGraphicController {
                 "-fx-border-radius: 10;");
     }
 
-    private void handleOrderClick(OrderBean orderBean, VBox cardToAssign) {
+    private void handleOrderClick(OrderBean orderBean, VBox cardToAssign) throws DAOException{
         List <RiderBean> riderBean = appController.discoverAvailableRiders(orderBean);
         highlightSelectedCard(cardToAssign, lastCardAssigned);
         updateRidersList(riderBean);
         lastCardAssigned = cardToAssign;
+        lastOrder = orderBean;
     }
 
-    private void handleAssignClick(RiderBean rider) {
+    private void handleAssignClick(RiderBean riderBean, OrderBean orderBean) throws DAOException, BusinessException {
+        /**
+         * Assegna un ordine specifico a un rider disponibile.
+         *
+         * @param orderBean L'ordine da assegnare
+         * @param riderBean Il rider selezionato
+         * @throws DAOException Se il dao non è raggiungibile
+         * @throws BusinessException Se abbiamo dati discordanti con il dao
+         */
+        try{
+            appController.assignRider(orderBean, riderBean);
 
+            //da togliere le classi bean per la notifica?? meglio il model??
+            showSuccessNotification(orderBean.getIdOrder(), riderBean.getName());
+
+            refreshInterface();
+
+        }catch(DAOException e){
+            System.out.println(e.getMessage());
+        }catch(BusinessException e){
+            System.err.println(e.getMessage());
+        }
+
+    }
+
+    private void refreshInterface(){
+        ridersContainer.getChildren().clear();
+
+        lastOrder = null;
+        lastCardAssigned = null;
+
+        try{
+            List<OrderBean> updatedOrders = appController.discoverPendingOrders();
+            updateOrdersList(updatedOrders);
+        }catch(BusinessException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void showSuccessNotification(String orderId, String riderName) {
+        notificationText.setText("Ordine #" + orderId + " assegnato a " + riderName);
+
+        notificationBox.setVisible(true);
+        notificationBox.setManaged(true);
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished(event -> {
+            notificationBox.setVisible(false);
+            notificationBox.setManaged(false);
+        });
+
+        delay.play();
     }
 }
