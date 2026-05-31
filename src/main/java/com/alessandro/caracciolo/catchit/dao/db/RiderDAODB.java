@@ -1,6 +1,7 @@
 package com.alessandro.caracciolo.catchit.dao.db;
 
 import com.alessandro.caracciolo.catchit.dao.RiderDAO;
+import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.Rider;
 import com.alessandro.caracciolo.catchit.query.SearchAvailableRiders;
@@ -24,11 +25,22 @@ public class RiderDAODB implements RiderDAO {
     }
 
     @Override
-    public Rider getRiderById(String id) {
+    public Rider getRiderById(String id) throws DAOException {
+        try {
+            ResultSet rs = SearchAvailableRiders.getRiderById(Connector.getConnection(), id);
+            return new Rider (
+                    rs.getString("id_rider"),
+                    rs.getString("name"),
+                    rs.getBoolean("permit_ztl")
+
+            );
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
-    public List<Rider> getAvailableRiders(Order order, Time time) {
+    public List<Rider> getAvailableRiders(Order order, Time time) throws DAOException {
         ResultSet rs = null;
         List<Rider> riders = new ArrayList<>();
 
