@@ -12,4 +12,10 @@ public class SearchOrdersByStatus {
         return stmt.executeQuery();
 
     }
+
+    public static ResultSet getOderById(Connection conn, String orderId) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(Query.GET_ORDER_BY_ID);
+        stmt.setString(1, orderId);
+        return stmt.executeQuery();
+    }
 }
