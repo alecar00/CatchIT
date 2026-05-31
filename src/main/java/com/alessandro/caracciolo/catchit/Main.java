@@ -2,6 +2,7 @@ package com.alessandro.caracciolo.catchit;
 
 import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.Printer;
+import com.alessandro.caracciolo.catchit.view.cli.RestaurantViewCLI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -51,7 +52,8 @@ public class Main extends Application {
     }
 
     private void startCLI() {
-
+        RestaurantViewCLI restaurantViewCLI = new RestaurantViewCLI();
+        restaurantViewCLI.initialize();
     }
 
     private void startGUI(Stage stage) throws IOException {
