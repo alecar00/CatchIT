@@ -1,8 +1,10 @@
 package com.alessandro.caracciolo.catchit.dao;
 
+import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.Rider;
 
+import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
 
@@ -11,14 +13,14 @@ public interface RiderDAO {
      * Salva un nuovo rider.
      * @param rider Il rider da salvare.
      */
-    void saveRider(Rider rider);
+    void saveRider(Rider rider) throws DAOException;
 
     /**
      * Recupera la lista completa dei rider.
      * Utile per popolare la lista 'riders' dentro la classe Restaurant.
      * @return Una lista di oggetti Rider.
      */
-    List<Rider> getAllRiders();
+    List<Rider> getAllRiders() throws DAOException;
 
     /**
      * NON SONO SICURO
@@ -27,8 +29,8 @@ public interface RiderDAO {
      * @param id L'identificativo del rider (String come da diagramma).
      * @return L'oggetto Rider se trovato, null altrimenti.
      */
-    Rider getRiderById(String id);
+    Rider getRiderById(String id) throws DAOException;
 
 
-    List<Rider> getAvailableRiders(Order order, Time time);
+    List<Rider> getAvailableRiders(Order order, Time time) throws DAOException;
 }
