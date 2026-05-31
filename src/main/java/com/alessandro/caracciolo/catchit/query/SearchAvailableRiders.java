@@ -14,5 +14,12 @@ public class SearchAvailableRiders {
 
         return stmt.executeQuery();
     }
+
+    public static ResultSet getRiderById(Connection conn, String id) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(Query.GET_RIDER_BY_ID);
+
+        stmt.setString(1, id);
+        return stmt.executeQuery();
+    }
 }
 
