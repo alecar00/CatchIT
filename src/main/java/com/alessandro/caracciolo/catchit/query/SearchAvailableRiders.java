@@ -1,7 +1,5 @@
 package com.alessandro.caracciolo.catchit.query;
 
-import com.alessandro.caracciolo.catchit.model.Order;
-
 import java.sql.*;
 
 
