@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -11,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.geometry.Insets?>
 <BorderPane style="-fx-background-color: #1a1a1a; -fx-min-width: 900; -fx-min-height: 750;" styleClass="style.css" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alessandro.caracciolo.catchit.view.controller.RestaurantGraphicController">
 
     <!-- Header -->
@@ -29,7 +30,10 @@
             <Region HBox.hgrow="ALWAYS" />
 
             <!-- Menu buttons -->
-            <Button style="-fx-background-color: transparent; -fx-text-fill: #64b5f6;" text="Logout" />
+            <Button fx:id="logoutButton" onAction="#handleLogoutButton" style="-fx-background-color: transparent; -fx-text-fill: #64b5f6;" text="Logout">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
             <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Impostazioni" />
             <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Gestione Menu" />
         </HBox>
@@ -77,7 +81,7 @@
 
     <!-- Bottom Notification -->
     <bottom>
-        <HBox fx:id="notificationBox" visible="false" managed="false" alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #1565c0; -fx-padding: 12 30; -fx-background-radius: 5;">
+        <HBox fx:id="notificationBox" alignment="CENTER_LEFT" managed="false" spacing="10" style="-fx-background-color: #1565c0; -fx-padding: 12 30; -fx-background-radius: 5;" visible="false">
             <Label style="-fx-background-color: #0d47a1; -fx-background-radius: 15; -fx-padding: 5 10; -fx-font-weight: bold;" text="✓" textFill="white" />
             <Label fx:id="notificationText" text="Ordine assegnato" textFill="white">
                 <font>
