@@ -82,8 +82,6 @@ public class ProcessOrderController {
                                           rs.getTime(),
                                           rs.getStatus());
             ordersBean.add(orderBean);
-            logger.info("Founded" + orderBean.toString());
-
         }
         return ordersBean;
     }
