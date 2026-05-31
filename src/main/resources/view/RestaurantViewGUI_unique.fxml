@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.geometry.Insets?>
 <BorderPane style="-fx-background-color: #1a1a1a; -fx-min-width: 900; -fx-min-height: 750;" styleClass="style.css" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alessandro.caracciolo.catchit.view.controller.RestaurantGraphicController">
 
     <!-- Header -->
@@ -73,4 +74,19 @@
         </HBox>
     </center>
 
+
+    <!-- Bottom Notification -->
+    <bottom>
+        <HBox fx:id="notificationBox" visible="false" managed="false" alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #1565c0; -fx-padding: 12 30; -fx-background-radius: 5;">
+            <Label style="-fx-background-color: #0d47a1; -fx-background-radius: 15; -fx-padding: 5 10; -fx-font-weight: bold;" text="✓" textFill="white" />
+            <Label fx:id="notificationText" text="Ordine assegnato" textFill="white">
+                <font>
+                    <Font size="13" />
+                </font>
+            </Label>
+            <padding>
+                <Insets bottom="20" left="30" right="30" />
+            </padding>
+        </HBox>
+    </bottom>
 </BorderPane>
