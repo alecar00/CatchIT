@@ -1,6 +1,7 @@
 package com.alessandro.caracciolo.catchit.view.cli;
 
 import com.alessandro.caracciolo.catchit.bean.OrderBean;
+import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.controller.ProcessOrderController;
 
 import java.util.List;
@@ -27,6 +28,11 @@ public class RestaurantViewCLI {
         System.out.println("-- Consumer: " + orderBean.getConsumer());
         System.out.println("-- Address: " + orderBean.getAddress());
         System.out.println("-- Time: " + orderBean.getTime());
+    }
+
+    private void printRider(RiderBean riderBean) {
+        System.out.println("- Rider ID: " + riderBean.getIdRider());
+        System.out.println("-- Name: " + riderBean.getName());
     }
 
     private void printTitle(String title) {
