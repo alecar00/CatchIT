@@ -18,13 +18,15 @@ public class RestaurantViewCLI {
 
     private void updateOrdersList(List<OrderBean> orderBeans) {
         printTitle("Pending Orders");
+        int nOrder = 1;
         for (OrderBean orderBean : orderBeans) {
-            printOrder(orderBean);
+            printOrder(orderBean, nOrder);
+            nOrder++;
         }
     }
 
-    private void printOrder(OrderBean orderBean) {
-        System.out.println("- Order ID: " + orderBean.getIdOrder());
+    private void printOrder(OrderBean orderBean, int nOrder) {
+        System.out.println("-" + nOrder + ") Order ID: " + orderBean.getIdOrder());
         System.out.println("-- Consumer: " + orderBean.getConsumer());
         System.out.println("-- Address: " + orderBean.getAddress());
         System.out.println("-- Time: " + orderBean.getTime());
