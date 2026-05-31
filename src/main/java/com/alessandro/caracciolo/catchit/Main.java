@@ -57,7 +57,7 @@ public class Main extends Application {
     }
 
     private void startGUI(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/RestaurantViewGUI_unique.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/LoginGUI.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setResizable(false);
         stage.setTitle("CatchIT!");
