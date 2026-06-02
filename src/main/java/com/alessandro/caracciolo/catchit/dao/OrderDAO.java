@@ -24,4 +24,5 @@ public interface OrderDAO {
      */
     boolean updateOrder(Order order, Rider rider) throws DAOException;
     Order getOrderById(String id)  throws DAOException;
+    boolean setOrderCompleted(String id) throws DAOException;
 }
