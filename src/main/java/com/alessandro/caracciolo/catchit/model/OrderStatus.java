@@ -20,7 +20,7 @@ public enum OrderStatus {
 
     public static OrderStatus valueOf(int id) {
         return Arrays.stream(OrderStatus.values())
-                .filter(OrderStatus -> OrderStatus.getId() == id)
+                .filter(orderStatus -> orderStatus.getId() == id)
                 .findAny()
                 .orElse(null);
     }
