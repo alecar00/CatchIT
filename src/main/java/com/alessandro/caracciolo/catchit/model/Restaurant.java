@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurant {
+public class Restaurant implements Serializable {
     private String name;
     private List<Rider> riders;
     private List<Order> orders;
@@ -18,12 +18,8 @@ public class Restaurant {
     }
 
     public List<OrderBean> getPendingOrders() {
-        List<Order> pendingOrders = new ArrayList<>();
-        List<OrderBean> orderBeans = new ArrayList<>();
-
-        //implementare chiamata dao
-
-        return orderBeans;
+        //notImplemented
+        return new ArrayList<>();
     }
 
     public List<Order> getRiderOrders(Rider rider) {
