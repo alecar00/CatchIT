@@ -11,7 +11,7 @@ public class LoginController {
 
     public int verifyCredentials(UserBean userBean) throws DAOException, BusinessException {
         //not implemented
-        return 1;//testing role restaurant
+        return 1;// 1 = restaurant, 2 = rider
     }
 
 }
