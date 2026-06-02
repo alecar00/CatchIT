@@ -43,13 +43,8 @@ public class RiderDAODB implements RiderDAO {
         ResultSet rs = null;
         List<Rider> riders = new ArrayList<>();
 
-        try {
-            rs = RiderQuery.getAvailableRiders(Connector.getConnection(), time);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
         try{
+            rs = RiderQuery.getAvailableRiders(Connector.getConnection(), time);
             while (true) {
                 assert rs != null;
                 if (!rs.next()) break;
@@ -61,7 +56,7 @@ public class RiderDAODB implements RiderDAO {
                 riders.add(rider);
             }
         }catch(SQLException e){
-            throw new RuntimeException(e);
+            throw new DAOException("Impossibile recuperare i riders dal db!",e);
         }
         return riders;
     }
