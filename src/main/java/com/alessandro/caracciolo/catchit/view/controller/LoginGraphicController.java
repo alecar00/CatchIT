@@ -51,7 +51,13 @@ public class LoginGraphicController {
                 stageAttuale.setScene(new Scene(rootOrdini));
                 stageAttuale.show();
             } else if (typeOfUser == 2) {
-                //not implemented
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/DeliveryingView.fxml"));
+                Parent root = loader.load();
+
+                Stage stageAttuale = (Stage) loginButton.getScene().getWindow();
+
+                stageAttuale.setScene(new Scene(root));
+                stageAttuale.show();
             }
 
         } catch (DAOException e) {
