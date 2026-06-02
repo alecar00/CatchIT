@@ -35,7 +35,6 @@ public class ProcessOrderController {
                 orderBean.getStatus()
         );
 
-        //OrderDAO orderDAO = DAOFactory.getDAOFactory().createOrderDAO();
         RiderDAO riderDAO = DAOFactory.getDAOFactory().createRiderDAO();
 
         // logica di prelievo riders disponibili
