@@ -8,12 +8,12 @@ import com.alessandro.caracciolo.catchit.dao.RiderDAO;
 public class FSDAOFactory extends DAOFactory {
     @Override
     public OrderDAO createOrderDAO() {
-        return null;
+        return new OrderDAOFS();
     }
 
     @Override
     public RiderDAO createRiderDAO() {
-        return null;
+        return new  RiderDAOFS();
     }
 
     @Override
