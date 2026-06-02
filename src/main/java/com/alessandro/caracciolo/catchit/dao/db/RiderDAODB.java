@@ -4,7 +4,7 @@ import com.alessandro.caracciolo.catchit.dao.RiderDAO;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.Rider;
-import com.alessandro.caracciolo.catchit.query.SearchAvailableRiders;
+import com.alessandro.caracciolo.catchit.query.RiderQuery;
 import com.alessandro.caracciolo.catchit.singleton.Connector;
 
 import java.sql.ResultSet;
@@ -27,7 +27,7 @@ public class RiderDAODB implements RiderDAO {
     @Override
     public Rider getRiderById(String id) throws DAOException {
         try {
-            ResultSet rs = SearchAvailableRiders.getRiderById(Connector.getConnection(), id);
+            ResultSet rs = RiderQuery.getRiderById(Connector.getConnection(), id);
             return new Rider (
                     rs.getString("id_rider"),
                     rs.getString("name"),
@@ -35,9 +35,8 @@ public class RiderDAODB implements RiderDAO {
 
             );
         }catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Impossibile ottenere il rider!", e);
         }
-        return null;
     }
 
     public List<Rider> getAvailableRiders(Order order, Time time) throws DAOException {
@@ -45,7 +44,7 @@ public class RiderDAODB implements RiderDAO {
         List<Rider> riders = new ArrayList<>();
 
         try {
-            rs = SearchAvailableRiders.getAvailableRiders(Connector.getConnection(), time);
+            rs = RiderQuery.getAvailableRiders(Connector.getConnection(), time);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
