@@ -21,7 +21,6 @@ public class OrderDAODB implements OrderDAO {
 
     @Override
     public List<Order> getPendingOrders() throws DAOException {
-        //ResultSet rs = null;
         List<Order> orders = new ArrayList<>();
 
         try (ResultSet rs = OrderQuery.getPendingOrders(Connector.getConnection(), OrderStatus.PENDING)) {
