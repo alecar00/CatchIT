@@ -1,9 +1,13 @@
 package com.alessandro.caracciolo.catchit.observer;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public abstract class Observer implements Runnable{
 
     protected long timeOut;
     protected boolean isAlive;
+    private static final Logger logger = Logger.getLogger(Observer.class.getName());
 
     protected Observer(int timeOut){
         this.timeOut = timeOut;
@@ -18,7 +22,9 @@ public abstract class Observer implements Runnable{
             try {
                 Thread.sleep(this.timeOut);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.log(Level.WARNING, "Thread dell'Observer interrotto durante l'attesa.", e);
+                Thread.currentThread().interrupt();
+                this.stopObservation();
             }
         }
     }
@@ -28,7 +34,7 @@ public abstract class Observer implements Runnable{
     }
 
     protected void notifySubjectStatus(String message){
-        System.out.println("---> " + message);
+        //not implemented
     }
 
     public abstract void update();
