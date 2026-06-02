@@ -1,5 +1,7 @@
 package com.alessandro.caracciolo.catchit.singleton;
 
+import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,13 +14,13 @@ public class Connector {
 
     private Connector(){}
 
-    public static synchronized Connection getConnection(){
+    public static synchronized Connection getConnection() throws DAOException {
         try {
             if (conn == null) {
                 conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PSSW);
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            throw new DAOException("Impossibile connettersi al db!", e);
         }
         return conn;
     }
