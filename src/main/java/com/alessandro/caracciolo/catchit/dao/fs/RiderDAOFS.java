@@ -8,11 +8,7 @@ import com.alessandro.caracciolo.catchit.model.Rider;
 import com.alessandro.caracciolo.catchit.utils.FSConfiguration;
 import com.alessandro.caracciolo.catchit.utils.GsonProvider;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import java.io.File;
 import java.io.FileReader;
@@ -34,6 +30,7 @@ public class RiderDAOFS implements RiderDAO {
 
     @Override
     public void saveRider(Rider rider) {
+        //not implemented
     }
 
     @Override
@@ -52,12 +49,13 @@ public class RiderDAOFS implements RiderDAO {
         } catch (IOException e) {
             throw new DAOException("Impossibile leggere i rider dal File System.", e);
         }
-        log.log(Level.INFO, "Riders lista: " + riders);
+        log.log(Level.INFO, "Riders lista: {0} ", riders);
         return riders;
     }
 
     @Override
     public Rider getRiderById(String id) {
+        //not implemented
         return null;
     }
 

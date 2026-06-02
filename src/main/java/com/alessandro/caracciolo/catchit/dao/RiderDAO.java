@@ -4,7 +4,6 @@ import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.Rider;
 
-import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package com.alessandro.caracciolo.catchit.dao;
 
-import com.alessandro.caracciolo.catchit.dao.RiderDAO;
 import com.alessandro.caracciolo.catchit.dao.db.DBDAOFactory;
 import com.alessandro.caracciolo.catchit.dao.fs.FSDAOFactory;
 import com.alessandro.caracciolo.catchit.dao.memory.MemoryDAOFactory;

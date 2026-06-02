@@ -1,6 +1,5 @@
 package com.alessandro.caracciolo.catchit.bean;
 
-import com.alessandro.caracciolo.catchit.model.Role;
 
 public class UserBean {
     private String username;

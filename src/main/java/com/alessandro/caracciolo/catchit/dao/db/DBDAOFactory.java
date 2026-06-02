@@ -5,8 +5,6 @@ import com.alessandro.caracciolo.catchit.dao.OrderDAO;
 import com.alessandro.caracciolo.catchit.dao.RestaurantDAO;
 import com.alessandro.caracciolo.catchit.dao.RiderDAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 public class DBDAOFactory extends DAOFactory {
 
