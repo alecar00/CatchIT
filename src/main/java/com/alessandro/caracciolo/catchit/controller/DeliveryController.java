@@ -22,7 +22,7 @@ public class DeliveryController {
 
 
     public void startDelivery(String idOrder){
-
+        //not implemented
     }
 
     public void setOrderCompleted(String idOrder) throws DAOException {
