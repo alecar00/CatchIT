@@ -112,5 +112,9 @@ public class Order extends Subject implements Serializable {
         this.rider = rider;
     }
 
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
     public String getTelNumber() {return this.telNumber;}
 }
