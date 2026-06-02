@@ -12,11 +12,10 @@ import static com.alessandro.caracciolo.catchit.utils.Printer.printlnBlu;
 import static com.alessandro.caracciolo.catchit.utils.Printer.printlnOrange;
 
 public class RestaurantViewCLI {
-    private ProcessOrderController processOrderController;
     private static final String SEPARATOR = "------------------------------------";
 
     public void initialize() {
-        this.processOrderController = new ProcessOrderController();
+        ProcessOrderController processOrderController = new ProcessOrderController();
         Scanner input = new Scanner(System.in);
         while(true) {
             List<OrderBean> orderBeans = processOrderController.discoverPendingOrders();
