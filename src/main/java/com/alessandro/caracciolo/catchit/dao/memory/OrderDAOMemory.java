@@ -10,14 +10,10 @@ import java.util.List;
 
 public class OrderDAOMemory implements OrderDAO {
 
-    private static List<Order> orders = new ArrayList<>();
-
-
     @Override
     public List<Order> getPendingOrders() {
         //per adesso lo commennto e metto
-        List<Order> orders = new ArrayList<>();
-        return orders;
+        return new ArrayList<>();
     }
 
     @Override
@@ -29,5 +25,10 @@ public class OrderDAOMemory implements OrderDAO {
     @Override
     public Order getOrderById(String id) throws DAOException {
         return null;
+    }
+
+    @Override
+    public boolean setOrderCompleted(String id) throws DAOException{
+        return false;
     }
 }
