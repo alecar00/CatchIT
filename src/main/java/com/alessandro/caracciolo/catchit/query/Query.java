@@ -17,4 +17,8 @@ public class Query {
     public static final String GET_ORDER_BY_ID = "SELECT * FROM Orders WHERE id_order = ?;";
 
     public static final String GET_RIDER_BY_ID = "SELECT * FROM Rider WHERE id_rider = ?;";
+
+    public static final String SET_ORDER_COMPLETED = "UPDATE Orders SET status = 'COMPLETED' WHERE id_order = ?;";
+
+    public static final String GET_RIDER_ORDERS = "SELECT * FROM Orders WHERE id_order = ?;";
 }
