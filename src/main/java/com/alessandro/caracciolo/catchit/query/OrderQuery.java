@@ -4,7 +4,7 @@ import com.alessandro.caracciolo.catchit.model.OrderStatus;
 
 import java.sql.*;
 
-public class SearchOrdersByStatus {
+public class OrderQuery {
     public static ResultSet getPendingOrders(Connection conn, OrderStatus orderStatus) throws SQLException {
 
         PreparedStatement stmt = conn.prepareStatement(Query.GET_PENDING_ORDERS);
@@ -13,9 +13,15 @@ public class SearchOrdersByStatus {
 
     }
 
-    public static ResultSet getOderById(Connection conn, String orderId) throws SQLException {
+    public static ResultSet getOrderById(Connection conn, String orderId) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement(Query.GET_ORDER_BY_ID);
         stmt.setString(1, orderId);
         return stmt.executeQuery();
+    }
+
+    public static int setOrderCompleted(Connection conn, String orderId) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(Query.SET_ORDER_COMPLETED);
+        stmt.setString(1, orderId);
+        return stmt.executeUpdate();
     }
 }
