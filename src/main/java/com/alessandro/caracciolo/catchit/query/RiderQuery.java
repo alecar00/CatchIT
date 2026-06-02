@@ -6,6 +6,8 @@ import com.alessandro.caracciolo.catchit.model.Rider;
 import java.sql.*;
 
 public class RiderQuery {
+    private RiderQuery() {}
+
     public static int assignRider(Connection conn, Order order, Rider rider) throws SQLException {
 
         PreparedStatement stmt = conn.prepareStatement(Query.ASSIGN_RIDER);
