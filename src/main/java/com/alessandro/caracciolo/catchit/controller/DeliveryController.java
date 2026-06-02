@@ -15,7 +15,7 @@ public class DeliveryController {
     }
 
     private void showOrdersRider(Rider rider){
-        //query show order of a specific rider
+        //not implemented
     }
 
 
