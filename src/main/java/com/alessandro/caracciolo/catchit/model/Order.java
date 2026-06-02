@@ -1,6 +1,6 @@
 package com.alessandro.caracciolo.catchit.model;
 
-import com.alessandro.caracciolo.catchit.Observer.Subject;
+import com.alessandro.caracciolo.catchit.observer.Subject;
 
 import java.io.Serializable;
 import java.sql.Time;
@@ -50,7 +50,7 @@ public class Order extends Subject implements Serializable {
 
     @Override
     protected void doSomething() {
-
+        //not implemented
     }
 
     public boolean isOutdatedComparedTo(Order orderFromDao) {
@@ -81,11 +81,7 @@ public class Order extends Subject implements Serializable {
         boolean sameRider = (this.rider == null && orderFromDao.getRider() == null) ||
                 (this.rider != null && this.rider.equals(orderFromDao.getRider()));
 
-        if (!sameRider) {
-            return true;
-        }
-
-        return false;
+        return !sameRider;
     }
 
     public String getAddress() {

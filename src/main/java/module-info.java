@@ -16,5 +16,5 @@ module com.alessandro.caracciolo.catchit {
     exports com.alessandro.caracciolo.catchit.exceptions;
     opens com.alessandro.caracciolo.catchit.view.controller to javafx.fxml;
     opens com.alessandro.caracciolo.catchit.model to com.google.gson;
-    opens com.alessandro.caracciolo.catchit.Observer to com.google.gson;
+    opens com.alessandro.caracciolo.catchit.observer to com.google.gson;
 }

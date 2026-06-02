@@ -1,4 +1,4 @@
-package com.alessandro.caracciolo.catchit.Observer;
+package com.alessandro.caracciolo.catchit.observer;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -51,7 +51,7 @@ public abstract class Subject implements Runnable {
                 Iterator<Observer> i = observersLocal.iterator();
                 while (i.hasNext()) {
                     Observer obs = i.next();
-//System.out.println("Updating Observer from the Subject");
+                    System.out.println("Updating Observer from the Subject");
                     obs.update();
                 }
             }

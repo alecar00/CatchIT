@@ -1,4 +1,4 @@
-package com.alessandro.caracciolo.catchit.Observer;
+package com.alessandro.caracciolo.catchit.observer;
 
 public abstract class Observer implements Runnable{
 

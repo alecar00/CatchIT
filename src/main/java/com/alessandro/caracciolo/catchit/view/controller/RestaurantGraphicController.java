@@ -37,11 +37,13 @@ public class RestaurantGraphicController {
     @FXML
     private Label addressLabel;
     @FXML
-    private Label Time;
+    private Label time;
     @FXML
     private VBox ordersContainer;
     @FXML
     private VBox ridersContainer;
+
+    private String FONT_SIZE = "-fx-font-size: 12;";
 
     private ProcessOrderController  appController;
 
@@ -84,15 +86,15 @@ public class RestaurantGraphicController {
 
         // Label address
         Label lblAddress = new Label("Indirizzo: " + order.getAddress());
-        lblAddress.setStyle("-fx-font-size: 12;");
+        lblAddress.setStyle(FONT_SIZE);
 
         // Label consumer
         Label lblConsumer = new Label("Cliente: " + order.getConsumer());
-        lblConsumer.setStyle("-fx-font-size: 12;");
+        lblConsumer.setStyle(FONT_SIZE);
 
         //label time
         Label lblTime = new Label("Orario: " + order.getTime());
-        lblTime.setStyle("-fx-font-size: 12;");
+        lblTime.setStyle(FONT_SIZE);
 
         // assign button
         Button btnAssegna = new Button("Assegna");
@@ -117,7 +119,6 @@ public class RestaurantGraphicController {
 
     public void updateRidersList(List<RiderBean> riders) {
         // 1. Pulisci la lista attuale per evitare duplicati
-        //ordersContainer.getChildren().clear();
         ridersContainer.getChildren().clear();
 
         // 2. Cicla su ogni ordine e crea la "Card" grafica
@@ -143,7 +144,7 @@ public class RestaurantGraphicController {
 
         // Label address
         Label lblPermitZTL = new Label("PermitZTL: " + rider.getPermitZTL());
-        lblPermitZTL.setStyle("-fx-font-size: 12;");
+        lblPermitZTL.setStyle(FONT_SIZE);
 
         // assign button
         Button btnAssegna = new Button("Assegna");

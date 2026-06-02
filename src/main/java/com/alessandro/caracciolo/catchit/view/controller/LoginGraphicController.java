@@ -36,7 +36,7 @@ public class LoginGraphicController {
     }
 
     @FXML
-    public void handleLoginClick(ActionEvent Event) throws DAOException, BusinessException {
+    public void handleLoginClick(ActionEvent event) throws DAOException, BusinessException {
         try {
             UserBean userBean = new UserBean(userTextField.getText(), passwordTextField.getText());
 
@@ -69,7 +69,6 @@ public class LoginGraphicController {
 
         } catch (IOException e) {
             errorPrint("Errore irreversibile: Impossibile caricare il file FXML della pagina Ordini.");
-            e.printStackTrace();
         }
     }
 
