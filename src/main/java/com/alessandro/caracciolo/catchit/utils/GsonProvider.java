@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.Time;
 
 public class GsonProvider {
+    private GsonProvider() {}
     private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(Time.class, new TypeAdapter<Time>() {
                 @Override
