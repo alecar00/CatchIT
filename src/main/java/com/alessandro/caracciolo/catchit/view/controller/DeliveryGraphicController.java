@@ -10,6 +10,8 @@ import com.sothawo.mapjfx.Marker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+import java.util.logging.Logger;
+
 public class DeliveryGraphicController {
     @FXML
     public Button callButton;
@@ -19,6 +21,8 @@ public class DeliveryGraphicController {
     private MapView mapView;
 
     DeliveryController deliveryController = new DeliveryController();
+
+    private static final Logger logger = Logger.getLogger(DeliveryGraphicController.class.getName());
 
     public void initialize() {
         // Imposto una coordinata di esempio (es. Tor Vergata)
@@ -40,7 +44,7 @@ public class DeliveryGraphicController {
             try{
                 handleDeliveredButtonClick("idOrder");
             }catch(DAOException e){
-
+                logger.severe("Error in setting delivery as completed: " + e.getMessage());
             }
         });
     }

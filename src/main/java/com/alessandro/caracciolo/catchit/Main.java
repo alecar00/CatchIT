@@ -29,7 +29,7 @@ public class Main extends Application {
             file.setFormatter(new SimpleFormatter());
             logger.addHandler(file);
             logger.info("Run Started");
-        }catch (IOException | SecurityException e){
+        }catch (IOException | SecurityException _){
             Logger.getLogger(Main.class.getName()).severe("Can't setup Logger! Exiting");
             System.exit(1);
         }
