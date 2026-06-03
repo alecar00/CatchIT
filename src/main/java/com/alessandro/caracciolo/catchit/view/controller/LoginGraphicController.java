@@ -5,7 +5,6 @@ import com.alessandro.caracciolo.catchit.bean.UserBean;
 import com.alessandro.caracciolo.catchit.controller.LoginController;
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,7 +35,7 @@ public class LoginGraphicController {
     }
 
     @FXML
-    public void handleLoginClick() throws DAOException, BusinessException {
+    public void handleLoginClick() throws BusinessException {
         try {
             UserBean userBean = new UserBean(userTextField.getText(), passwordTextField.getText());
 
