@@ -22,6 +22,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class RestaurantGraphicController {
     @FXML
@@ -43,7 +44,9 @@ public class RestaurantGraphicController {
     @FXML
     private VBox ridersContainer;
 
-    private String FONT_SIZE = "-fx-font-size: 12;";
+    private final String FONT_SIZE = "-fx-font-size: 12;";
+
+    private static final Logger logger = Logger.getLogger(RestaurantGraphicController.class.getName());
 
     private ProcessOrderController  appController;
 
@@ -157,7 +160,8 @@ public class RestaurantGraphicController {
             try {
                 handleAssignClick(rider, lastOrder);
             } catch (DAOException e) {
-                throw new RuntimeException(e);
+                logger.severe("Error in assigning rider: " + e.getMessage());
+                //da aggiungere finestra di errore
             }
         });
 
@@ -213,10 +217,8 @@ public class RestaurantGraphicController {
 
             refreshInterface();
 
-        }catch(DAOException e){
-            System.out.println(e.getMessage());
-        }catch(BusinessException e){
-            System.err.println(e.getMessage());
+        }catch(DAOException | BusinessException e){
+            logger.severe("Error in assigning rider: " + e.getMessage());
         }
 
     }
@@ -231,7 +233,7 @@ public class RestaurantGraphicController {
             List<OrderBean> updatedOrders = appController.discoverPendingOrders();
             updateOrdersList(updatedOrders);
         }catch(BusinessException e){
-            System.out.println(e.getMessage());
+            logger.severe("Error in getting pending orders: " + e.getMessage());
         }
     }
 
@@ -250,7 +252,7 @@ public class RestaurantGraphicController {
         delay.play();
     }
 
-    public void handleLogoutButton(javafx.event.ActionEvent actionEvent) throws IOException {
+    public void handleLogoutButton() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/LoginGUI.fxml"));
         Parent root = loader.load();
 
