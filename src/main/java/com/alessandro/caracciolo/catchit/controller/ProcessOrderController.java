@@ -114,9 +114,7 @@ public class ProcessOrderController {
 
         //interrogo il dao per sapere se l'ordine e' stato gia' assegnato
         Order orderDao = orderDAO.getOrderById(order.getIdOrder());
-        if (!orderDao.isOutdatedComparedTo(order)) {
-            throw new BusinessException("Attenzione: l'ordine e' gia' stato assegnato!");
-        }
+        order.checkIfNotOutdated(orderDao);
         orderDAO.updateOrder(order, rider);
     }
 }
