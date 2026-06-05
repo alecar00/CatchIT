@@ -8,6 +8,7 @@ module com.alessandro.caracciolo.catchit {
     requires java.desktop;
     requires com.sothawo.mapjfx;
     requires com.google.gson;
+    requires org.checkerframework.checker.qual;
     opens com.alessandro.caracciolo.catchit to javafx.fxml;
     exports com.alessandro.caracciolo.catchit;
     exports com.alessandro.caracciolo.catchit.controller;
