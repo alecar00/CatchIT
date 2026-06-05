@@ -1,0 +1,5 @@
+[
+  { "idRider": "R1", "name": "Mario Rossi", "permitZTL": true },
+  { "idRider": "R2", "name": "Luigi Verdi", "permitZTL": false },
+  { "idRider": "R3", "name": "Giovanni Bianchi", "permitZTL": true }
+]
