@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class RiderDAOFS implements RiderDAO {
     private static final String FS_DIR = FSConfiguration.FS_DIR;
@@ -61,48 +62,36 @@ public class RiderDAOFS implements RiderDAO {
 
     @Override
     public List<Rider> getAvailableRiders(Order order, Time time) throws DAOException {
-        List<Rider> availableRiders = new ArrayList<>();
-        File ridersFile = new File(FS_DIR + FS_RIDER);
-        File ordersFile = new File(FS_DIR + FS_ORDER);
-
-        if (!ridersFile.exists() || ridersFile.length() == 0) {
-            return availableRiders;
-        }
-
         List<Rider> allRiders = getAllRiders();
-
         if (allRiders == null || allRiders.isEmpty()) {
-            return availableRiders;
+            return new ArrayList<>(); // Ritorna direttamente una lista vuota
         }
 
         List<String> busyRiderIds = new ArrayList<>();
+        File ordersFile = new File(FS_DIR + FS_ORDER);
 
         if (ordersFile.exists() && ordersFile.length() > 0) {
             try (FileReader reader = new FileReader(ordersFile)) {
-                Type orderListType = new TypeToken<ArrayList<Order>>() {}.getType();
+                Type orderListType = new TypeToken<ArrayList<Order>>() {
+                }.getType();
                 List<Order> allOrders = gson.fromJson(reader, orderListType);
 
                 if (allOrders != null) {
-                    for (Order o : allOrders) {
-                        if (o.getTime() != null && o.getTime().equals(time)
-                                && o.getRider() != null
-                                && o.getStatus() != OrderStatus.COMPLETED) {
-
-                            busyRiderIds.add(o.getRider().getIdRider());
-                        }
-                    }
+                    busyRiderIds = allOrders.stream()
+                            .filter(o -> o.getTime() != null && o.getTime().equals(time))
+                            .filter(o -> o.getRider() != null)
+                            .filter(o -> o.getStatus() != OrderStatus.COMPLETED)
+                            .map(o -> o.getRider().getIdRider())
+                            .toList();
                 }
             } catch (IOException e) {
                 throw new DAOException("Impossibile leggere gli ordini per verificare le disponibilità.", e);
             }
         }
 
-        for (Rider r : allRiders) {
-            if (!busyRiderIds.contains(r.getIdRider())) {
-                availableRiders.add(r);
-            }
-        }
-
-        return availableRiders;
+        List<String> finalBusyRiderIds = busyRiderIds;
+        return allRiders.stream()
+                .filter(r -> !finalBusyRiderIds.contains(r.getIdRider()))
+                .collect(Collectors.toList());
     }
 }
