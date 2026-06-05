@@ -16,9 +16,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OrderDAODB implements OrderDAO {
 
+    Logger logger = Logger.getLogger(String.valueOf(OrderDAODB.class));
     @Override
     public List<Order> getPendingOrders() throws DAOException {
         List<Order> orders = new ArrayList<>();
@@ -64,7 +67,7 @@ public class OrderDAODB implements OrderDAO {
             try{
                 conn.setAutoCommit(true);
             }catch (SQLException e) {
-                throw new DAOException("Errore database!",e);
+                logger.log(Level.SEVERE, "ATTENZIONE: Impossibile ripristinare l'autoCommit sulla connessione", e);
             }
         }
     }
@@ -116,7 +119,7 @@ public class OrderDAODB implements OrderDAO {
             try{
                 conn.setAutoCommit(true);
             }catch (SQLException e) {
-                throw new DAOException("Errore database!",e);
+                logger.log(Level.SEVERE, "ATTENZIONE: Impossibile ripristinare l'autoCommit sulla connessione", e);
             }
         }
     }
