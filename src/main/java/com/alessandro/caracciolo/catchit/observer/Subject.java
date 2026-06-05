@@ -4,24 +4,27 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 public abstract class Subject implements Runnable {
+
+    Logger logger =  Logger.getLogger(Subject.class.getName());
 
     private List<Observer> observers;
     private final Object mutex = new Object();
     protected boolean isAlive;
 
-    public Subject() {
+    protected Subject() {
         this((Observer) null);
     }
 
-    public Subject(Observer obs) {
+    protected Subject(Observer obs) {
         this(new Vector<Observer>());
         if (obs != null)
             this.observers.add(obs);
     }
 
-    public Subject(List<Observer> list) {
+    protected Subject(List<Observer> list) {
         this.observers = list;
         this.isAlive = false;
     }
@@ -51,7 +54,7 @@ public abstract class Subject implements Runnable {
                 Iterator<Observer> i = observersLocal.iterator();
                 while (i.hasNext()) {
                     Observer obs = i.next();
-                    System.out.println("Updating Observer from the Subject");
+                    logger.info("Updating Observer from the Subject");
                     obs.update();
                 }
             }
