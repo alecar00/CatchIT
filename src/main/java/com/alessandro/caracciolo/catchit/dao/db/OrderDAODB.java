@@ -45,12 +45,27 @@ public class OrderDAODB implements OrderDAO {
     }
 
     @Override
-    public boolean updateOrder(Order order, Rider rider) throws DAOException {
+    public void updateOrder(Order order, Rider rider) throws DAOException {
+        Connection conn = Connector.getConnection();
+
         try {
+            conn.setAutoCommit(false);
             int success = RiderQuery.assignRider(Connector.getConnection(), order, rider);
-            return success > 0;
+
+            if(success == 1){//se viene fatto l'update a 0 o a 2+ righe, c'e' un problema
+                conn.commit();
+            }else {
+                conn.rollback();
+                throw new DAOException("Impossibile assegnare il rider! Trovate " + success + " righe per l'ordine ID: " + order.getIdOrder());
+            }
         }catch (SQLException e) {
-            throw new DAOException("Impossibile assegnare il rider!",e);
+            throw new DAOException("Impossibile assegnare il rider!", e);
+        }finally {
+            try{
+                conn.setAutoCommit(true);
+            }catch (SQLException e) {
+                throw new DAOException("Errore database!",e);
+            }
         }
     }
 
@@ -82,7 +97,7 @@ public class OrderDAODB implements OrderDAO {
     }
 
     @Override
-    public boolean setOrderCompleted(String idOrder) throws DAOException {
+    public void setOrderCompleted(String idOrder) throws DAOException {
         Connection conn = Connector.getConnection();
 
         try {
@@ -93,10 +108,16 @@ public class OrderDAODB implements OrderDAO {
                 conn.commit();
             }else {
                 conn.rollback();
+                throw new DAOException("Impossibile impostare l'ordine come completato! Trovate " + success + " righe per l'ordine ID: " + idOrder);
             }
         }catch (SQLException e) {
             throw new DAOException("Impossibile impostare l'ordine come completato!", e);
+        }finally {
+            try{
+                conn.setAutoCommit(true);
+            }catch (SQLException e) {
+                throw new DAOException("Errore database!",e);
+            }
         }
-        return true;
     }
 }
