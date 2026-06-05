@@ -55,6 +55,6 @@ public class OrderDAOMemory implements OrderDAO {
             if (order.getIdOrder().equals(id)) {
                 order.setStatus(OrderStatus.COMPLETED);
             }
-        };
+        }
     }
 }
