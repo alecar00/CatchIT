@@ -52,10 +52,10 @@ public class OrderDAOFS implements OrderDAO {
     }
 
     @Override
-    public boolean updateOrder(Order order, Rider rider) throws DAOException {
+    public void updateOrder(Order order, Rider rider) throws DAOException {
         File file = new File(FS_DIR + FS_ORDER);
         if (!file.exists()) {
-            return false;
+            throw new DAOException("Impossibile aggiornare: il file degli ordini non esiste.");
         }
 
         List<Order> allOrders;
@@ -66,28 +66,30 @@ public class OrderDAOFS implements OrderDAO {
             throw new DAOException("Errore durante la lettura degli ordini per l'aggiornamento.", e);
         }
 
+        // 2. Anomalia Dati: Il file c'è ma è vuoto
         if (allOrders == null) {
-            return false;
+            throw new DAOException("Impossibile aggiornare: la lista degli ordini risulta vuota o corrotta.");
         }
 
-        boolean found = false;
+        boolean founded = false;
         for (Order o : allOrders) {
             if (o.getIdOrder().equals(order.getIdOrder())) {
                 o.setRider(rider);
                 o.setStatus(OrderStatus.ASSIGNED);
-                found = true;
-                break;
+                founded = true;
+                break; // Usciamo dal ciclo appena troviamo l'ordine
             }
         }
 
-        if (found) {
+        if(founded) {
             try (FileWriter writer = new FileWriter(file)) {
                 gson.toJson(allOrders, writer);
             } catch (IOException e) {
                 throw new DAOException("Impossibile salvare l'ordine aggiornato nel File System.", e);
             }
+        }else{
+            throw new DAOException("Aggiornamento fallito: ordine con ID " + order.getIdOrder() + " non trovato nel sistema.");
         }
-        return found;
     }
 
     @Override
@@ -115,11 +117,8 @@ public class OrderDAOFS implements OrderDAO {
     }
 
     @Override
-    public boolean setOrderCompleted(String id) throws DAOException {
-        File file = new File(FS_DIR + FS_ORDER);
-        if (!file.exists()) {
-            return false;
-        }
+    public void setOrderCompleted(String id) throws DAOException {
+        File file = openOrderFile();
 
         List<Order> allOrders;
         try (FileReader reader = new FileReader(file)) {
@@ -130,26 +129,34 @@ public class OrderDAOFS implements OrderDAO {
         }
 
         if (allOrders == null) {
-            return false;
+            throw new DAOException("Impossibile aggiornare: la lista degli ordini risulta vuota o corrotta.");
         }
 
-        boolean success = false;
+        boolean founded = false;
         for (Order o : allOrders) {
             if (o.getIdOrder().equals(id)) {
                 o.setStatus(OrderStatus.COMPLETED);
-                success = true;
+                founded = true;
                 break;
             }
         }
 
-        if (success) {
+        if (founded) {
             try (FileWriter writer = new FileWriter(file)) {
                 gson.toJson(allOrders, writer);
             } catch (IOException e) {
                 throw new DAOException("Impossibile completare l'ordine nel File System.", e);
             }
+        }else{
+            throw new DAOException("Aggiornamento fallito: ordine con ID " + id + " non trovato nel sistema.");
         }
+    }
 
-        return success;
+    private File openOrderFile() throws DAOException {
+        File file = new File(FS_DIR + FS_ORDER);
+        if (!file.exists()) {
+            throw new DAOException("Impossibile aggiornare: il file degli ordini non esiste.");
+        }
+        return file;
     }
 }

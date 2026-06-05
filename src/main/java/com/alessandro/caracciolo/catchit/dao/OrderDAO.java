@@ -22,7 +22,7 @@ public interface OrderDAO {
      * @param order L'ordine modificato.
      * @return
      */
-    boolean updateOrder(Order order, Rider rider) throws DAOException;
+    void updateOrder(Order order, Rider rider) throws DAOException;
     Order getOrderById(String id)  throws DAOException;
-    boolean setOrderCompleted(String id) throws DAOException;
+    void setOrderCompleted(String id) throws DAOException;
 }
