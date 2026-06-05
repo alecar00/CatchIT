@@ -110,7 +110,7 @@ public class RestaurantGraphicController {
             try {
                 handleOrderClick(order, card);
             } catch (DAOException e) {
-                throw new RuntimeException(e);
+                logger.severe("Error in recovering riders: " + e.getMessage());
             }
         });
 
