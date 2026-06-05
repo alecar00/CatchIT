@@ -92,6 +92,6 @@ public class RiderDAOFS implements RiderDAO {
         List<String> finalBusyRiderIds = busyRiderIds;
         return allRiders.stream()
                 .filter(r -> !finalBusyRiderIds.contains(r.getIdRider()))
-                .collect(Collectors.toList());
+                .toList();
     }
 }
