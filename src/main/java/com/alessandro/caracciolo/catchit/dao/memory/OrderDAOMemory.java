@@ -1,34 +1,60 @@
 package com.alessandro.caracciolo.catchit.dao.memory;
 
 import com.alessandro.caracciolo.catchit.dao.OrderDAO;
-import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.model.Order;
+import com.alessandro.caracciolo.catchit.model.OrderStatus;
 import com.alessandro.caracciolo.catchit.model.Rider;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAOMemory implements OrderDAO {
+    static List<Order> orders =  new ArrayList<>();
+
+    static{
+        orders.add(new Order("1",
+                "Via Roma 20",
+                "Giorgio Zucchi",
+                "1234567890",
+                Time.valueOf("20:00:00"),
+                OrderStatus.PENDING));
+    }
+
 
     @Override
     public List<Order> getPendingOrders() {
-        //per adesso lo commennto e metto
-        return new ArrayList<>();
+        List<Order> pendingOrders = new ArrayList<>();
+            for (Order order : orders) {
+                if (order.getStatus().equals(OrderStatus.PENDING)){
+                    pendingOrders.add(order);
+                }
+            }
+        return pendingOrders;
     }
 
     @Override
-    public boolean updateOrder(Order order, Rider rider) {
-
-        return false;
+    public void updateOrder(Order order, Rider rider) {
+        order.setRider(rider);
+        order.setStatus(OrderStatus.ASSIGNED);
     }
 
     @Override
-    public Order getOrderById(String id) throws DAOException {
+    public Order getOrderById(String id) {
+        for (Order order : orders) {
+            if (order.getIdOrder().equals(id)) {
+                return order;
+            }
+        }
         return null;
     }
 
     @Override
-    public boolean setOrderCompleted(String id) throws DAOException{
-        return false;
+    public void setOrderCompleted(String id){
+        for (Order order : orders) {
+            if (order.getIdOrder().equals(id)) {
+                order.setStatus(OrderStatus.COMPLETED);
+            }
+        };
     }
 }
