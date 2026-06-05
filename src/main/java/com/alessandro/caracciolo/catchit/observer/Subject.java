@@ -8,7 +8,7 @@ import java.util.Vector;
 public abstract class Subject implements Runnable {
 
     private List<Observer> observers;
-    private final Object MUTEX = new Object();
+    private final Object mutex = new Object();
     protected boolean isAlive;
 
     public Subject() {
@@ -27,13 +27,13 @@ public abstract class Subject implements Runnable {
     }
 
     public void attach(Observer obs) {
-        synchronized (MUTEX) {
+        synchronized (mutex) {
             this.observers.add(obs);
         }
     }
 
     public void detach(Observer obs) {
-        synchronized (MUTEX) {
+        synchronized (mutex) {
             this.observers.remove(obs);
         }
     }
@@ -43,7 +43,7 @@ public abstract class Subject implements Runnable {
 
         // synchronization is used to make sure any observer registered after message is
         // received is not notified
-        synchronized (MUTEX) {
+        synchronized (mutex) {
             if (this.isThereAnythingToNotify())
                 observersLocal = new ArrayList<Observer>(this.observers);
 
