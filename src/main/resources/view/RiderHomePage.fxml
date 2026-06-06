@@ -48,10 +48,9 @@
     <center>
         <HBox prefHeight="369.0" prefWidth="591.0" spacing="20" style="-fx-padding: 30;">
 
-            <!-- Colonna Sinistra: Pronti per Assegnazione -->
             <VBox prefHeight="597.0" prefWidth="896.0" spacing="15" style="-fx-background-color: #2a2a2a; -fx-background-radius: 10; -fx-padding: 20;">
             <Label style="-fx-background-color: #2196f3; -fx-background-radius: 25; -fx-padding: 10 20; -fx-alignment: center;"
-                   text="Ordini Assegnati" textFill="white">
+                   text="Assigned Orders" textFill="white">
                <font>
                   <Font name="System Bold" size="16" />
                </font>
