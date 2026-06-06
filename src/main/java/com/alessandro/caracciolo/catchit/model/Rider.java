@@ -25,6 +25,15 @@ public class Rider implements Serializable {
     public void setPermitZTLZTL(boolean permitZTL) {
         this.permitZTL = permitZTL;
     }
+
+    @Override
+    public String toString() {
+        return "Rider{" +
+                "id='" + idRider + '\'' +
+                ", nome='" + name + '\'' +
+                ", permitZTL=" + permitZTL + '\'' +
+                '}';
+    }
 }
 
 
