@@ -14,7 +14,6 @@ public class Order implements Serializable {
     private Rider rider;
     private Time time;
     private OrderStatus status;
-    private Restaurant restaurant;
 
     public Order(String idOrder, String address, String costumer,String telNumber, Time time, OrderStatus status) {
         this.idOrder = idOrder;
@@ -24,7 +23,6 @@ public class Order implements Serializable {
         this.rider = null;
         this.time = time;
         this.status = status;
-        this.restaurant = null;
     }
 
     public Order(String idOrder, String address, String costumer,String telNumber,Rider rider, Time time, OrderStatus status) {
@@ -35,7 +33,6 @@ public class Order implements Serializable {
         this.rider = rider;
         this.time = time;
         this.status = status;
-        this.restaurant = null;
     }
 
 
