@@ -3,7 +3,6 @@ package com.alessandro.caracciolo.catchit.dao;
 import com.alessandro.caracciolo.catchit.dao.db.DBDAOFactory;
 import com.alessandro.caracciolo.catchit.dao.fs.FSDAOFactory;
 import com.alessandro.caracciolo.catchit.dao.memory.MemoryDAOFactory;
-import com.alessandro.caracciolo.catchit.utils.Printer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +17,7 @@ public abstract class DAOFactory {
     }
 
     /**
-     * Metodo statico che fa da "Factory Creator" e da "Singleton Access Point".
+     * Metodo statico che fa da "Factory Creator" e da "Singleton".
      * @return L'unica istanza attiva della Factory corretta.
      */
     public static DAOFactory getDAOFactory() {
@@ -66,8 +65,6 @@ public abstract class DAOFactory {
     public abstract OrderDAO createOrderDAO();
 
     public abstract RiderDAO createRiderDAO();
-
-    public abstract RestaurantDAO createRestaurantDAO();
 
     public abstract UserDAO createUserDAO();
 }

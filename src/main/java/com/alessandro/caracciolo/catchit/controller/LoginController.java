@@ -16,14 +16,13 @@ public class LoginController {
         User user = userDAO.getUserByUsername(userBean.getUsername());
 
         if (user == null) {
-            throw new BusinessException("Username not found in the system.");
+            throw new BusinessException("Incorrect credentials.");
         }
 
         if (!user.getPassword().equals(userBean.getPassword())) {
-            throw new BusinessException("Incorrect password.");
+            throw new BusinessException("Incorrect credentials.");
         }
 
-        //Se tutto è corretto, restituiamo l'ID del ruolo (1=Ristorante, 2=Rider)
         return user.getRole().getId();
     }
 }
