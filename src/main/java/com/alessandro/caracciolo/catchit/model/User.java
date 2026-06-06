@@ -1,7 +1,7 @@
 package com.alessandro.caracciolo.catchit.model;
 
 
-public class User {
+public abstract class User {
     private final String username;
     private final String password;
     private final Role role;
