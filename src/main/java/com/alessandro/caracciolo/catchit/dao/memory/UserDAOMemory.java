@@ -1,19 +1,30 @@
 package com.alessandro.caracciolo.catchit.dao.memory;
 
 import com.alessandro.caracciolo.catchit.dao.UserDAO;
-import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.model.Role;
 import com.alessandro.caracciolo.catchit.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOMemory implements UserDAO {
-    List<User> users;
-    static{
-        users.add(new "R1", "")
+
+    private static final List<User> users = new ArrayList<>();
+
+    static {
+        users.add(new User("DaAlessandro", "admin", Role.RESTAURANT));
+
+        users.add(new User("R1", "password", Role.RIDER));
+        users.add(new User("R2", "password", Role.RIDER));
     }
 
     @Override
-    public User getUser(User user) throws DAOException {
+    public User getUserByUsername(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
         return null;
     }
 }

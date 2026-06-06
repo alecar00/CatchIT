@@ -6,4 +6,5 @@ public class FSConfiguration {
     public static final String FS_DIR = "src/main/resources/persistence/";
     public static final String FS_ORDER = "order.json";
     public static final String FS_RIDER = "rider.json";
+    public static final String FS_USER = "user.json";
 }

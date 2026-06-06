@@ -1,9 +1,6 @@
 package com.alessandro.caracciolo.catchit.dao.fs;
 
-import com.alessandro.caracciolo.catchit.dao.DAOFactory;
-import com.alessandro.caracciolo.catchit.dao.OrderDAO;
-import com.alessandro.caracciolo.catchit.dao.RestaurantDAO;
-import com.alessandro.caracciolo.catchit.dao.RiderDAO;
+import com.alessandro.caracciolo.catchit.dao.*;
 
 public class FSDAOFactory extends DAOFactory {
     @Override
@@ -19,5 +16,10 @@ public class FSDAOFactory extends DAOFactory {
     @Override
     public RestaurantDAO createRestaurantDAO() {
         return null;
+    }
+
+    @Override
+    public UserDAO createUserDAO() {
+        return new UserDAOFS();
     }
 }

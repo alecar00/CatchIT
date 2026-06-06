@@ -7,11 +7,9 @@ import java.sql.*;
 public class UserQuery {
     private UserQuery(){};
 
-    public static ResultSet getUser(Connection conn, User user) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(Query.LOGIN);
-
-        stmt.setString(1, user.getUsername());
-        stmt.setString(2, user.getPassword());
+    public static ResultSet getUserByUsername(Connection conn, String username) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(Query.GET_USER_BY_USERNAME);
+        stmt.setString(1, username);
         return stmt.executeQuery();
     }
 }
