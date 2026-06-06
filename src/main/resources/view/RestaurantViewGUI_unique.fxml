@@ -13,7 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #1a1a1a; -fx-min-width: 900; -fx-min-height: 750;" styleClass="style.css" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alessandro.caracciolo.catchit.view.controller.RestaurantGraphicController">
+<BorderPane style="-fx-background-color: #1a1a1a; -fx-min-width: 900; -fx-min-height: 750;"
+            styleClass="style.css"
+            stylesheets="@../style.css"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.alessandro.caracciolo.catchit.view.controller.RestaurantGraphicController">
 
     <!-- Header -->
     <top>
@@ -30,12 +35,17 @@
             <Region HBox.hgrow="ALWAYS" />
 
             <!-- Menu buttons -->
-            <Button fx:id="logoutButton" onAction="#handleLogoutButton" style="-fx-background-color: transparent; -fx-text-fill: #64b5f6;" text="Logout">
+            <Button fx:id="logoutButton"
+                    onAction="#handleLogoutButton"
+                    style="-fx-background-color: transparent; -fx-text-fill: #64b5f6;"
+                    text="Logout">
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor></Button>
-            <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Impostazioni" />
-            <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Gestione Menu" />
+            <Button style="-fx-background-color: transparent; -fx-text-fill: white;"
+                    text="Impostazioni" />
+            <Button style="-fx-background-color: transparent; -fx-text-fill: white;"
+                    text="Gestione Menu" />
         </HBox>
     </top>
 
