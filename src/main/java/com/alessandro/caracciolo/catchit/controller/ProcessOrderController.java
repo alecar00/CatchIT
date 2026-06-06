@@ -21,11 +21,7 @@ public class ProcessOrderController {
 
     private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
 
-    public List<RiderBean> discoverAvailableRiders(OrderBean orderBean){
-        List<Rider> riders = new ArrayList<>();
-        List<RiderBean> ridersBean = new ArrayList<>();
-
-        //convertire il bean in entity da passare al dao. Da valutare un mapper
+    public List<RiderBean> discoverAvailableRiders(OrderBean orderBean) {
         Order order = new Order(
                 orderBean.getIdOrder(),
                 orderBean.getAddress(),
@@ -37,24 +33,15 @@ public class ProcessOrderController {
 
         RiderDAO riderDAO = DAOFactory.getDAOFactory().createRiderDAO();
 
-        // logica di prelievo riders disponibili
         try {
-            riders = riderDAO.getAvailableRiders(order, order.getTime());
-        }catch(Exception e){
-            logger.log(Level.WARNING, e.getMessage());
+            List<Rider> riders = riderDAO.getAvailableRiders(order, order.getTime());
+            return riders.stream()
+                    .map(rs -> new RiderBean(rs.getIdRider(), rs.getName(), rs.isPermitZTL()))
+                    .toList();
+        } catch(Exception e) {
+            logger.log(Level.WARNING, "Error while fetching available riders", e);
+            return new ArrayList<>();
         }
-
-        //convertire riders entity dal dao in riders bean da restituire alla view
-        for (Rider rs : riders) {
-            var riderBean = new RiderBean(
-                    rs.getIdRider(),
-                    rs.getName(),
-                    rs.isPermitZTL()
-            );
-            ridersBean.add(riderBean);
-        }
-
-        return ridersBean;
     }
 
     public List<OrderBean> discoverPendingOrders(){
