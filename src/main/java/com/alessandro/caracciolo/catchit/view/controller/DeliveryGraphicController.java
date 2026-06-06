@@ -1,5 +1,6 @@
 package com.alessandro.caracciolo.catchit.view.controller;
 
+import com.alessandro.caracciolo.catchit.Main;
 import com.alessandro.caracciolo.catchit.controller.DeliveryController;
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
@@ -9,8 +10,13 @@ import com.sothawo.mapjfx.MapType;
 import com.sothawo.mapjfx.MapView;
 import com.sothawo.mapjfx.Marker;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class DeliveryGraphicController {
@@ -59,6 +65,27 @@ public class DeliveryGraphicController {
     }
 
     private void handleDeliveredButtonClick(String idOrder) throws DAOException, BusinessException {
-        deliveryController.setOrderCompleted(idOrder);
+        try {
+            deliveryController.setOrderCompleted(idOrder);
+            AlertHandler.showSuccess("Delivery Completed", "Order #" + idOrder + " marked as completed.");
+
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RiderHomePage.fxml"));
+            Parent root = loader.load();
+
+            RiderGraphicController controller = loader.getController();
+            controller.initData(idOrder);
+
+            Stage stageAttuale = (Stage) deliveredButton.getScene().getWindow();
+
+            stageAttuale.setScene(new Scene(root));
+            stageAttuale.show();
+
+        } catch (BusinessException e) {
+            AlertHandler.showBusinessError(e);
+        } catch (IOException e) {
+            logger.severe("Error loading RiderHomePage: " + e.getMessage());
+        } catch (DAOException e){
+            AlertHandler.showDAOError(e);
+        }
     }
 }

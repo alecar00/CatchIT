@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static com.alessandro.caracciolo.catchit.utils.Printer.errorPrint;
-
 public class LoginGraphicController {
     @FXML
     public TextField userTextField;
@@ -51,8 +49,11 @@ public class LoginGraphicController {
                 stageAttuale.setScene(new Scene(rootOrdini));
                 stageAttuale.show();
             } else if (typeOfUser == 2) {
-                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/DeliveryingView.fxml"));
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RiderHomePage.fxml"));
                 Parent root = loader.load();
+
+                RiderGraphicController controller = loader.getController();
+                controller.initData(userBean.getUsername());
 
                 Stage stageAttuale = (Stage) loginButton.getScene().getWindow();
 
