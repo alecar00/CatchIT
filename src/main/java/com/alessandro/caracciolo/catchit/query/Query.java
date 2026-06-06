@@ -21,4 +21,6 @@ public class Query {
     public static final String SET_ORDER_COMPLETED = "UPDATE Orders SET status = 'COMPLETED' WHERE id_order = ?;";
 
     public static final String GET_RIDER_ORDERS = "SELECT * FROM Orders WHERE id_order = ?;";
+
+    public static final String LOGIN = "SELECT * FROM Users WHERE username = ?;";
 }
