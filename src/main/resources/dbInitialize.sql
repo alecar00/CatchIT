@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS Orders (
                                       address VARCHAR(255) NOT NULL,
                                       costumer VARCHAR(100) NOT NULL,
                                       tel_number VARCHAR(20),
-                                      delivery_time DATETIME,
+                                      delivery_time TIME,
                                       status ENUM('PENDING', 'ASSIGNED', 'IN_DELIVERY', 'COMPLETED') DEFAULT 'PENDING',
                                       id_rider VARCHAR(50),
                                       id_restaurant VARCHAR(100),
@@ -37,6 +37,15 @@ CREATE TABLE IF NOT EXISTS Orders (
                                           ON UPDATE CASCADE
 );
 
+-- 4. USERS
+CREATE TABLE IF NOT EXISTS User (
+                                      username VARCHAR(100) PRIMARY KEY,
+                                      password VARCHAR(255) NOT NULL,
+                                      role ENUM('RESTAURANT', 'RIDER') NOT NULL
+);
+
+
+
 -- ==========================================
 -- POPULATION DB
 -- ==========================================
@@ -47,9 +56,13 @@ INSERT INTO Rider (id_rider, name, permit_ztl) VALUES
                                                    ('R3', 'Giovanni Bianchi', TRUE);
 
 INSERT INTO Restaurant (name) VALUES
-    ( 'Pizzeria Da Alessandro');
+                                                   ( 'Pizzeria Da Alessandro');
 
-
+INSERT INTO User (username, password, role) VALUES
+                                                   ('DaAlessandro', 'admin', 'RESTAURANT'),
+                                                   ('R1', 'password', 'RIDER'),
+                                                   ('R2', 'password', 'RIDER');
+);
 
 INSERT INTO Orders (address, costumer, tel_number, status, id_rider, id_restaurant, delivery_time)
 VALUES ('Via Roma 10', 'Giulia', '3331234567', 'ASSIGNED', 'R2', 'Pizzeria Da Alessandro', '20:00:00');
