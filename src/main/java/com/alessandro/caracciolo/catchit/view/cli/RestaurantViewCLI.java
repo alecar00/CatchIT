@@ -27,7 +27,7 @@ public class RestaurantViewCLI {
 
             if (orderBeans.isEmpty()) {
                 clearConsole();
-                printTitle("No Pending Orders");
+                Printer.printTitle("No Pending Orders");
 
                 Printer.printlnOrange("Press Enter to refresh the list, or type '0' to Logout.");
                 String choice = input.nextLine().trim();
@@ -59,7 +59,7 @@ public class RestaurantViewCLI {
                 continue;
             }
 
-            updateOrdersList(orderBeans);
+            updateRidersList(riderBeans);
             Printer.print("\nChoose a rider to assign the order to (0 to go back): ");
 
             int riderChoice = readIntSafely(input);
@@ -78,8 +78,8 @@ public class RestaurantViewCLI {
                 Printer.printlnBlu("\n✔️ Order #" + selectedOrder.getIdOrder() + " successfully assigned to " + selectedRider.getName() + "!");
                 waitForEnter(input);
             } catch (DAOException | BusinessException e) {
-                Printer.errorPrint("\n❌ Unable to assign order:" + e.getMessage());
-                logger.severe("Error in assignRider:" + e.getMessage());
+                Printer.errorPrint("\n❌ Unable to assign order: " + e.getMessage());
+                logger.severe("Error in assignRider: " + e.getMessage());
                 waitForEnter(input);
             }
         }
@@ -87,43 +87,22 @@ public class RestaurantViewCLI {
 
     private void updateRidersList(List<RiderBean> riderBeans) {
         clearConsole();
-        printTitle("Available Riders\t0 - Back");
+        Printer.printTitle("Available Riders\t0 - Back");
         int nRider = 1;
         for (RiderBean rider : riderBeans) {
-            printRider(rider, nRider);
+            Printer.printRider(rider, nRider);
             nRider++;
         }
     }
 
     private void updateOrdersList(List<OrderBean> orderBeans) {
         clearConsole();
-        printTitle("Pending Orders\t0 - Logout");
+        Printer.printTitle("Pending Orders\t0 - Logout");
         int nOrder = 1;
         for (OrderBean orderBean : orderBeans) {
-            printOrder(orderBean, nOrder);
+            Printer.printOrder(orderBean, nOrder);
             nOrder++;
         }
-    }
-
-    private void printOrder(OrderBean orderBean, int nOrder) {
-        printlnOrange("-" + nOrder + ") Order ID: #" + orderBean.getIdOrder());
-        printlnOrange("   Consumer: " + orderBean.getConsumer());
-        printlnOrange("   Address: " + orderBean.getAddress());
-        printlnOrange("   Time: " + orderBean.getTime());
-        printlnBlu(SEPARATOR);
-    }
-
-    private void printRider(RiderBean riderBean, int nRider) {
-        printlnOrange("-" + nRider + ") Rider ID: " + riderBean.getIdRider());
-        printlnOrange("   Name: " + riderBean.getName());
-        printlnOrange("   Permit ZTL: " + (riderBean.getPermitZTL() ? "Yes" : "No"));
-        printlnBlu(SEPARATOR);
-    }
-
-    private void printTitle(String title) {
-        printlnBlu(SEPARATOR);
-        printlnOrange(">> " + title.toUpperCase() + " <<");
-        printlnBlu(SEPARATOR);
     }
 
     private void clearConsole() {
@@ -132,9 +111,6 @@ public class RestaurantViewCLI {
         }
     }
 
-    /**
-     * Legge un intero in modo sicuro, evitando che il programma crashi se l'utente digita una lettera.
-     */
     private int readIntSafely(Scanner scanner) {
         try {
             return Integer.parseInt(scanner.nextLine().trim());
@@ -143,10 +119,6 @@ public class RestaurantViewCLI {
         }
     }
 
-    /**
-     * Mette in pausa l'esecuzione finché l'utente non preme Invio.
-     * Indispensabile per far leggere i messaggi di errore o successo prima del clearConsole().
-     */
     private void waitForEnter(Scanner scanner) {
         Printer.printlnOrange("\nPress Enter to continue...");
         scanner.nextLine();
