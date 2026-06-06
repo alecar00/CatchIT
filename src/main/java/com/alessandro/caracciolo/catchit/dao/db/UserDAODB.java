@@ -2,7 +2,6 @@ package com.alessandro.caracciolo.catchit.dao.db;
 
 import com.alessandro.caracciolo.catchit.dao.UserDAO;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
-import com.alessandro.caracciolo.catchit.exceptions.UserNotFoundException;
 import com.alessandro.caracciolo.catchit.model.Role;
 import com.alessandro.caracciolo.catchit.model.User;
 import com.alessandro.caracciolo.catchit.query.UserQuery;
