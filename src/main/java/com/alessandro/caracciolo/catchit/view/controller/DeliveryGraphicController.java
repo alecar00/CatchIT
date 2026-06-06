@@ -3,6 +3,7 @@ package com.alessandro.caracciolo.catchit.view.controller;
 import com.alessandro.caracciolo.catchit.controller.DeliveryController;
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import com.sothawo.mapjfx.Coordinate;
 import com.sothawo.mapjfx.MapType;
 import com.sothawo.mapjfx.MapView;
@@ -14,9 +15,9 @@ import java.util.logging.Logger;
 
 public class DeliveryGraphicController {
     @FXML
-    public Button callButton;
+    private Button callButton;
     @FXML
-    public Button deliveredButton;
+    private Button deliveredButton;
     @FXML
     private MapView mapView;
 
@@ -41,10 +42,18 @@ public class DeliveryGraphicController {
         mapView.initialize();
 
         deliveredButton.setOnAction(event -> {
-            try{
+            try {
                 handleDeliveredButtonClick("idOrder");
-            }catch(DAOException _){
-                logger.severe("Error in setting delivery as completed: ");
+                AlertHandler.showSuccess("Delivery Completed", "Order successfully marked as delivered.");
+            } catch (DAOException e) {
+                logger.severe("Database error during delivery update: " + e.getMessage());
+                AlertHandler.showDAOError(e);
+            } catch (BusinessException e) {
+                logger.warning("Business logic violation: " + e.getMessage());
+                AlertHandler.showBusinessError(e);
+            } catch (Exception e) {
+                logger.severe("Unexpected fatal error: " + e.getMessage());
+                AlertHandler.showDAOError(new DAOException("A critical system error occurred."));
             }
         });
     }
