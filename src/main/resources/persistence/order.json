@@ -13,8 +13,7 @@
     "status": "ASSIGNED",
     "restaurant": {
       "name": "Pizzeria Da Alessandro"
-    },
-    "isAlive": false
+    }
   },
   {
     "idOrder": "2",
@@ -30,8 +29,7 @@
     "status": "IN_DELIVERY",
     "restaurant": {
       "name": "Pizzeria Da Alessandro"
-    },
-    "isAlive": false
+    }
   },
   {
     "idOrder": "3",
@@ -47,20 +45,23 @@
     "status": "ASSIGNED",
     "restaurant": {
       "name": "Pizzeria Da Alessandro"
-    },
-    "isAlive": false
+    }
   },
   {
     "idOrder": "4",
     "address": "Corso Italia 100",
     "costumer": "Anna Verdi",
     "telNumber": "3401239876",
+    "rider": {
+      "idRider": "R1",
+      "name": "Mario Rossi",
+      "permitZTL": true
+    },
     "time": "20:15:00",
-    "status": "PENDING",
+    "status": "ASSIGNED",
     "restaurant": {
       "name": "Pizzeria Da Alessandro"
-    },
-    "isAlive": false
+    }
   },
   {
     "idOrder": "5",
@@ -76,8 +77,7 @@
     "status": "ASSIGNED",
     "restaurant": {
       "name": "Pizzeria Da Alessandro"
-    },
-    "isAlive": false
+    }
   },
   {
     "idOrder": "6",
@@ -93,8 +93,7 @@
     "status": "ASSIGNED",
     "restaurant": {
       "name": "Pizzeria Da Alessandro"
-    },
-    "isAlive": false
+    }
   },
   {
     "idOrder": "7",
@@ -105,8 +104,7 @@
     "status": "COMPLETED",
     "restaurant": {
       "name": "Pizzeria Da Alessandro"
-    },
-    "isAlive": false
+    }
   },
   {
     "idOrder": "8",
@@ -117,7 +115,6 @@
     "status": "PENDING",
     "restaurant": {
       "name": "Pizzeria Da Alessandro"
-    },
-    "isAlive": false
+    }
   }
 ]
