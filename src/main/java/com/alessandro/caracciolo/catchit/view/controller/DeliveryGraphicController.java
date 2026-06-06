@@ -43,8 +43,8 @@ public class DeliveryGraphicController {
         deliveredButton.setOnAction(event -> {
             try{
                 handleDeliveredButtonClick("idOrder");
-            }catch(DAOException e){
-                logger.severe("Error in setting delivery as completed: " + e.getMessage());
+            }catch(DAOException _){
+                logger.severe("Error in setting delivery as completed: ");
             }
         });
     }
