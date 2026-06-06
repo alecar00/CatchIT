@@ -2,7 +2,6 @@ package com.alessandro.caracciolo.catchit;
 
 import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.Printer;
-import com.alessandro.caracciolo.catchit.view.cli.RestaurantViewCLI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
