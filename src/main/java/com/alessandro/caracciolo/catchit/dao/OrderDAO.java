@@ -23,6 +23,12 @@ public interface OrderDAO {
      * @return
      */
     void updateOrder(Order order, Rider rider) throws DAOException;
-    Order getOrderById(String id)  throws DAOException;
-    void setOrderCompleted(String id) throws DAOException;
+
+    Order getOrderById(String orderId)  throws DAOException;
+
+    void setOrderCompleted(String orderId) throws DAOException;
+
+    List<Order> getOrdersByRider(String riderId) throws DAOException;
+
+    void setOrderInDelivery(String orderId) throws DAOException;
 }

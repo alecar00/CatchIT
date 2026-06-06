@@ -1,6 +1,7 @@
 package com.alessandro.caracciolo.catchit.dao.memory;
 
 import com.alessandro.caracciolo.catchit.dao.OrderDAO;
+import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.OrderStatus;
 import com.alessandro.caracciolo.catchit.model.Rider;
@@ -19,6 +20,13 @@ public class OrderDAOMemory implements OrderDAO {
                 "3331234567",
                 Time.valueOf("20:30:00"),
                 OrderStatus.PENDING));
+        orders.add(new Order("2",
+                "Piazza Dante 5",
+                "Marco",
+                "3339876543",
+                new Rider("R1", "Mario Rossi", true),
+                Time.valueOf("19:30:00"),
+                OrderStatus.ASSIGNED ));
     }
 
 
@@ -40,9 +48,9 @@ public class OrderDAOMemory implements OrderDAO {
     }
 
     @Override
-    public Order getOrderById(String id) {
+    public Order getOrderById(String orderId) {
         for (Order order : orders) {
-            if (order.getIdOrder().equals(id)) {
+            if (order.getIdOrder().equals(orderId)) {
                 return order;
             }
         }
@@ -50,10 +58,30 @@ public class OrderDAOMemory implements OrderDAO {
     }
 
     @Override
-    public void setOrderCompleted(String id){
+    public void setOrderCompleted(String orderId){
         for (Order order : orders) {
-            if (order.getIdOrder().equals(id)) {
+            if (order.getIdOrder().equals(orderId)) {
                 order.setStatus(OrderStatus.COMPLETED);
+            }
+        }
+    }
+
+    @Override
+    public List<Order> getOrdersByRider(String riderId) throws DAOException {
+        List <Order> riderOrders = new ArrayList<>();
+        for (Order order : orders) {
+            if (order.getRider() != null && order.getRider().getIdRider().equals(riderId)) {
+                riderOrders.add(order);
+            }
+        }
+        return riderOrders;
+    }
+
+    @Override
+    public void setOrderInDelivery(String orderId) throws DAOException {
+        for (Order order : orders) {
+            if (order.getIdOrder().equals(orderId)) {
+                order.setStatus(OrderStatus.IN_DELIVERY);
             }
         }
     }

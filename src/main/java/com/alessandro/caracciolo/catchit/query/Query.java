@@ -23,4 +23,6 @@ public class Query {
     public static final String GET_RIDER_ORDERS = "SELECT * FROM Orders WHERE id_order = ?;";
 
     public static final String GET_USER_BY_USERNAME = "SELECT * FROM User WHERE username = ?;";
+
+    public static final String SET_ORDER_IN_DELIVERY =  "UPDATE Orders SET status = 'IN_DELIVERY' WHERE id_order = ?;";
 }

@@ -152,6 +152,16 @@ public class OrderDAOFS implements OrderDAO {
         }
     }
 
+    @Override
+    public List<Order> getOrdersByRider(String riderId) throws DAOException {
+        return List.of();
+    }
+
+    @Override
+    public void setOrderInDelivery(String orderId) throws DAOException {
+
+    }
+
     private File openOrderFile() throws DAOException {
         File file = new File(FS_DIR + FS_ORDER);
         if (!file.exists()) {

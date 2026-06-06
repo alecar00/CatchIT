@@ -123,4 +123,52 @@ public class OrderDAODB implements OrderDAO {
             }
         }
     }
+
+    @Override
+    public List<Order> getOrdersByRider(String riderId) throws DAOException {
+        List<Order> riderOrders = new ArrayList<>();
+
+        try (ResultSet rs = OrderQuery.getRiderOrders(Connector.getConnection(), riderId)) {
+            while (rs.next()) {
+                String statusString = rs.getString("status");
+                OrderStatus status = OrderStatus.valueOf(statusString);
+
+                var order = new Order(rs.getString("id_order"),
+                        rs.getString("address"),
+                        rs.getString("costumer"),
+                        rs.getString("tel_number"),
+                        rs.getTime("delivery_time"),
+                        status);
+                riderOrders.add(order);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Impossibile recuperare gli ordini!",e);
+        }
+        return riderOrders;
+    }
+
+    @Override
+    public void setOrderInDelivery(String idOrder) throws DAOException {
+        Connection conn = Connector.getConnection();
+
+        try {
+            conn.setAutoCommit(false);
+            int success = OrderQuery.setOrderInDelivery(conn, idOrder);
+
+            if(success == 1){//se viene fatto l'update a 0 o a 2+ righe, c'e' un problema
+                conn.commit();
+            }else {
+                conn.rollback();
+                throw new DAOException("Impossibile impostare l'ordine come in consegna! Trovate " + success + " righe per l'ordine ID: " + idOrder);
+            }
+        }catch (SQLException e) {
+            throw new DAOException("Impossibile impostare l'ordine come in consegna!", e);
+        }finally {
+            try{
+                conn.setAutoCommit(true);
+            }catch (SQLException e) {
+                logger.log(Level.SEVERE, "ATTENZIONE: Impossibile ripristinare l'autoCommit sulla connessione", e);
+            }
+        }
+    }
 }
