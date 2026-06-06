@@ -52,8 +52,9 @@ public class Main extends Application {
     }
 
     private void startCLI() {
-        RestaurantViewCLI restaurantViewCLI = new RestaurantViewCLI();
-        restaurantViewCLI.initialize();
+        com.alessandro.caracciolo.catchit.view.cli.LoginViewCLI loginViewCLI =
+                new com.alessandro.caracciolo.catchit.view.cli.LoginViewCLI();
+        loginViewCLI.initialize();
     }
 
     private void startGUI(Stage stage) throws IOException {
