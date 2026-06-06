@@ -6,6 +6,7 @@ import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.controller.ProcessOrderController;
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,28 +46,27 @@ public class RestaurantGraphicController {
     private VBox ridersContainer;
 
     private static final String FONT_SIZE = "-fx-font-size: 12;";
-
     private static final Logger logger = Logger.getLogger(RestaurantGraphicController.class.getName());
 
-    private ProcessOrderController  appController;
-
-    //variable for handling tha highlight
+    private ProcessOrderController appController;
     private VBox lastCardAssigned = null;
     private OrderBean lastOrder = null;
 
     public void initialize() {
         this.appController = new ProcessOrderController();
 
-        List<OrderBean> orderBeans = appController.discoverPendingOrders();
-        updateOrdersList(orderBeans);
+        try {
+            List<OrderBean> orderBeans = appController.discoverPendingOrders();
+            updateOrdersList(orderBeans);
+        } catch (Exception e) {
+            logger.severe("Error fetching pending orders during initialization: " + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("Unable to load pending orders."));
+        }
     }
 
-    // Metodo per popolare la lista graficamente
     public void updateOrdersList(List<OrderBean> orders) {
-        // 1. Pulisci la lista attuale per evitare duplicati
         ordersContainer.getChildren().clear();
 
-        // 2. Cicla su ogni ordine e crea la "Card" grafica
         for (OrderBean order : orders) {
             VBox card = createOrderCard(order);
             ordersContainer.getChildren().add(card);
@@ -83,48 +83,33 @@ public class RestaurantGraphicController {
                 "-fx-border-width: 3; " +
                 "-fx-border-radius: 10;");
 
-        // Label ID
         Label lblId = new Label("ID: #" + order.getIdOrder());
         lblId.setFont(Font.font("System", FontWeight.BOLD, 14));
 
-        // Label address
-        Label lblAddress = new Label("Indirizzo: " + order.getAddress());
+        Label lblAddress = new Label("Address: " + order.getAddress());
         lblAddress.setStyle(FONT_SIZE);
 
-        // Label consumer
-        Label lblConsumer = new Label("Cliente: " + order.getConsumer());
+        Label lblConsumer = new Label("Customer: " + order.getConsumer());
         lblConsumer.setStyle(FONT_SIZE);
 
-        //label time
-        Label lblTime = new Label("Orario: " + order.getTime());
+        Label lblTime = new Label("Time: " + order.getTime());
         lblTime.setStyle(FONT_SIZE);
 
-        // assign button
-        Button btnAssegna = new Button("Assegna");
+        Button btnAssegna = new Button("Assign");
         btnAssegna.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; " +
                 "-fx-background-radius: 20; -fx-padding: 8 30; " +
                 "-fx-font-weight: bold; -fx-font-size: 13;");
 
-        // click action
-        btnAssegna.setOnAction(event -> {
-            try {
-                handleOrderClick(order, card);
-            } catch (DAOException _) {
-                logger.severe("Error in recovering riders");
-            }
-        });
+        btnAssegna.setOnAction(event -> handleOrderClick(order, card));
 
-        // add to the card
-        card.getChildren().addAll(lblId, lblAddress, lblConsumer,lblTime, btnAssegna);
+        card.getChildren().addAll(lblId, lblAddress, lblConsumer, lblTime, btnAssegna);
 
         return card;
     }
 
     public void updateRidersList(List<RiderBean> riders) {
-        // 1. Pulisci la lista attuale per evitare duplicati
         ridersContainer.getChildren().clear();
 
-        // 2. Cicla su ogni ordine e crea la "Card" grafica
         for (RiderBean rider : riders) {
             VBox card = createRiderCard(rider);
             ridersContainer.getChildren().add(card);
@@ -141,39 +126,25 @@ public class RestaurantGraphicController {
                 "-fx-border-width: 3; " +
                 "-fx-border-radius: 10;");
 
-        // Label ID
         Label lblName = new Label("Name: " + rider.getName());
         lblName.setFont(Font.font("System", FontWeight.BOLD, 14));
 
-        // Label address
         Label lblPermitZTL = new Label("PermitZTL: " + rider.getPermitZTL());
         lblPermitZTL.setStyle(FONT_SIZE);
 
-        // assign button
-        Button btnAssegna = new Button("Assegna");
+        Button btnAssegna = new Button("Assign");
         btnAssegna.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; " +
                 "-fx-background-radius: 20; -fx-padding: 8 30; " +
                 "-fx-font-weight: bold; -fx-font-size: 13;");
 
-        // click action
-        btnAssegna.setOnAction(event -> {
-            try {
-                handleAssignClick(rider, lastOrder);
-            } catch (DAOException _) {
-                logger.severe("Error in assigning rider");
-                //da aggiungere finestra di errore
-            }
-        });
+        btnAssegna.setOnAction(event -> handleAssignClick(rider, lastOrder));
 
-        // add to the card
         card.getChildren().addAll(lblName, lblPermitZTL, btnAssegna);
 
         return card;
     }
 
     private void highlightSelectedCard(VBox clickedCard, VBox previousCard) {
-
-        // 1. Reset the previously selected button (back to BLUE)
         if (previousCard != null && previousCard != clickedCard) {
             previousCard.setStyle("-fx-background-color: #c5e1f5; " +
                     "-fx-background-radius: 10; " +
@@ -183,7 +154,6 @@ public class RestaurantGraphicController {
                     "-fx-border-radius: 10;");
         }
 
-        // 2. Highlight the newly clicked button (turn Orange)
         clickedCard.setStyle("-fx-background-color: #fec14d; " +
                 "-fx-background-radius: 10; " +
                 "-fx-padding: 15; " +
@@ -192,53 +162,52 @@ public class RestaurantGraphicController {
                 "-fx-border-radius: 10;");
     }
 
-    private void handleOrderClick(OrderBean orderBean, VBox cardToAssign) throws DAOException{
-        List <RiderBean> riderBean = appController.discoverAvailableRiders(orderBean);
-        highlightSelectedCard(cardToAssign, lastCardAssigned);
-        updateRidersList(riderBean);
-        lastCardAssigned = cardToAssign;
-        lastOrder = orderBean;
-    }
-
-    private void handleAssignClick(RiderBean riderBean, OrderBean orderBean) throws DAOException, BusinessException {
-        /**
-         * Assegna un ordine specifico a un rider disponibile.
-         *
-         * @param orderBean L'ordine da assegnare
-         * @param riderBean Il rider selezionato
-         * @throws DAOException Se il dao non è raggiungibile
-         * @throws BusinessException Se abbiamo dati discordanti con il dao
-         */
-        try{
-            appController.assignRider(orderBean, riderBean);
-
-            //da togliere le classi bean per la notifica?? meglio il model??
-            showSuccessNotification(orderBean.getIdOrder(), riderBean.getName());
-
-            refreshInterface();
-
-        }catch(DAOException | BusinessException _){
-            logger.severe("Error in assigning rider");
+    private void handleOrderClick(OrderBean orderBean, VBox cardToAssign) {
+        try {
+            List<RiderBean> riderBean = appController.discoverAvailableRiders(orderBean);
+            highlightSelectedCard(cardToAssign, lastCardAssigned);
+            updateRidersList(riderBean);
+            lastCardAssigned = cardToAssign;
+            lastOrder = orderBean;
+        } catch (Exception e) {
+            logger.severe("Error discovering available riders: " + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("An error occurred while fetching available riders."));
         }
-
     }
 
-    private void refreshInterface(){
-        ridersContainer.getChildren().clear();
+    private void handleAssignClick(RiderBean riderBean, OrderBean orderBean) {
+        try {
+            appController.assignRider(orderBean, riderBean);
+            showSuccessNotification(orderBean.getIdOrder(), riderBean.getName());
+            refreshInterface();
+        } catch (DAOException e) {
+            logger.severe("Database error during rider assignment: " + e.getMessage());
+            AlertHandler.showDAOError(e);
+        } catch (BusinessException e) {
+            logger.warning("Business logic violation during rider assignment: " + e.getMessage());
+            AlertHandler.showBusinessError(e);
+        } catch (Exception e) {
+            logger.severe("Unexpected fatal error: " + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("A critical system error occurred."));
+        }
+    }
 
+    private void refreshInterface() {
+        ridersContainer.getChildren().clear();
         lastOrder = null;
         lastCardAssigned = null;
 
-        try{
+        try {
             List<OrderBean> updatedOrders = appController.discoverPendingOrders();
             updateOrdersList(updatedOrders);
-        }catch(BusinessException e){
-            logger.severe("Error in getting pending orders: " + e.getMessage());
+        } catch (Exception e) {
+            logger.severe("Error refreshing pending orders: " + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("Unable to refresh the orders list."));
         }
     }
 
     private void showSuccessNotification(String orderId, String riderName) {
-        notificationText.setText("Ordine #" + orderId + " assegnato a " + riderName);
+        notificationText.setText("Order #" + orderId + " successfully assigned to " + riderName);
 
         notificationBox.setVisible(true);
         notificationBox.setManaged(true);
@@ -252,13 +221,17 @@ public class RestaurantGraphicController {
         delay.play();
     }
 
-    public void handleLogoutButton() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/LoginGUI.fxml"));
-        Parent root = loader.load();
+    public void handleLogoutButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/LoginGUI.fxml"));
+            Parent root = loader.load();
 
-        Stage stageAttuale = (Stage) logoutButton.getScene().getWindow();
-
-        stageAttuale.setScene(new Scene(root));
-        stageAttuale.show();
+            Stage stageAttuale = (Stage) logoutButton.getScene().getWindow();
+            stageAttuale.setScene(new Scene(root));
+            stageAttuale.show();
+        } catch (IOException e) {
+            logger.severe("Irreversible UI error: " + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Login interface."));
+        }
     }
 }
