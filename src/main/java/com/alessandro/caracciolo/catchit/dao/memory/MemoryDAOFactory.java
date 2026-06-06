@@ -14,11 +14,6 @@ public class MemoryDAOFactory extends DAOFactory {
     }
 
     @Override
-    public RestaurantDAO createRestaurantDAO() {
-        return null;
-    }
-
-    @Override
     public UserDAO createUserDAO() {
         return new UserDAOMemory(); // <-- INIETTIAMO LA LOGICA IN MEMORIA
     }

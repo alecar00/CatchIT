@@ -16,11 +16,6 @@ public class DBDAOFactory extends DAOFactory {
     }
 
     @Override
-    public RestaurantDAO createRestaurantDAO() {
-        return null;
-    }
-
-    @Override
     public UserDAO createUserDAO() {
         return new UserDAODB();
     }
