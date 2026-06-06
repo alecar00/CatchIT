@@ -14,10 +14,10 @@ public class OrderDAOMemory implements OrderDAO {
 
     static{
         orders.add(new Order("1",
-                "Via Roma 20",
-                "Giorgio Zucchi",
-                "1234567890",
-                Time.valueOf("20:00:00"),
+                "Via Roma 10",
+                "Mario Rossi",
+                "3331234567",
+                Time.valueOf("20:30:00"),
                 OrderStatus.PENDING));
     }
 
