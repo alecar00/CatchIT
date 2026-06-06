@@ -44,7 +44,7 @@ public class RestaurantGraphicController {
     @FXML
     private VBox ridersContainer;
 
-    private final String FONT_SIZE = "-fx-font-size: 12;";
+    private static final String FONT_SIZE = "-fx-font-size: 12;";
 
     private static final Logger logger = Logger.getLogger(RestaurantGraphicController.class.getName());
 
@@ -109,8 +109,8 @@ public class RestaurantGraphicController {
         btnAssegna.setOnAction(event -> {
             try {
                 handleOrderClick(order, card);
-            } catch (DAOException e) {
-                logger.severe("Error in recovering riders: " + e.getMessage());
+            } catch (DAOException _) {
+                logger.severe("Error in recovering riders");
             }
         });
 
@@ -159,8 +159,8 @@ public class RestaurantGraphicController {
         btnAssegna.setOnAction(event -> {
             try {
                 handleAssignClick(rider, lastOrder);
-            } catch (DAOException e) {
-                logger.severe("Error in assigning rider: " + e.getMessage());
+            } catch (DAOException _) {
+                logger.severe("Error in assigning rider");
                 //da aggiungere finestra di errore
             }
         });
@@ -217,8 +217,8 @@ public class RestaurantGraphicController {
 
             refreshInterface();
 
-        }catch(DAOException | BusinessException e){
-            logger.severe("Error in assigning rider: " + e.getMessage());
+        }catch(DAOException | BusinessException _){
+            logger.severe("Error in assigning rider");
         }
 
     }
