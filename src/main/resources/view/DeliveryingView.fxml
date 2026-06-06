@@ -17,7 +17,7 @@
 
             <HBox alignment="CENTER" prefHeight="70.0" prefWidth="360.0" style="-fx-background-color: #2a2a2a;">
                <children>
-                  <Button fx:id="CallButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="150.0" style="-fx-background-color: #2196f3; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="Call" textFill="WHITE">
+                  <Button fx:id="callButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="150.0" style="-fx-background-color: #2196f3; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="Call" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -25,7 +25,7 @@
 
                   <Separator opacity="0.0" prefWidth="20.0" />
 
-                  <Button fx:id="DeliveredButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="150.0" style="-fx-background-color: #fe7430; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="Delivered" textFill="WHITE">
+                  <Button fx:id="deliveredButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="150.0" style="-fx-background-color: #fe7430; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="Delivered" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
