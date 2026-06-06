@@ -5,6 +5,7 @@ import com.alessandro.caracciolo.catchit.bean.UserBean;
 import com.alessandro.caracciolo.catchit.controller.LoginController;
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,7 +36,7 @@ public class LoginGraphicController {
     }
 
     @FXML
-    public void handleLoginClick() throws BusinessException {
+    public void handleLoginClick() {
         try {
             UserBean userBean = new UserBean(userTextField.getText(), passwordTextField.getText());
 
@@ -60,14 +61,13 @@ public class LoginGraphicController {
             }
 
         } catch (DAOException e) {
-            errorPrint("Errore di connessione al DB: " + e.getMessage());
+            AlertHandler.showDAOError(e);
 
         } catch (BusinessException e) {
-            errorPrint("Credenziali errate: " + e.getMessage());
-            // Mostra errore "Password errata"
+            AlertHandler.showBusinessError(e);
 
         } catch (IOException e) {
-            errorPrint("Errore irreversibile: Impossibile caricare il file FXML della pagina Ordini." + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("Impossible loading interface: " + e.getMessage()));
         }
     }
 
