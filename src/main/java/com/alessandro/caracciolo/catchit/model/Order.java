@@ -1,13 +1,12 @@
 package com.alessandro.caracciolo.catchit.model;
 
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
-import com.alessandro.caracciolo.catchit.observer.Subject;
 
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Objects;
 
-public class Order extends Subject implements Serializable {
+public class Order implements Serializable {
     private String idOrder;
     private String address;
     private String costumer;
@@ -44,47 +43,36 @@ public class Order extends Subject implements Serializable {
         return this.status;
     }
 
-    @Override
-    protected boolean isThereAnythingToNotify() {
-        return false;
-    }
-
-    @Override
-    protected void doSomething() {
-        //not implemented
-    }
-
     public void checkIfNotOutdated(Order orderFromDao) throws BusinessException {
-
-        // 1. Controllo ID: Questo è un errore di programmazione, non di business.
-        // Usiamo un'eccezione unchecked nativa di Java.
         if (!this.idOrder.equals(orderFromDao.getIdOrder())) {
-            throw new IllegalArgumentException("Errore di sistema: impossibile confrontare ordini con ID diversi.");
+            throw new IllegalArgumentException("System error: unable to compare orders with different IDs.");
         }
 
-        // 2. Da qui in poi, se un dato è cambiato, lancio l'eccezione col dettaglio specifico
         if (this.status != orderFromDao.getStatus()) {
-            throw new BusinessException("L'ordine è obsoleto: lo stato è cambiato in " + orderFromDao.getStatus());
+            throw new BusinessException("The order is outdated: the status has changed to " + orderFromDao.getStatus());
         }
 
         if (!Objects.equals(this.address, orderFromDao.getAddress())) {
-            throw new BusinessException("L'ordine è obsoleto: l'indirizzo di consegna è stato modificato.");
+            throw new BusinessException("The order is outdated: the delivery address has been modified.");
         }
 
         if (!Objects.equals(this.costumer, orderFromDao.getCostumer())) {
-            throw new BusinessException("L'ordine è obsoleto: il nominativo del cliente è stato modificato.");
+            throw new BusinessException("The order is outdated: the customer name has been modified.");
         }
 
-        if (this.time != orderFromDao.getTime()) {
-            throw new BusinessException("L'ordine è obsoleto: l'orario di consegna è cambiato.");
+        if (!Objects.equals(this.time, orderFromDao.getTime())) {
+            throw new BusinessException("The order is outdated: the delivery time has changed.");
         }
 
-        // 3. Controllo sul rider
-        boolean sameRider = (this.rider == null && orderFromDao.getRider() == null) ||
-                (this.rider != null && this.rider.equals(orderFromDao.getRider()));
+        boolean sameRider = false;
+        if (this.rider == null && orderFromDao.getRider() == null) {
+            sameRider = true;
+        } else if (this.rider != null && orderFromDao.getRider() != null) {
+            sameRider = this.rider.getIdRider().equals(orderFromDao.getRider().getIdRider());
+        }
 
         if (!sameRider) {
-            throw new BusinessException("L'ordine è obsoleto: il rider assegnato è stato cambiato da un altro utente.");
+            throw new BusinessException("The order is outdated: the assigned rider has been changed by another user.");
         }
     }
 
