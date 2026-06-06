@@ -29,7 +29,6 @@ public class OrderDAOMemory implements OrderDAO {
                 OrderStatus.ASSIGNED ));
     }
 
-
     @Override
     public List<Order> getPendingOrders() {
         List<Order> pendingOrders = new ArrayList<>();
@@ -42,9 +41,12 @@ public class OrderDAOMemory implements OrderDAO {
     }
 
     @Override
-    public void updateOrder(Order order, Rider rider) {
-        order.setRider(rider);
-        order.setStatus(OrderStatus.ASSIGNED);
+    public void updateOrder(Order orderBean, Rider rider) {
+        for (Order order : orders) {
+            if (order.getIdOrder().equals(orderBean.getIdOrder())) {
+                order.setStatus(OrderStatus.COMPLETED);
+            }
+        }
     }
 
     @Override
