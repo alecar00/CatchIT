@@ -9,6 +9,7 @@ module com.alessandro.caracciolo.catchit {
     requires com.sothawo.mapjfx;
     requires com.google.gson;
     requires org.checkerframework.checker.qual;
+    requires java.logging;
     opens com.alessandro.caracciolo.catchit to javafx.fxml;
     exports com.alessandro.caracciolo.catchit;
     exports com.alessandro.caracciolo.catchit.controller;
@@ -17,5 +18,4 @@ module com.alessandro.caracciolo.catchit {
     exports com.alessandro.caracciolo.catchit.exceptions;
     opens com.alessandro.caracciolo.catchit.view.controller to javafx.fxml;
     opens com.alessandro.caracciolo.catchit.model to com.google.gson;
-    opens com.alessandro.caracciolo.catchit.observer to com.google.gson;
 }
