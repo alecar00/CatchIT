@@ -54,10 +54,8 @@ public class LoginViewCLI {
                     Printer.printlnBlu("\n✔️ Successfully logged in as RIDER!");
                     waitForEnter(scanner);
 
-                    // TODO: avvia la DeliveryingViewCLI
-                    Printer.printlnOrange("\nRider Dashboard CLI in development...");
-                    // DeliveryingViewCLI deliveryView = new DeliveryingViewCLI();
-                    // deliveryView.initialize();
+                    RiderHomePageViewCLI riderHomePageViewCLI = new RiderHomePageViewCLI(userBean.getUsername());
+                    riderHomePageViewCLI.initialize();
 
                 } else {
                     Printer.errorPrint("\n❌ Unknown role. Please contact the administrator.");
