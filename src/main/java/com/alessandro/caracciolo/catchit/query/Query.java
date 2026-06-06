@@ -22,5 +22,5 @@ public class Query {
 
     public static final String GET_RIDER_ORDERS = "SELECT * FROM Orders WHERE id_order = ?;";
 
-    public static final String LOGIN = "SELECT * FROM Users WHERE username = ?;";
+    public static final String GET_USER_BY_USERNAME = "SELECT * FROM User WHERE username = ?;";
 }
