@@ -2,6 +2,8 @@ package com.alessandro.caracciolo.catchit.utils;
 
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException;
+import com.alessandro.caracciolo.catchit.exceptions.UsernameAlreadyUsed;
 import javafx.scene.control.Alert;
 
 public class AlertHandler {
@@ -30,6 +32,22 @@ public class AlertHandler {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public static void showUsernameAlreadyUsedError(UsernameAlreadyUsed e) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning - Business Rule");
+        alert.setHeaderText("Username not valid!");
+        alert.setContentText(e.getMessage());
+        alert.showAndWait();
+    }
+
+    public static void showInvalidRegistrationError(InvalidRegistrationException e) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning - Business Rule");
+        alert.setHeaderText("Unable to complete operation");
+        alert.setContentText(e.getMessage());
         alert.showAndWait();
     }
 }
