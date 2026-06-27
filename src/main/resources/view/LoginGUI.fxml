@@ -11,39 +11,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alessandro.caracciolo.catchit.view.controller.LoginGraphicController">
+<BorderPane styleClass="root-pane" stylesheets="@../style.css"
+            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alessandro.caracciolo.catchit.view.controller.LoginGraphicController">
 
-    <!-- Main Content -->
     <center>
-        <HBox spacing="20" style="-fx-padding: 30;">
-            <VBox prefHeight="277.0" prefWidth="580.0" spacing="15" style="-fx-background-color: #2a2a2a;                   -fx-background-radius: 10; -fx-padding: 20;">
+        <HBox spacing="20" styleClass="content-pane">
+            <VBox prefHeight="277.0" prefWidth="580.0" spacing="15" styleClass="container-pane">
                 <StackPane prefHeight="150.0" prefWidth="200.0">
                     <ImageView fitHeight="180.0" fitWidth="619.0" preserveRatio="true">
                         <Image url="@../Logo.png" />
                     </ImageView>
                 </StackPane>
                 <HBox prefHeight="100.0" prefWidth="200.0">
-                    <Label prefHeight="42.0" prefWidth="164.0" style="-fx-background-color: #2196f3; -fx-background-radius: 25; -fx-padding: 10 20; -fx-alignment: center;" text="User" textFill="white">
-                        <font>
-                            <Font name="System Bold" size="16" />
-                        </font>
-                    </Label>
-                    <TextField fx:id="userTextField" prefHeight="42.0" prefWidth="447.0" style="-fx-background-radius: 25;" />
+                    <Label prefHeight="42.0" prefWidth="164.0" styleClass="blue-label" text="User" />
+                    <TextField fx:id="userTextField" prefHeight="42.0" prefWidth="447.0" styleClass="rounded-input" />
                 </HBox>
                 <HBox layoutX="30.0" layoutY="282.0" prefHeight="100.0" prefWidth="200.0">
-                    <Label prefHeight="42.0" prefWidth="164.0" style="-fx-background-color: #2196f3; -fx-background-radius: 25;                               -fx-padding: 10 20; -fx-alignment: center;" text="Password" textFill="white">
-                        <font>
-                            <Font name="System Bold" size="16" />
-                        </font>
-                    </Label>
-                    <TextField fx:id="passwordTextField" prefHeight="42.0" prefWidth="447.0" style="-fx-background-radius: 25;" />
+                    <Label prefHeight="42.0" prefWidth="164.0" styleClass="blue-label" text="Password" />
+                    <TextField fx:id="passwordTextField" prefHeight="42.0" prefWidth="447.0" styleClass="rounded-input" />
                 </HBox>
-            <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleLoginClick" prefHeight="38.0" prefWidth="553.0" style="-fx-background-color: #fe7430; -fx-background-radius: 25; -fx-alignment: center; -fx-padding: 10 20;" text="Login" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Label fx:id="registerButton" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="624.0" text="Register" textFill="#2196f3" underline="true" />
+                <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLoginClick" prefHeight="38.0" prefWidth="553.0" styleClass="orange-button" text="Login" />
+                <Label fx:id="registerButton" onMouseClicked="#handleRegisterClick" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="624.0" text="Register" textFill="#2196f3" underline="true" styleClass="clickable-text" />
             </VBox>
         </HBox>
     </center>

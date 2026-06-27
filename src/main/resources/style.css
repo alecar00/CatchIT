@@ -1,57 +1,106 @@
-/* Rende lo ScrollPane trasparente */
-.scroll-pane,
-.scroll-pane > .viewport {
+.root-pane {
+    -fx-background-color: #1a1a1a;
+}
+
+.container-pane {
+    -fx-background-color: #2a2a2a;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+}
+
+.header-pane {
+    -fx-background-color: #2a2a2a;
+    -fx-padding: 15 30;
+}
+
+.content-pane {
+    -fx-padding: 30;
+}
+
+.blue-label {
+    -fx-background-color: #2196f3;
+    -fx-background-radius: 25;
+    -fx-padding: 10 20;
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.rounded-input {
+    -fx-background-radius: 25;
+}
+
+.orange-button {
+    -fx-background-color: #fe7430;
+    -fx-background-radius: 25;
+    -fx-alignment: center;
+    -fx-padding: 10 20;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.blue-button {
+    -fx-background-color: #2196f3;
+    -fx-background-radius: 25;
+    -fx-padding: 10 20;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.transparent-button {
     -fx-background-color: transparent;
+    -fx-text-fill: #64b5f6;
+    -fx-cursor: hand;
 }
 
-/* Impostazioni Generali della ScrollBar */
-.scroll-bar:vertical {
+.transparent-scroll {
     -fx-background-color: transparent;
-    -fx-pref-width: 12px;
+    -fx-background: transparent;
 }
 
-.scroll-bar:horizontal {
-    -fx-background-color: transparent;
-    -fx-pref-height: 12px;
+.notification-box {
+    -fx-background-color: #1565c0;
+    -fx-padding: 12 30;
+    -fx-background-radius: 5;
 }
 
-/* Il binario su cui scorre la barra */
-.scroll-bar .track {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-background-radius: 0em;
+.notification-icon {
+    -fx-background-color: #0d47a1;
+    -fx-background-radius: 15;
+    -fx-padding: 5 10;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
-/* La barra*/
-.scroll-bar .thumb {
-    -fx-background-color: #f07631;
-    -fx-background-radius: 10px;
-    -fx-background-insets: 2px;
-    -fx-opacity: 0.7;
+.role-toggle-button {
+    -fx-background-color: #ff9800;
+    -fx-background-radius: 25;
+    -fx-alignment: center;
+    -fx-padding: 10 20;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
 }
 
-/* Effetto Hover */
-.scroll-bar .thumb:hover {
-    -fx-background-color: #F57C00;
+.role-toggle-button:selected {
+    -fx-background-color: #fe7430;
+    -fx-background-radius: 25;
+    -fx-alignment: center;
+    -fx-padding: 10 20;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 0);
 }
 
-/* Effetto Pressed */
-.scroll-bar .thumb:pressed {
-    -fx-background-color: #E65100;
-}
-
-/* Nasconde le freccettine su e giù */
-.scroll-bar .increment-button,
-.scroll-bar .decrement-button {
-    -fx-background-color: transparent;
-    -fx-background-radius: 0em;
-    -fx-padding: 0 0 0 0;
-    -fx-pref-width: 0;
-    -fx-pref-height: 0;
-    visibility: hidden;
-}
-
-/* Nasconde l'angolino tra scroll verticale e orizzontale */
-.scroll-pane > .corner {
-    -fx-background-color: transparent;
+.clickable-text {
+    -fx-cursor: hand;
 }
