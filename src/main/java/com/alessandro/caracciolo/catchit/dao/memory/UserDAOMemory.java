@@ -1,6 +1,8 @@
 package com.alessandro.caracciolo.catchit.dao.memory;
 
 import com.alessandro.caracciolo.catchit.dao.UserDAO;
+import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException;
 import com.alessandro.caracciolo.catchit.model.Role;
 import com.alessandro.caracciolo.catchit.model.User;
 
@@ -27,4 +29,27 @@ public class UserDAOMemory implements UserDAO {
         }
         return null;
     }
+
+
+
+    @Override
+    public void insertRider(User user) throws DAOException, InvalidRegistrationException {
+
+    }
+
+    @Override
+    public void insertRestaurant(User user) throws DAOException, InvalidRegistrationException {
+
+    }
+
+    @Override
+    public void saveUser(User user) throws DAOException, InvalidRegistrationException {
+
+    }
+
+    /*@Override
+    public void checkUsername(String username) throws DAOException {
+
+    }*/
+
 }
