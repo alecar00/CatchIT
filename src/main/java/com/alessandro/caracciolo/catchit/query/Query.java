@@ -25,4 +25,10 @@ public class Query {
     public static final String GET_USER_BY_USERNAME = "SELECT * FROM User WHERE username = ?;";
 
     public static final String SET_ORDER_IN_DELIVERY =  "UPDATE Orders SET status = 'IN_DELIVERY' WHERE id_order = ?;";
+
+    public static final String INSERT_RIDER = "INSERT INTO user (username, password, role) VALUES (?, ?, 'RIDER');";
+
+    public static final String INSERT_RESTAURANT = "INSERT INTO user (username, password, role) VALUES (?, ?, 'RESTAURANT');";
+
+    public static final String CHECK_USERNAME = "SELECT * FROM Users WHERE username = ?;";
 }
