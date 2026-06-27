@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -73,4 +74,16 @@ public class LoginGraphicController {
     }
 
 
+    public void handleRegisterClick(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RegisterGUI.fxml"));
+        Parent root = loader.load();
+
+        RegisterGraphicController controller = loader.getController();
+        controller.initialize();
+
+        Stage stageAttuale = (Stage) loginButton.getScene().getWindow();
+
+        stageAttuale.setScene(new Scene(root));
+        stageAttuale.show();
+    }
 }
