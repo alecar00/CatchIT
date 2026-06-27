@@ -2,6 +2,7 @@ package com.alessandro.caracciolo.catchit.dao.fs;
 
 import com.alessandro.caracciolo.catchit.dao.UserDAO;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException;
 import com.alessandro.caracciolo.catchit.model.User;
 import com.alessandro.caracciolo.catchit.utils.FSConfiguration;
 import com.alessandro.caracciolo.catchit.utils.GsonProvider;
@@ -10,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -46,4 +48,51 @@ public class UserDAOFS implements UserDAO {
 
         return null;
     }
+
+    @Override
+    public void saveUser(User newUser) throws DAOException {
+        String filePath = FSConfiguration.FS_DIR + FSConfiguration.FS_USER;
+        File file = new File(filePath);
+
+        Gson gson = GsonProvider.getGson();
+        List<User> users;
+
+        //leggo tutto il file per scrivere bene il file json, altrimenti non riuscirei a gestire le parentesi
+        if (!file.exists()) {
+            users = new ArrayList<>();
+        } else {
+            try (FileReader reader = new FileReader(file)) {
+                Type listType = new TypeToken<ArrayList<User>>() {}.getType();
+                users = gson.fromJson(reader, listType);
+                if (users == null) {
+                    users = new ArrayList<>();
+                }
+            } catch (IOException e) {
+                throw new DAOException("Error reading existing users for registration", e);
+            }
+        }
+
+        users.add(newUser);
+
+        try (FileWriter writer = new FileWriter(file)) {
+            gson.toJson(users, writer);
+        } catch (IOException e) {
+            throw new DAOException("Critical error saving user to filesystem", e);
+        }
+    }
+
+    @Override
+    public void insertRider(User user) throws DAOException, InvalidRegistrationException {
+        saveUser(user);
+    }
+
+    @Override
+    public void insertRestaurant(User user) throws DAOException, InvalidRegistrationException {
+        saveUser(user);
+    }
+
+    /*@Override
+    public void checkUsername(String username) throws DAOException {
+
+    }*/
 }
