@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane styleClass="root-pane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alessandro.caracciolo.catchit.view.controller.RegisterGraphicController">
+
+    <center>
+        <HBox spacing="20" styleClass="content-pane">
+            <VBox prefHeight="277.0" prefWidth="580.0" spacing="15" styleClass="container-pane">
+                <StackPane prefHeight="150.0" prefWidth="200.0">
+                    <ImageView fitHeight="180.0" fitWidth="619.0" preserveRatio="true">
+                        <Image url="@../Logo.png" />
+                    </ImageView>
+                </StackPane>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <Label prefHeight="42.0" prefWidth="164.0" styleClass="blue-label" text="User" />
+                    <TextField fx:id="userTextField" prefHeight="42.0" prefWidth="447.0" styleClass="rounded-input" />
+                </HBox>
+                <HBox layoutX="30.0" layoutY="282.0" prefHeight="100.0" prefWidth="200.0">
+                    <Label prefHeight="42.0" prefWidth="164.0" styleClass="blue-label" text="Password" />
+                    <TextField fx:id="passwordTextField" prefHeight="42.0" prefWidth="447.0" styleClass="rounded-input" />
+                </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <fx:define>
+                    <ToggleGroup fx:id="roleGroup" />
+                </fx:define>
+
+                <children>
+                    <ToggleButton fx:id="riderButton"
+                                  toggleGroup="$roleGroup"
+                                  onAction="#handleRiderClick"
+                                  prefHeight="14.0" prefWidth="553.0"
+                                  styleClass="role-toggle-button" text="Rider" />
+
+                    <ToggleButton fx:id="restaurantButton"
+                                  toggleGroup="$roleGroup"
+                                  onAction="#handleRestaurantClick"
+                                  prefHeight="14.0" prefWidth="553.0"
+                                  styleClass="role-toggle-button" text="Restaurant" />
+                </children>
+            </HBox>
+                <Button fx:id="registerButton" mnemonicParsing="false" onAction="#handleRegisterClick" prefHeight="38.0" prefWidth="553.0" styleClass="orange-button" text="Register" />
+                <Label fx:id="cancelButton" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="624.0" text="Cancel" textFill="#2196f3" underline="true" />
+            </VBox>
+        </HBox>
+    </center>
+
+</BorderPane>
