@@ -13,13 +13,6 @@ public class User {
         this.role = role;
     }
 
-    // Costruttore parziale (può servire se vuoi creare un utente senza ruolo per qualche verifica)
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.role = null;
-    }
-
     public String getUsername() {
         return username;
     }
