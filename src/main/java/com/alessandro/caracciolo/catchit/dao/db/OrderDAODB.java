@@ -9,6 +9,7 @@ import com.alessandro.caracciolo.catchit.model.OrderStatus;
 import com.alessandro.caracciolo.catchit.model.Rider;
 import com.alessandro.caracciolo.catchit.query.RiderQuery;
 import com.alessandro.caracciolo.catchit.query.OrderQuery;
+import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.singleton.Connector;
 
 import java.sql.Connection;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
 
 public class OrderDAODB implements OrderDAO {
 
-    Logger logger = Logger.getLogger(String.valueOf(OrderDAODB.class));
+    Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
     @Override
     public List<Order> getPendingOrders() throws DAOException {
         List<Order> orders = new ArrayList<>();
@@ -74,14 +75,17 @@ public class OrderDAODB implements OrderDAO {
 
     @Override
     public Order getOrderById(String idOrder) throws DAOException {
-        //togliere la dao da dentro la dao?
+        //TO DO: togliere la dao da dentro la dao?
+        logger.info("getOrderById: " +  idOrder);
         RiderDAO riderDAO = DAOFactory.getDAOFactory().createRiderDAO();
         try (ResultSet rs = OrderQuery.getOrderById(Connector.getConnection(), idOrder);){
             if (rs.next()) {
                 String idRider = rs.getString("id_rider");
                 Rider rider = null;
                 if(idRider != null){
+                    logger.info("getting rider from: " +  idOrder +"...");
                     rider = riderDAO.getRiderById(idRider);
+                    logger.info("Founded rider: " + rider.getName());
                 }
 
                 return new Order(rs.getString("id_order"),
@@ -142,6 +146,7 @@ public class OrderDAODB implements OrderDAO {
                 riderOrders.add(order);
             }
         } catch (SQLException e) {
+            logger.severe(e.getMessage());
             throw new DAOException("Impossibile recuperare gli ordini!",e);
         }
         return riderOrders;

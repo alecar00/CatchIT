@@ -5,6 +5,7 @@ import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.OrderStatus;
 import com.alessandro.caracciolo.catchit.model.Rider;
+import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.FSConfiguration;
 import com.alessandro.caracciolo.catchit.utils.GsonProvider;
 import com.google.gson.Gson;
@@ -27,7 +28,7 @@ public class RiderDAOFS implements RiderDAO {
     private static final String FS_ORDER = FSConfiguration.FS_ORDER;
 
     private final Gson gson = GsonProvider.getGson();
-    private static final Logger log = Logger.getLogger(RiderDAOFS.class.getName());
+    private static final Logger log = Logger.getLogger(Configs.LOGGER_NAME);
 
     @Override
     public void saveRider(Rider newRider) throws DAOException {

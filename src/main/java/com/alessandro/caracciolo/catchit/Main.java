@@ -26,6 +26,7 @@ public class Main extends Application {
             logger.setUseParentHandlers(false);
             file = new FileHandler("file.log", false);
             file.setFormatter(new SimpleFormatter());
+            file.setLevel(java.util.logging.Level.ALL);
             logger.addHandler(file);
             logger.info("Run Started");
         }catch (IOException | SecurityException _){

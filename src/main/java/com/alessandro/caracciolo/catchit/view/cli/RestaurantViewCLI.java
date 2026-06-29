@@ -5,6 +5,7 @@ import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.controller.ProcessOrderController;
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.Printer;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class RestaurantViewCLI {
-    private static final Logger logger = Logger.getLogger(RestaurantViewCLI.class.getName());
+    private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
 
     public void initialize() {
         ProcessOrderController processOrderController = new ProcessOrderController();

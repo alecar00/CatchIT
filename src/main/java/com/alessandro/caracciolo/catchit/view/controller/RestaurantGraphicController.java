@@ -6,6 +6,7 @@ import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.controller.ProcessOrderController;
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -46,7 +47,7 @@ public class RestaurantGraphicController {
     private VBox ridersContainer;
 
     private static final String FONT_SIZE = "-fx-font-size: 12;";
-    private static final Logger logger = Logger.getLogger(RestaurantGraphicController.class.getName());
+    private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
 
     private ProcessOrderController appController;
     private VBox lastCardAssigned = null;

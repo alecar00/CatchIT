@@ -4,6 +4,7 @@ import com.alessandro.caracciolo.catchit.Main;
 import com.alessandro.caracciolo.catchit.controller.DeliveryController;
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import com.sothawo.mapjfx.Coordinate;
 import com.sothawo.mapjfx.MapType;
@@ -29,7 +30,7 @@ public class DeliveryGraphicController {
 
     DeliveryController deliveryController = new DeliveryController();
 
-    private static final Logger logger = Logger.getLogger(DeliveryGraphicController.class.getName());
+    private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
 
     public void initialize() {
         // Imposto una coordinata di esempio (es. Tor Vergata)

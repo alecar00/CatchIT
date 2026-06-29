@@ -5,6 +5,7 @@ import com.alessandro.caracciolo.catchit.bean.OrderBean;
 import com.alessandro.caracciolo.catchit.controller.DeliveryController;
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,7 +34,7 @@ public class RiderGraphicController {
     private static final String FONT_SIZE = "-fx-font-size: 12;";
 
     private DeliveryController deliveryController;
-    private static final Logger logger = Logger.getLogger(RiderGraphicController.class.getName());
+    private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
 
     private String riderId;
 
