@@ -35,10 +35,13 @@ public class RiderGraphicController {
     private DeliveryController deliveryController;
     private static final Logger logger = Logger.getLogger(RiderGraphicController.class.getName());
 
+    private String riderId;
+
     public void initialize() {
         deliveryController = new DeliveryController();
     }
     public void initData(String riderId){
+        this.riderId = riderId;
         try{
             List<OrderBean> orderBeans = deliveryController.showOrdersRider(riderId);
             updateOrdersList(orderBeans);
@@ -93,7 +96,7 @@ public class RiderGraphicController {
 
     private void handleStartDelivery(ActionEvent event, OrderBean order) {
         try {
-            deliveryController.startDelivery(order.getIdOrder());
+            deliveryController.startDelivery(order.getIdOrder(), riderId);
             AlertHandler.showSuccess("Delivery Started", "Order #" + order.getIdOrder() + " is now in delivery.");
 
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/DeliveryView.fxml"));

@@ -75,7 +75,7 @@ public class RiderHomePageViewCLI {
         String orderId = scanner.nextLine().trim();
 
         try {
-            deliveryController.startDelivery(orderId);
+            deliveryController.startDelivery(orderId, riderId);
             Printer.printlnBlu("\n✔️ Success! Order #" + orderId + " is now in delivery.");
         } catch (DAOException e) {
             Printer.errorPrint("\n❌ Database error: " + e.getMessage());
