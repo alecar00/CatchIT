@@ -11,12 +11,13 @@ import com.alessandro.caracciolo.catchit.exceptions.UsernameAlreadyUsed;
 import com.alessandro.caracciolo.catchit.model.Rider;
 import com.alessandro.caracciolo.catchit.model.Role;
 import com.alessandro.caracciolo.catchit.model.User;
+import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.Printer;
 
 import java.util.logging.Logger;
 
 public class RegisterController {
-    Logger logger = Logger.getLogger(RegisterController.class.getName());
+    Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
     private void registerUser(UserBean userBean) throws DAOException, UsernameAlreadyUsed, InvalidRegistrationException {
         validateFields(userBean.getUsername(),  userBean.getPassword());
 
@@ -38,10 +39,8 @@ public class RegisterController {
         }
 
         try {
-            if (role == Role.RESTAURANT) {
-                userDAO.insertRestaurant(user);
-            } else if (role == Role.RIDER) {
-                userDAO.insertRider(user);
+            if (role == Role.RESTAURANT || role == Role.RIDER) {
+                userDAO.saveUser(user);
             } else {
                 logger.severe("ERROR: unknown role: " + role);
                 throw new InvalidRegistrationException("Unable to retrieve user role.");
@@ -76,13 +75,30 @@ public class RegisterController {
     }
 
     public void startRiderRegistration(UserBean userBean, RiderBean riderBean) throws InvalidRegistrationException, UsernameAlreadyUsed, DAOException {
+        if (riderBean.getName() == null || riderBean.getName().isBlank()) {
+            throw new InvalidRegistrationException("Rider name cannot be empty!");
+        }
+
         registerUser(userBean);
 
         Rider rider = new Rider(riderBean.getIdRider(), riderBean.getName());
-
         RiderDAO riderDAO = DAOFactory.getDAOFactory().createRiderDAO();
-        riderDAO.saveRider(rider);
 
+        try {
+            riderDAO.saveRider(rider);
+
+        } catch (DAOException e) {
+            logger.warning("Errore in saveRider, avvio rollback per l'utente: " + userBean.getUsername());
+
+            UserDAO userDAO = DAOFactory.getDAOFactory().createUserDAO();
+            try {
+                userDAO.deleteUser(userBean.getUsername());
+            } catch (DAOException rollbackException) {
+                logger.severe("ERRORE CRITICO: Impossibile eseguire il rollback dell'utente " + userBean.getUsername() + ". Il database potrebbe essere inconsistente.");
+            }
+
+            throw new DAOException("Error during creation of the Rider. Registration canceled.", e);
+        }
     }
 
     public void startRestaurantRegistration(UserBean userBean) throws InvalidRegistrationException, UsernameAlreadyUsed, DAOException {
