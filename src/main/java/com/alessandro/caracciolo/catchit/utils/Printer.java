@@ -3,11 +3,14 @@ package com.alessandro.caracciolo.catchit.utils;
 import com.alessandro.caracciolo.catchit.bean.OrderBean;
 import com.alessandro.caracciolo.catchit.bean.RiderBean;
 
+import java.util.Scanner;
+
 public class Printer {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_ORANGE = "\u001B[38;2;255;101;0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
     public static final String SEPARATOR = "------------------------------------";
 
     private Printer() {}
@@ -33,8 +36,10 @@ public class Printer {
         System.out.println(ANSI_RED + message + ANSI_RESET);
     }
 
+    public static void successPrint(String message) {System.out.println(ANSI_GREEN + message + ANSI_RESET);}
+
     //stampa errore scelta utente
-    public static final void invalidChoicePrint() {System.out.println(ANSI_RED + "Invalid choice. Try again..." + ANSI_RESET);}
+    public static void invalidChoicePrint() {System.out.println(ANSI_RED + "Invalid choice. Try again..." + ANSI_RESET);}
 
     public static void printTitle(String title) {
         printlnBlu(SEPARATOR);
@@ -55,5 +60,17 @@ public class Printer {
         printlnOrange("   Name: " + riderBean.getName());
         printlnOrange("   Permit ZTL: " + (riderBean.getPermitZTL() ? "Yes" : "No"));
         printlnBlu(SEPARATOR);
+    }
+
+    public static void waitForEnter() {
+        Scanner scanner = new Scanner(System.in);
+        printlnOrange("\nPress Enter to continue...");
+        scanner.nextLine();
+    }
+
+    public static void clearConsole() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println();
+        }
     }
 }
