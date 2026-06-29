@@ -19,10 +19,6 @@ public class Printer {
         System.out.print(message);
     }
 
-    public static void println(String message){
-        System.out.println(message);
-    }
-
     public static void printlnBlu(String message) {
         System.out.println(ANSI_BLUE + message + ANSI_RESET);
     }

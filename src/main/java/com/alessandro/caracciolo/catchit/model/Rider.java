@@ -3,7 +3,7 @@ package com.alessandro.caracciolo.catchit.model;
 import java.io.Serializable;
 
 public class Rider implements Serializable {
-    private String idRider;
+    private final String idRider;
     private String name;
     private boolean permitZTL;
 
@@ -19,7 +19,6 @@ public class Rider implements Serializable {
     }
 
     public String getIdRider() { return idRider; }
-    public void setIdRider(String idRider) { this.idRider = idRider; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

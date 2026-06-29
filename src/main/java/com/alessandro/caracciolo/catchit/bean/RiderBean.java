@@ -1,7 +1,7 @@
 package com.alessandro.caracciolo.catchit.bean;
 
 public class RiderBean {
-    private String idRider;
+    private final String idRider;
     private String name;
     private Boolean permitZTL;
 
@@ -14,10 +14,6 @@ public class RiderBean {
     public RiderBean(String idRider, String name) {
         this.idRider = idRider;
         this.name = name;
-    }
-
-    public RiderBean(String idRider) {
-        this.idRider = idRider;
     }
 
     //getter setter

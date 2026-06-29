@@ -3,7 +3,6 @@ package com.alessandro.caracciolo.catchit.dao.memory;
 import com.alessandro.caracciolo.catchit.dao.RiderDAO;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.Rider;
-import com.alessandro.caracciolo.catchit.model.User;
 
 import java.sql.Time;
 import java.util.ArrayList;

@@ -1,13 +1,11 @@
 package com.alessandro.caracciolo.catchit.view.controller;
 
-import com.alessandro.caracciolo.catchit.Main;
 import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.bean.UserBean;
 import com.alessandro.caracciolo.catchit.controller.RegisterController;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException;
 import com.alessandro.caracciolo.catchit.exceptions.UsernameAlreadyUsed;
-import com.alessandro.caracciolo.catchit.model.Role;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
