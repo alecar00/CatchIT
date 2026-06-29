@@ -50,8 +50,6 @@ public class DeliveryingViewCLI {
             Printer.printlnBlu("\n✔️ Great job! Order #" + orderId + " marked as COMPLETED.");
         } catch (DAOException e) {
             Printer.errorPrint("\n❌ Error while completing the order: " + e.getMessage());
-        } catch (BusinessException e) {
-            Printer.errorPrint("\n⚠ Cannot complete order: " + e.getMessage());
         }
 
         waitForEnter();
