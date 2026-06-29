@@ -119,7 +119,7 @@ public class RiderGraphicController {
         }
     }
 
-    public void handleLogoutButton(ActionEvent actionEvent) {
+    public void handleLogoutButton() {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/LoginGUI.fxml"));
             Parent root = loader.load();

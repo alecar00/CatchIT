@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+import static com.alessandro.caracciolo.catchit.utils.Printer.clearConsole;
+import static com.alessandro.caracciolo.catchit.utils.Printer.waitForEnter;
+
 public class RestaurantViewCLI {
     private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
 
@@ -42,7 +45,7 @@ public class RestaurantViewCLI {
             if (orderChoice == 0) break;
             if (orderChoice < 0 || orderChoice > orderBeans.size()) {
                 Printer.invalidChoicePrint();
-                waitForEnter(input);
+                waitForEnter();
                 continue;
             }
 
@@ -52,7 +55,7 @@ public class RestaurantViewCLI {
 
             if (riderBeans.isEmpty()) {
                 Printer.errorPrint("\n❌ Warning: No riders available for the requested time (" + selectedOrder.getTime() + ")!");
-                waitForEnter(input);
+                waitForEnter();
                 continue;
             }
 
@@ -64,7 +67,7 @@ public class RestaurantViewCLI {
             if(riderChoice == 0) continue;
             if (riderChoice < 0 || riderChoice > riderBeans.size()) {
                 Printer.invalidChoicePrint();
-                waitForEnter(input);
+                waitForEnter();
                 continue;
             }
 
@@ -73,11 +76,11 @@ public class RestaurantViewCLI {
             try {
                 processOrderController.assignRider(selectedOrder, selectedRider);
                 Printer.printlnBlu("\n✔️ Order #" + selectedOrder.getIdOrder() + " successfully assigned to " + selectedRider.getName() + "!");
-                waitForEnter(input);
+                waitForEnter();
             } catch (DAOException | BusinessException e) {
                 Printer.errorPrint("\n❌ Unable to assign order: " + e.getMessage());
                 logger.severe("Error in assignRider: " + e.getMessage());
-                waitForEnter(input);
+                waitForEnter();
             }
         }
     }
@@ -102,22 +105,13 @@ public class RestaurantViewCLI {
         }
     }
 
-    private void clearConsole() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
 
     private int readIntSafely(Scanner scanner) {
         try {
             return Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             return -1;
         }
     }
 
-    private void waitForEnter(Scanner scanner) {
-        Printer.printlnOrange("\nPress Enter to continue...");
-        scanner.nextLine();
-    }
 }

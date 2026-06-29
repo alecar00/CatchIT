@@ -11,9 +11,11 @@ public class AlertHandler {
     private AlertHandler() {
     }
 
+    private static final String BUSINNES = "Warning - Business Rule";
+
     public static void showBusinessError(BusinessException e) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning - Business Rule");
+        alert.setTitle(BUSINNES);
         alert.setHeaderText("Unable to complete operation");
         alert.setContentText(e.getMessage());
         alert.showAndWait();
@@ -37,7 +39,7 @@ public class AlertHandler {
 
     public static void showUsernameAlreadyUsedError(UsernameAlreadyUsed e) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning - Business Rule");
+        alert.setTitle(BUSINNES);
         alert.setHeaderText("Username not valid!");
         alert.setContentText(e.getMessage());
         alert.showAndWait();
@@ -45,7 +47,7 @@ public class AlertHandler {
 
     public static void showInvalidRegistrationError(InvalidRegistrationException e) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning - Business Rule");
+        alert.setTitle(BUSINNES);
         alert.setHeaderText("Unable to complete operation");
         alert.setContentText(e.getMessage());
         alert.showAndWait();

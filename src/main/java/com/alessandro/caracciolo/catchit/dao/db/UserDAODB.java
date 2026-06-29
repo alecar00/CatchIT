@@ -48,15 +48,9 @@ public class UserDAODB implements UserDAO {
             int success;
 
             switch(user.getRole()) {
-                case RESTAURANT -> {
-                    success = UserQuery.insertRestaurant(conn, user);
-                }
-                case RIDER -> {
-                    success = UserQuery.insertRider(conn, user);
-                }
-                default -> {
-                    success = 0;
-                }
+                case RESTAURANT -> success = UserQuery.insertRestaurant(conn, user);
+                case RIDER -> success = UserQuery.insertRider(conn, user);
+                default -> success = 0;
             }
             if (success == 1) {
                 conn.commit();
@@ -64,7 +58,7 @@ public class UserDAODB implements UserDAO {
                 conn.rollback();
                 throw new DAOException("Error during create new user.");
             }
-        } catch (SQLException e) {
+        } catch (SQLException _) {
             throw new DAOException("Error during create new user.");
         } finally {
             try{
@@ -83,7 +77,7 @@ public class UserDAODB implements UserDAO {
             if (success == 0) {
                 throw new DAOException("Error during delete user.");
             }
-        } catch (SQLException e) {
+        } catch (SQLException _) {
             throw new DAOException("Error during delete user.");
         }
    }

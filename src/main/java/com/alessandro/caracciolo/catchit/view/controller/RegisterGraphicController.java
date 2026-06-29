@@ -16,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -75,19 +74,19 @@ public class RegisterGraphicController {
 
     }
 
-    public void handleRestaurantClick(ActionEvent actionEvent) {
+    public void handleRestaurantClick() {
         role = "RESTAURANT";
         riderFieldsBox.setVisible(false);
         riderFieldsBox.setManaged(false);
     }
 
-    public void handleRiderClick(ActionEvent actionEvent) {
+    public void handleRiderClick() {
         role = "RIDER";
         riderFieldsBox.setVisible(true);
         riderFieldsBox.setManaged(true);
     }
 
-    public void handleCancelClick(MouseEvent mouseEvent) {
+    public void handleCancelClick() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginGUI.fxml"));
             Parent root = loader.load();
@@ -97,7 +96,7 @@ public class RegisterGraphicController {
             stageAttuale.setScene(new Scene(root));
             stageAttuale.show();
 
-        } catch (IOException e) {
+        } catch (IOException _) {
             AlertHandler.showError("Error: Can't load login page!");
         }
     }

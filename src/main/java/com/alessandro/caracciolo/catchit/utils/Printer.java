@@ -54,7 +54,7 @@ public class Printer {
     public static void printRider(RiderBean riderBean, int index) {
         printlnOrange("-" + index + ") Rider ID: " + riderBean.getIdRider());
         printlnOrange("   Name: " + riderBean.getName());
-        printlnOrange("   Permit ZTL: " + (riderBean.getPermitZTL() ? "Yes" : "No"));
+        printlnOrange("   Permit ZTL: " + (Boolean.TRUE.equals(riderBean.getPermitZTL()) ? "Yes" : "No"));
         printlnBlu(SEPARATOR);
     }
 

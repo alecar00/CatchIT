@@ -87,17 +87,16 @@ public class RegisterController {
         try {
             riderDAO.saveRider(rider);
 
-        } catch (DAOException e) {
-            logger.warning("Errore in saveRider, avvio rollback per l'utente: " + userBean.getUsername());
+        } catch (DAOException _) {
+            logger.warning(() -> "Errore in saveRider, avvio rollback per l'utente: " + userBean.getUsername());
 
             UserDAO userDAO = DAOFactory.getDAOFactory().createUserDAO();
             try {
                 userDAO.deleteUser(userBean.getUsername());
-            } catch (DAOException rollbackException) {
-                logger.severe("ERRORE CRITICO: Impossibile eseguire il rollback dell'utente " + userBean.getUsername() + ". Il database potrebbe essere inconsistente.");
+            } catch (DAOException e) {
+                logger.severe(() -> "ERRORE CRITICO: Impossibile eseguire il rollback dell'utente " + userBean.getUsername() + ". Il database potrebbe essere inconsistente.");
+                throw new DAOException("Error during creation of the Rider. Registration canceled.", e);
             }
-
-            throw new DAOException("Error during creation of the Rider. Registration canceled.", e);
         }
     }
 

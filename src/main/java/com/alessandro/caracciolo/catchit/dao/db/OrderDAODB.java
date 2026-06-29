@@ -23,20 +23,28 @@ import java.util.logging.Logger;
 public class OrderDAODB implements OrderDAO {
 
     Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
+    private static final String STATUS = "status";
+    private static final String ID_ORDER = "id_order";
+    private static final String ADDRESS = "address";
+    private static final String COSTUMER = "costumer";
+    private static final String TEL_NUMBER = "tel_number";
+    private static final String DELIVERY_TIME = "delivery_time";
+    private static final String AUTOCOMMIT_WARNING = "ATTENZIONE: Impossibile ripristinare l'autoCommit sulla connessione";
+
     @Override
     public List<Order> getPendingOrders() throws DAOException {
         List<Order> orders = new ArrayList<>();
 
         try (ResultSet rs = OrderQuery.getPendingOrders(Connector.getConnection(), OrderStatus.PENDING)) {
             while (rs.next()) {
-                String statusString = rs.getString("status");
+                String statusString = rs.getString(STATUS);
                 OrderStatus status = OrderStatus.valueOf(statusString);
 
-                var order = new Order(rs.getString("id_order"),
-                        rs.getString("address"),
-                        rs.getString("costumer"),
-                        rs.getString("tel_number"),
-                        rs.getTime("delivery_time"),
+                var order = new Order(rs.getString(ID_ORDER),
+                        rs.getString(ADDRESS),
+                        rs.getString(COSTUMER),
+                        rs.getString(TEL_NUMBER),
+                        rs.getTime(DELIVERY_TIME),
                         //rs.getDate("date"),
                         //rs.getString("id_restaurant"),
                         status);
@@ -68,7 +76,7 @@ public class OrderDAODB implements OrderDAO {
             try{
                 conn.setAutoCommit(true);
             }catch (SQLException e) {
-                logger.log(Level.SEVERE, "ATTENZIONE: Impossibile ripristinare l'autoCommit sulla connessione", e);
+                logger.log(Level.SEVERE, AUTOCOMMIT_WARNING, e);
             }
         }
     }
@@ -76,25 +84,27 @@ public class OrderDAODB implements OrderDAO {
     @Override
     public Order getOrderById(String idOrder) throws DAOException {
         //TO DO: togliere la dao da dentro la dao?
-        logger.info("getOrderById: " +  idOrder);
+        logger.info(() -> "getOrderById: " +  idOrder);
         RiderDAO riderDAO = DAOFactory.getDAOFactory().createRiderDAO();
         try (ResultSet rs = OrderQuery.getOrderById(Connector.getConnection(), idOrder);){
             if (rs.next()) {
                 String idRider = rs.getString("id_rider");
-                Rider rider = null;
+                Rider rider;
                 if(idRider != null){
-                    logger.info("getting rider from: " +  idOrder +"...");
+                    logger.info(() -> "getting rider from: " +  idOrder + "...");
                     rider = riderDAO.getRiderById(idRider);
-                    logger.info("Founded rider: " + rider.getName());
+                    logger.info(() -> "Founded rider: " + rider.getName());
+                } else {
+                    rider = null;
                 }
 
-                return new Order(rs.getString("id_order"),
-                        rs.getString("address"),
-                        rs.getString("costumer"),
-                        rs.getString("tel_number"),
+                return new Order(rs.getString(ID_ORDER),
+                        rs.getString(ADDRESS),
+                        rs.getString(COSTUMER),
+                        rs.getString(TEL_NUMBER),
                         rider,
-                        rs.getTime("delivery_time"),
-                        OrderStatus.valueOf(rs.getString("status"))
+                        rs.getTime(DELIVERY_TIME),
+                        OrderStatus.valueOf(rs.getString(STATUS))
                         );
             }
         }catch (SQLException e) {
@@ -123,7 +133,7 @@ public class OrderDAODB implements OrderDAO {
             try{
                 conn.setAutoCommit(true);
             }catch (SQLException e) {
-                logger.log(Level.SEVERE, "ATTENZIONE: Impossibile ripristinare l'autoCommit sulla connessione", e);
+                logger.log(Level.SEVERE, AUTOCOMMIT_WARNING, e);
             }
         }
     }
@@ -134,14 +144,14 @@ public class OrderDAODB implements OrderDAO {
 
         try (ResultSet rs = OrderQuery.getRiderOrders(Connector.getConnection(), riderId)) {
             while (rs.next()) {
-                String statusString = rs.getString("status");
+                String statusString = rs.getString(STATUS);
                 OrderStatus status = OrderStatus.valueOf(statusString);
 
-                var order = new Order(rs.getString("id_order"),
-                        rs.getString("address"),
-                        rs.getString("costumer"),
-                        rs.getString("tel_number"),
-                        rs.getTime("delivery_time"),
+                var order = new Order(rs.getString(ID_ORDER),
+                        rs.getString(ADDRESS),
+                        rs.getString(COSTUMER),
+                        rs.getString(TEL_NUMBER),
+                        rs.getTime(DELIVERY_TIME),
                         status);
                 riderOrders.add(order);
             }
@@ -172,7 +182,7 @@ public class OrderDAODB implements OrderDAO {
             try{
                 conn.setAutoCommit(true);
             }catch (SQLException e) {
-                logger.log(Level.SEVERE, "ATTENZIONE: Impossibile ripristinare l'autoCommit sulla connessione", e);
+                logger.log(Level.SEVERE, AUTOCOMMIT_WARNING, e);
             }
         }
     }

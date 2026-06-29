@@ -49,23 +49,24 @@ public class LoginViewCLI {
                 Printer.printlnOrange("\nVerifying credentials...");
                 int role = loginController.verifyCredentials(userBean);
 
-                if (role == 1) {
-                    Printer.printlnBlu("\n✔️ Successfully logged in as RESTAURANT!");
-                    Printer.waitForEnter();
+                switch(role){
+                    case 1:
+                        Printer.printlnBlu("\n✔️ Successfully logged in as RESTAURANT!");
+                        Printer.waitForEnter();
 
-                    RestaurantViewCLI restaurantViewCLI = new RestaurantViewCLI();
-                    restaurantViewCLI.initialize();
+                        RestaurantViewCLI restaurantViewCLI = new RestaurantViewCLI();
+                        restaurantViewCLI.initialize();
 
-                } else if (role == 2) {
-                    Printer.printlnBlu("\n✔️ Successfully logged in as RIDER!");
-                    Printer.waitForEnter();
+                    case 2:
+                        Printer.printlnBlu("\n✔️ Successfully logged in as RIDER!");
+                        Printer.waitForEnter();
 
-                    RiderHomePageViewCLI riderHomePageViewCLI = new RiderHomePageViewCLI(userBean.getUsername());
-                    riderHomePageViewCLI.initialize();
+                        RiderHomePageViewCLI riderHomePageViewCLI = new RiderHomePageViewCLI(userBean.getUsername());
+                        riderHomePageViewCLI.initialize();
 
-                } else {
-                    Printer.errorPrint("\n❌ Unknown role. Please contact the administrator.");
-                    Printer.waitForEnter();
+                    default:
+                        Printer.errorPrint("\n❌ Unknown role. Please contact the administrator.");
+                        Printer.waitForEnter();
                 }
 
             } catch (BusinessException e) {

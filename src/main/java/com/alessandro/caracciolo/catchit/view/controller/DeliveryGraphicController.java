@@ -81,8 +81,6 @@ public class DeliveryGraphicController {
             stageAttuale.setScene(new Scene(root));
             stageAttuale.show();
 
-        } catch (BusinessException e) {
-            AlertHandler.showBusinessError(e);
         } catch (IOException e) {
             logger.severe("Error loading RiderHomePage: " + e.getMessage());
         } catch (DAOException e){
