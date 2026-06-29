@@ -8,8 +8,10 @@ import com.alessandro.caracciolo.catchit.utils.Printer;
 
 import java.util.Scanner;
 
+import static com.alessandro.caracciolo.catchit.utils.Printer.SEPARATOR;
+import static com.alessandro.caracciolo.catchit.utils.Printer.printTitle;
+
 public class LoginViewCLI {
-    private static final String SEPARATOR = "========================================";
     private final LoginController loginController;
 
     public LoginViewCLI() {
@@ -20,9 +22,9 @@ public class LoginViewCLI {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            clearConsole();
+            Printer.clearConsole();
             printTitle("WELCOME IN CATCHIT!");
-            Printer.printlnOrange("Please login to continue (type 'exit' as username to quit).");
+            Printer.printlnOrange("Type 'exit' as username to quit.\nType 'register' as username to register.");
             Printer.printlnBlu(SEPARATOR);
 
             Printer.print("Username: ");
@@ -31,6 +33,10 @@ public class LoginViewCLI {
             if ("exit".equalsIgnoreCase(username)) {
                 Printer.printlnOrange("\nExiting system. Goodbye!");
                 System.exit(0);
+            } else if ("register".equalsIgnoreCase(username)) {
+                RegistrationViewCLI registrationViewCLI = new RegistrationViewCLI();
+                registrationViewCLI.initialize();
+                continue;
             }
 
             Printer.print("Password: ");
@@ -45,47 +51,30 @@ public class LoginViewCLI {
 
                 if (role == 1) {
                     Printer.printlnBlu("\n✔️ Successfully logged in as RESTAURANT!");
-                    waitForEnter(scanner);
+                    Printer.waitForEnter();
 
                     RestaurantViewCLI restaurantViewCLI = new RestaurantViewCLI();
                     restaurantViewCLI.initialize();
 
                 } else if (role == 2) {
                     Printer.printlnBlu("\n✔️ Successfully logged in as RIDER!");
-                    waitForEnter(scanner);
+                    Printer.waitForEnter();
 
                     RiderHomePageViewCLI riderHomePageViewCLI = new RiderHomePageViewCLI(userBean.getUsername());
                     riderHomePageViewCLI.initialize();
 
                 } else {
                     Printer.errorPrint("\n❌ Unknown role. Please contact the administrator.");
-                    waitForEnter(scanner);
+                    Printer.waitForEnter();
                 }
 
             } catch (BusinessException e) {
                 Printer.errorPrint("\n❌ Invalid credentials: " + e.getMessage());
-                waitForEnter(scanner);
+                Printer.waitForEnter();
             } catch (DAOException e) {
-                Printer.errorPrint("\\n❌ System Error: " + e.getMessage());
-                waitForEnter(scanner);
+                Printer.errorPrint("\n❌ System Error: " + e.getMessage());
+                Printer.waitForEnter();
             }
         }
-    }
-
-    private void printTitle(String title) {
-        Printer.printlnBlu(SEPARATOR);
-        Printer.printlnOrange(">> " + title + " <<");
-        Printer.printlnBlu(SEPARATOR);
-    }
-
-    private void clearConsole() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
-
-    private void waitForEnter(Scanner scanner) {
-        Printer.printlnOrange("\nPress Enter to continue...");
-        scanner.nextLine();
     }
 }
