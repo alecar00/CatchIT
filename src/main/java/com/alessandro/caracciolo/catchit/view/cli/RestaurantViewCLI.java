@@ -11,11 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-import static com.alessandro.caracciolo.catchit.utils.Printer.printlnBlu;
-import static com.alessandro.caracciolo.catchit.utils.Printer.printlnOrange;
-
 public class RestaurantViewCLI {
-    private static final String SEPARATOR = "------------------------------------";
     private static final Logger logger = Logger.getLogger(RestaurantViewCLI.class.getName());
 
     public void initialize() {
