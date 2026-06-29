@@ -1,5 +1,7 @@
 package com.alessandro.caracciolo.catchit.view.controller;
 
+import com.alessandro.caracciolo.catchit.Main;
+import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.bean.UserBean;
 import com.alessandro.caracciolo.catchit.controller.RegisterController;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
@@ -9,10 +11,18 @@ import com.alessandro.caracciolo.catchit.model.Role;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class RegisterGraphicController {
 
@@ -28,6 +38,10 @@ public class RegisterGraphicController {
     public ToggleButton restaurantButton;
     @FXML
     public ToggleButton riderButton;
+    @FXML
+    public HBox riderFieldsBox;
+    @FXML
+    public TextField nameTextField;
 
     RegisterController registerController;
 
@@ -38,9 +52,20 @@ public class RegisterGraphicController {
     }
 
     public void handleRegisterClick(ActionEvent actionEvent) {
+        if (role == null) {
+            AlertHandler.showError("You must select a role!");
+            return;
+        }
+
         UserBean userBean = new UserBean(userTextField.getText(), passwordTextField.getText(), role);
         try {
-            registerController.registerUser(userBean);
+            if ("RIDER".equals(role)) {
+                RiderBean riderBean = new RiderBean(userBean.getUsername(), nameTextField.getText());
+                registerController.startRiderRegistration(userBean, riderBean);
+
+            } else if ("RESTAURANT".equals(role)) {
+                registerController.startRestaurantRegistration(userBean);
+            }
             AlertHandler.showSuccess("Registered", "User: " + userBean.getUsername() + " registered!");
         }catch (DAOException e){
             AlertHandler.showDAOError(e);
@@ -54,9 +79,28 @@ public class RegisterGraphicController {
 
     public void handleRestaurantClick(ActionEvent actionEvent) {
         role = "RESTAURANT";
+        riderFieldsBox.setVisible(false);
+        riderFieldsBox.setManaged(false);
     }
 
     public void handleRiderClick(ActionEvent actionEvent) {
         role = "RIDER";
+        riderFieldsBox.setVisible(true);
+        riderFieldsBox.setManaged(true);
+    }
+
+    public void handleCancelClick(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginGUI.fxml"));
+            Parent root = loader.load();
+
+            Stage stageAttuale = (Stage) cancelButton.getScene().getWindow();
+
+            stageAttuale.setScene(new Scene(root));
+            stageAttuale.show();
+
+        } catch (IOException e) {
+            AlertHandler.showError("Error: Can't load login page!");
+        }
     }
 }

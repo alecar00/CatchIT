@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.sql.Time;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class RiderDAOFS implements RiderDAO {
     private static final String FS_DIR = FSConfiguration.FS_DIR;
@@ -30,8 +30,29 @@ public class RiderDAOFS implements RiderDAO {
     private static final Logger log = Logger.getLogger(RiderDAOFS.class.getName());
 
     @Override
-    public void saveRider(Rider rider) {
-        //not implemented
+    public void saveRider(Rider newRider) throws DAOException {
+        File file = new File(FS_DIR + FS_RIDER);
+        List<Rider> riders = new ArrayList<>();
+
+        if (file.exists() && file.length() > 0) {
+            try (FileReader reader = new FileReader(file)) {
+                Type listType = new TypeToken<ArrayList<Rider>>() {}.getType();
+                riders = gson.fromJson(reader, listType);
+                if (riders == null) {
+                    riders = new ArrayList<>();
+                }
+            } catch (IOException e) {
+                throw new DAOException("Error reading existing riders for registration", e);
+            }
+        }
+
+        riders.add(newRider);
+
+        try (FileWriter writer = new FileWriter(file)) {
+            gson.toJson(riders, writer);
+        } catch (IOException e) {
+            throw new DAOException("Critical error saving rider to filesystem", e);
+        }
     }
 
     @Override

@@ -22,27 +22,32 @@
                     <Label prefHeight="42.0" prefWidth="164.0" styleClass="blue-label" text="Password" />
                     <TextField fx:id="passwordTextField" prefHeight="42.0" prefWidth="447.0" styleClass="rounded-input" />
                 </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <fx:define>
-                    <ToggleGroup fx:id="roleGroup" />
-                </fx:define>
+                <HBox fx:id="riderFieldsBox" prefHeight="100.0" prefWidth="200.0" visible="false" managed="false">
+                    <Label prefHeight="42.0" prefWidth="164.0" styleClass="blue-label" text="Name" />
+                    <TextField fx:id="nameTextField" prefHeight="42.0" prefWidth="447.0" styleClass="rounded-input" />
+                </HBox>
 
-                <children>
-                    <ToggleButton fx:id="riderButton"
-                                  toggleGroup="$roleGroup"
-                                  onAction="#handleRiderClick"
-                                  prefHeight="14.0" prefWidth="553.0"
-                                  styleClass="role-toggle-button" text="Rider" />
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <fx:define>
+                        <ToggleGroup fx:id="roleGroup" />
+                    </fx:define>
 
-                    <ToggleButton fx:id="restaurantButton"
-                                  toggleGroup="$roleGroup"
-                                  onAction="#handleRestaurantClick"
-                                  prefHeight="14.0" prefWidth="553.0"
-                                  styleClass="role-toggle-button" text="Restaurant" />
-                </children>
-            </HBox>
+                    <children>
+                        <ToggleButton fx:id="riderButton"
+                                      toggleGroup="$roleGroup"
+                                      onAction="#handleRiderClick"
+                                      prefHeight="14.0" prefWidth="553.0"
+                                      styleClass="role-toggle-button" text="Rider" />
+
+                        <ToggleButton fx:id="restaurantButton"
+                                      toggleGroup="$roleGroup"
+                                      onAction="#handleRestaurantClick"
+                                      prefHeight="14.0" prefWidth="553.0"
+                                      styleClass="role-toggle-button" text="Restaurant" />
+                    </children>
+                </HBox>
                 <Button fx:id="registerButton" mnemonicParsing="false" onAction="#handleRegisterClick" prefHeight="38.0" prefWidth="553.0" styleClass="orange-button" text="Register" />
-                <Label fx:id="cancelButton" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="624.0" text="Cancel" textFill="#2196f3" underline="true" />
+                <Label fx:id="cancelButton" onMouseClicked="#handleCancelClick" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="624.0" text="Cancel" textFill="#2196f3" underline="true" styleClass="clickable-text"/>
             </VBox>
         </HBox>
     </center>

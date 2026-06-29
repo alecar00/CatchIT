@@ -1,11 +1,14 @@
 package com.alessandro.caracciolo.catchit.controller;
 
+import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.bean.UserBean;
 import com.alessandro.caracciolo.catchit.dao.DAOFactory;
+import com.alessandro.caracciolo.catchit.dao.RiderDAO;
 import com.alessandro.caracciolo.catchit.dao.UserDAO;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException;
 import com.alessandro.caracciolo.catchit.exceptions.UsernameAlreadyUsed;
+import com.alessandro.caracciolo.catchit.model.Rider;
 import com.alessandro.caracciolo.catchit.model.Role;
 import com.alessandro.caracciolo.catchit.model.User;
 import com.alessandro.caracciolo.catchit.utils.Printer;
@@ -14,7 +17,7 @@ import java.util.logging.Logger;
 
 public class RegisterController {
     Logger logger = Logger.getLogger(RegisterController.class.getName());
-    public void registerUser(UserBean userBean) throws DAOException, UsernameAlreadyUsed, InvalidRegistrationException {
+    private void registerUser(UserBean userBean) throws DAOException, UsernameAlreadyUsed, InvalidRegistrationException {
         validateFields(userBean.getUsername(),  userBean.getPassword());
 
         Role role = Role.valueOf(userBean.getRole());
@@ -70,5 +73,19 @@ public class RegisterController {
         if (password.contains(" ")){
             throw new InvalidRegistrationException("Password cannot contain spaces!");
         }
+    }
+
+    public void startRiderRegistration(UserBean userBean, RiderBean riderBean) throws InvalidRegistrationException, UsernameAlreadyUsed, DAOException {
+        registerUser(userBean);
+
+        Rider rider = new Rider(riderBean.getIdRider(), riderBean.getName());
+
+        RiderDAO riderDAO = DAOFactory.getDAOFactory().createRiderDAO();
+        riderDAO.saveRider(rider);
+
+    }
+
+    public void startRestaurantRegistration(UserBean userBean) throws InvalidRegistrationException, UsernameAlreadyUsed, DAOException {
+        registerUser(userBean);
     }
 }

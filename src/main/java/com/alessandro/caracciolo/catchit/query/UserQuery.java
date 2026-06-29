@@ -1,7 +1,5 @@
 package com.alessandro.caracciolo.catchit.query;
 
-import com.alessandro.caracciolo.catchit.exceptions.DAOException;
-import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException;
 import com.alessandro.caracciolo.catchit.model.User;
 
 import java.sql.*;
@@ -16,14 +14,14 @@ public class UserQuery {
     }
 
     public static int insertRestaurant(Connection conn, User user) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(Query.INSERT_RESTAURANT);
+        PreparedStatement stmt = conn.prepareStatement(Query.INSERT_RESTAURANT_USER);
         stmt.setString(1, user.getUsername());
         stmt.setString(2, user.getPassword());
         return stmt.executeUpdate();
     }
 
     public static int insertRider(Connection conn, User user) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(Query.INSERT_RIDER);
+        PreparedStatement stmt = conn.prepareStatement(Query.INSERT_RIDER_USER);
         stmt.setString(1, user.getUsername());
         stmt.setString(2, user.getPassword());
         return stmt.executeUpdate();

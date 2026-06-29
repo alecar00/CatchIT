@@ -15,10 +15,19 @@ import java.util.List;
 
 public class RiderDAODB implements RiderDAO {
     @Override
-    public void saveRider(Rider rider) {
-        //not implemented
+    public void saveRider(Rider newRider) throws DAOException {
+        try{
+            RiderQuery.addRider(Connector.getConnection(), newRider);
+        }catch(SQLException e){
+            throw new DAOException("Cant't save Rider: " + newRider.getIdRider(), e);
+        }
     }
 
+    /*
+    /Qui e' vuoto perche' faccio il filtering direttamente in query.
+    /TO DO: meglio aggiungere il metodo che restituisce tutti i rider
+    /in modo tale che se in futuro mi serve funziona
+    */
     @Override
     public List<Rider> getAllRiders() {
         return List.of();

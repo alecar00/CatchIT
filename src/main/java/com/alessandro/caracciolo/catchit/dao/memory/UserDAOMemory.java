@@ -34,17 +34,17 @@ public class UserDAOMemory implements UserDAO {
 
     @Override
     public void insertRider(User user) throws DAOException, InvalidRegistrationException {
-
+        saveUser(user);
     }
 
     @Override
     public void insertRestaurant(User user) throws DAOException, InvalidRegistrationException {
-
+        saveUser(user);
     }
 
     @Override
     public void saveUser(User user) throws DAOException, InvalidRegistrationException {
-
+        users.add(user);
     }
 
     /*@Override

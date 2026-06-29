@@ -12,6 +12,12 @@ public class Rider implements Serializable {
         this.name = name;
         this.permitZTL = permitZTL;
     }
+
+    public Rider (String idRider, String name) {
+        this.idRider = idRider;
+        this.name = name;
+    }
+
     public String getIdRider() { return idRider; }
     public void setIdRider(String idRider) { this.idRider = idRider; }
 

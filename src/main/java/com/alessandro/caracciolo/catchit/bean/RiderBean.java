@@ -11,6 +11,11 @@ public class RiderBean {
         this.permitZTL = permitZTL;
     }
 
+    public RiderBean(String idRider, String name) {
+        this.idRider = idRider;
+        this.name = name;
+    }
+
     public RiderBean(String idRider) {
         this.idRider = idRider;
     }
