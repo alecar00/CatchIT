@@ -16,7 +16,7 @@ public class Connector {
 
     public static synchronized Connection getConnection() throws DAOException {
         try {
-            if (conn == null) {
+            if (conn == null || conn.isClosed()) {
                 conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PSSW);
             }
         }catch(SQLException e){
