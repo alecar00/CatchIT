@@ -33,4 +33,12 @@ public class RiderQuery {
         stmt.setString(1, id);
         return stmt.executeQuery();
     }
+
+    public static int addRider(Connection conn, Rider rider) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(Query.INSERT_RIDER);
+        stmt.setString(1, rider.getIdRider());
+        stmt.setString(2, rider.getName());
+
+        return stmt.executeUpdate();
+    }
 }
