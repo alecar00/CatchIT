@@ -7,8 +7,10 @@ import com.alessandro.caracciolo.catchit.utils.Printer;
 
 import java.util.Scanner;
 
+import static com.alessandro.caracciolo.catchit.utils.Printer.SEPARATOR;
+import static com.alessandro.caracciolo.catchit.utils.Printer.printTitle;
+
 public class DeliveryingViewCLI {
-    private static final String SEPARATOR = "------------------------------------";
     private final DeliveryController deliveryController;
 
     public DeliveryingViewCLI() {
@@ -55,11 +57,6 @@ public class DeliveryingViewCLI {
         waitForEnter(scanner);
     }
 
-    private void printTitle(String title) {
-        Printer.printlnBlu(SEPARATOR);
-        Printer.printlnOrange(">> " + title.toUpperCase() + " <<");
-        Printer.printlnBlu(SEPARATOR);
-    }
 
     private void clearConsole() {
         for (int i = 0; i < 50; i++) {
