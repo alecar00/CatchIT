@@ -12,20 +12,18 @@ import com.alessandro.caracciolo.catchit.model.Rider;
 import com.alessandro.caracciolo.catchit.singleton.Configs;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class DeliveryController {
     private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
-
+    private static final String ERROR_ORDER = "Error: Order #";
 
     public List<OrderBean> showOrdersRider(String riderId) throws DAOException {
         logger.info(() -> "Getting orders assigned to rider: " + riderId);
         OrderDAO orderDAO = DAOFactory.getDAOFactory().createOrderDAO();
         return orderDAO.getOrdersByRider(riderId).stream()
                 .map(o -> new OrderBean(o.getIdOrder(), o.getAddress(), o.getCostumer(), o.getTelNumber(), o.getTime(), o.getStatus()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public void startDelivery(String idOrder, String idRider) throws BusinessException, DAOException {
@@ -37,12 +35,12 @@ public class DeliveryController {
         Rider rider = riderDAO.getRiderById(idRider);
 
         if (order == null) {
-            logger.warning(() ->"Error: Order #" + idOrder + " not found.");
+            logger.warning(() ->ERROR_ORDER + idOrder + " not found.");
             throw new BusinessException("Order #" + idOrder + " not found.");
         }
 
         if (order.getStatus() != OrderStatus.ASSIGNED) {
-            logger.warning(() ->"Error: Order #" + idOrder + " has invalid status: " + order.getStatus());
+            logger.warning(() ->ERROR_ORDER + idOrder + " has invalid status: " + order.getStatus());
             throw new BusinessException("Order #" + idOrder + " cannot be started. Status must be ASSIGNED.");
         }
 
@@ -51,7 +49,7 @@ public class DeliveryController {
          * to prevent a NullPointerException during equality evaluation.
          */
         if (order.getRider() == null) {
-            logger.warning(() -> "Error: Order #" + idOrder + " has no rider assigned.");
+            logger.warning(() -> ERROR_ORDER + idOrder + " has no rider assigned.");
             throw new BusinessException("This order has no rider assigned.");
         }
 

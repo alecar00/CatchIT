@@ -1,7 +1,6 @@
 package com.alessandro.caracciolo.catchit.view.cli;
 
 import com.alessandro.caracciolo.catchit.controller.DeliveryController;
-import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.utils.Printer;
 

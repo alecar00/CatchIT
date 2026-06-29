@@ -56,6 +56,7 @@ public class LoginViewCLI {
 
                         RestaurantViewCLI restaurantViewCLI = new RestaurantViewCLI();
                         restaurantViewCLI.initialize();
+                        break;
 
                     case 2:
                         Printer.printlnBlu("\n✔️ Successfully logged in as RIDER!");
@@ -63,6 +64,7 @@ public class LoginViewCLI {
 
                         RiderHomePageViewCLI riderHomePageViewCLI = new RiderHomePageViewCLI(userBean.getUsername());
                         riderHomePageViewCLI.initialize();
+                        break;
 
                     default:
                         Printer.errorPrint("\n❌ Unknown role. Please contact the administrator.");

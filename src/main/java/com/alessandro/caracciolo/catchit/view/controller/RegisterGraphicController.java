@@ -48,7 +48,7 @@ public class RegisterGraphicController {
         this.registerController = new RegisterController();
     }
 
-    public void handleRegisterClick(ActionEvent actionEvent) {
+    public void handleRegisterClick() {
         if (role == null) {
             AlertHandler.showError("You must select a role!");
             return;

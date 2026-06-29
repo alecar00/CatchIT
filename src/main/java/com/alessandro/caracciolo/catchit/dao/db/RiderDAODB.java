@@ -55,7 +55,7 @@ public class RiderDAODB implements RiderDAO {
                 }
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Can't get Rider: " + id, e);
+            logger.log(Level.SEVERE, e, () -> "Can't get Rider: " + id);
             throw new DAOException("Impossibile ottenere il rider!", e);
         }
     }

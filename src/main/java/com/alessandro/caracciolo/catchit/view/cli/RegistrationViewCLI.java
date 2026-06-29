@@ -63,6 +63,9 @@ public class RegistrationViewCLI {
                             errorPrint(e.getMessage());
                         }
                         break;
+
+                    default:
+                        invalidChoicePrint();
                 }
 
                 waitForEnter();

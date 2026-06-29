@@ -30,7 +30,7 @@ public class RegisterController {
 
         try{
             userFromDao = userDAO.getUserByUsername(userBean.getUsername());
-        } catch(DAOException e){
+        } catch(DAOException _){
             logger.severe("Error in checking if user exists");
         }
 
@@ -42,7 +42,7 @@ public class RegisterController {
             if (role == Role.RESTAURANT || role == Role.RIDER) {
                 userDAO.saveUser(user);
             } else {
-                logger.severe("ERROR: unknown role: " + role);
+                logger.severe(() -> "ERROR: unknown role: " + role);
                 throw new InvalidRegistrationException("Unable to retrieve user role.");
             }
         }catch(DAOException e){

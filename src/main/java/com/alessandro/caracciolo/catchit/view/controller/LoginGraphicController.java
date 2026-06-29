@@ -74,7 +74,7 @@ public class LoginGraphicController {
     }
 
 
-    public void handleRegisterClick(MouseEvent mouseEvent) throws IOException {
+    public void handleRegisterClick() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RegisterGUI.fxml"));
         Parent root = loader.load();
 
