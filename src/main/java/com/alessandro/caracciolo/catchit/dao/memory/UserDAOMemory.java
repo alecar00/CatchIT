@@ -30,26 +30,14 @@ public class UserDAOMemory implements UserDAO {
         return null;
     }
 
-
-
-    @Override
-    public void insertRider(User user) throws DAOException, InvalidRegistrationException {
-        saveUser(user);
-    }
-
-    @Override
-    public void insertRestaurant(User user) throws DAOException, InvalidRegistrationException {
-        saveUser(user);
-    }
-
     @Override
     public void saveUser(User user) throws DAOException, InvalidRegistrationException {
         users.add(user);
     }
 
-    /*@Override
-    public void checkUsername(String username) throws DAOException {
-
-    }*/
+    @Override
+    public void deleteUser(String username) throws DAOException {
+        users.remove(getUserByUsername(username));
+    }
 
 }

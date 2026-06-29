@@ -27,10 +27,10 @@ public class UserQuery {
         return stmt.executeUpdate();
     }
 
-    public static boolean checkUsername(Connection conn, String username) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(Query.CHECK_USERNAME);
+    public static int deleteUser(Connection conn, String username) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(Query.DELETE_USER);
         stmt.setString(1, username);
-        ResultSet rs = stmt.executeQuery();
-        return rs.next();
+        return stmt.executeUpdate();
     }
+
 }

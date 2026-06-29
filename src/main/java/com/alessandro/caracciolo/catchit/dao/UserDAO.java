@@ -6,8 +6,6 @@ import com.alessandro.caracciolo.catchit.model.User;
 
 public interface UserDAO {
     User getUserByUsername(String username) throws DAOException;
-    void insertRider(User user) throws DAOException, InvalidRegistrationException;
-    void insertRestaurant(User user) throws DAOException, InvalidRegistrationException;
     void saveUser(User user) throws DAOException, InvalidRegistrationException;
-    //boolean checkUsername(String username) throws DAOException;
+    void deleteUser(String username) throws DAOException;
 }

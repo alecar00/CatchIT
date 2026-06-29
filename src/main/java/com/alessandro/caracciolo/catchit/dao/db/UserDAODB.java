@@ -6,6 +6,7 @@ import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException
 import com.alessandro.caracciolo.catchit.model.Role;
 import com.alessandro.caracciolo.catchit.model.User;
 import com.alessandro.caracciolo.catchit.query.UserQuery;
+import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.singleton.Connector;
 
 import java.sql.Connection;
@@ -15,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserDAODB implements UserDAO {
-    Logger logger = Logger.getLogger(UserDAODB.class.getName());
+    Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
 
     @Override
     public User getUserByUsername(String username) throws DAOException {
@@ -31,6 +32,7 @@ public class UserDAODB implements UserDAO {
                 return new User(username, pwd, role);
             }
         } catch (SQLException e) {
+            logger.severe(e.getMessage());
             throw new DAOException("Errore critico durante il recupero dell'utente dal database.", e);
         }
 
@@ -38,62 +40,51 @@ public class UserDAODB implements UserDAO {
     }
 
     @Override
-    public void insertRider(User user) throws DAOException {
-        Connection conn = Connector.getConnection();
-
-        try{
-            conn.setAutoCommit(false);
-            int success = UserQuery.insertRider(conn, user);
-
-            if (success == 1) {
-                conn.commit();
-            }else{
-                conn.rollback();
-                throw new DAOException("Error during create new rider.");
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Error during create new rider.");
-        } finally {
-            try{
-                conn.setAutoCommit(true);
-            }catch(SQLException e){
-                logger.log(Level.SEVERE, "ATTENTION: Unable to reset autoCommit on connection", e);
-            }
-        }
-    }
-
-    @Override
-    public void insertRestaurant(User user) throws DAOException {
-        Connection conn = Connector.getConnection();
-
-        try{
-            conn.setAutoCommit(false);
-            int success = UserQuery.insertRestaurant(conn, user);
-
-            if (success == 1) {
-                conn.commit();
-            }else{
-                conn.rollback();
-                throw new DAOException("Error during create new restaurant.");
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Error during create new restaurant.");
-        } finally {
-            try{
-                conn.setAutoCommit(true);
-            }catch(SQLException e){
-                logger.log(Level.SEVERE, "ATTENTION: Unable to reset autoCommit on connection", e);
-            }
-        }
-    }
-
-    @Override
     public void saveUser(User user) throws DAOException, InvalidRegistrationException {
+        Connection conn = Connector.getConnection();
 
+        try{
+            conn.setAutoCommit(false);
+            int success;
+
+            switch(user.getRole()) {
+                case RESTAURANT -> {
+                    success = UserQuery.insertRestaurant(conn, user);
+                }
+                case RIDER -> {
+                    success = UserQuery.insertRider(conn, user);
+                }
+                default -> {
+                    success = 0;
+                }
+            }
+            if (success == 1) {
+                conn.commit();
+            }else{
+                conn.rollback();
+                throw new DAOException("Error during create new user.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error during create new user.");
+        } finally {
+            try{
+                conn.setAutoCommit(true);
+            }catch(SQLException e){
+                logger.log(Level.SEVERE, "ATTENTION: Unable to reset autoCommit on connection", e);
+            }
+        }
     }
 
-   /* @Override
-    public boolean checkUsername(String username) throws DAOException {
-
-    }*/
+   @Override
+    public void deleteUser(String username) throws DAOException {
+        Connection conn =  Connector.getConnection();
+        try{
+            int success = UserQuery.deleteUser(conn, username);
+            if (success == 0) {
+                throw new DAOException("Error during delete user.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error during delete user.");
+        }
+   }
 }

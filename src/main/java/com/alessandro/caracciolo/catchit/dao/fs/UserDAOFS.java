@@ -2,7 +2,6 @@ package com.alessandro.caracciolo.catchit.dao.fs;
 
 import com.alessandro.caracciolo.catchit.dao.UserDAO;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
-import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException;
 import com.alessandro.caracciolo.catchit.model.User;
 import com.alessandro.caracciolo.catchit.utils.FSConfiguration;
 import com.alessandro.caracciolo.catchit.utils.GsonProvider;
@@ -82,17 +81,7 @@ public class UserDAOFS implements UserDAO {
     }
 
     @Override
-    public void insertRider(User user) throws DAOException, InvalidRegistrationException {
-        saveUser(user);
+    public void deleteUser(String username) throws DAOException {
+        //to be implemented
     }
-
-    @Override
-    public void insertRestaurant(User user) throws DAOException, InvalidRegistrationException {
-        saveUser(user);
-    }
-
-    /*@Override
-    public void checkUsername(String username) throws DAOException {
-
-    }*/
 }
