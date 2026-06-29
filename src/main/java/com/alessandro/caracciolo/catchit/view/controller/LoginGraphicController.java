@@ -53,8 +53,8 @@ public class LoginGraphicController {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RiderHomePage.fxml"));
                 Parent root = loader.load();
 
-                RiderGraphicController controller = loader.getController();
-                controller.initData(userBean.getUsername());
+                RiderGraphicController riderGraphicController = loader.getController();
+                riderGraphicController.initData(userBean.getUsername());
 
                 Stage stageAttuale = (Stage) loginButton.getScene().getWindow();
 
