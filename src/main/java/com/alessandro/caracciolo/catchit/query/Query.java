@@ -20,17 +20,17 @@ public class Query {
 
     public static final String SET_ORDER_COMPLETED = "UPDATE Orders SET status = 'COMPLETED' WHERE id_order = ?;";
 
-    public static final String GET_RIDER_ORDERS = "SELECT * FROM Orders WHERE id_order = ?;";
+    public static final String GET_RIDER_ORDERS = "SELECT * FROM Orders WHERE id_rider = ?;";
 
     public static final String GET_USER_BY_USERNAME = "SELECT * FROM User WHERE username = ?;";
 
     public static final String SET_ORDER_IN_DELIVERY =  "UPDATE Orders SET status = 'IN_DELIVERY' WHERE id_order = ?;";
 
-    public static final String INSERT_RIDER_USER = "INSERT INTO user (username, password, role) VALUES (?, ?, 'RIDER');";
+    public static final String INSERT_RIDER_USER = "INSERT INTO User (username, password, role) VALUES (?, ?, 'RIDER');";
 
-    public static final String INSERT_RESTAURANT_USER = "INSERT INTO user (username, password, role) VALUES (?, ?, 'RESTAURANT');";
+    public static final String INSERT_RESTAURANT_USER = "INSERT INTO User (username, password, role) VALUES (?, ?, 'RESTAURANT');";
 
-    public static final String CHECK_USERNAME = "SELECT * FROM Users WHERE username = ?;";
+    public static final String DELETE_USER = "DELETE FROM User WHERE username = ?;";
 
-    public static final String INSERT_RIDER = "INSERT INTO rider (id_rider, name, permit_ztl) VALUES (?, ?, ?);)";
+    public static final String INSERT_RIDER = "INSERT INTO Rider (id_rider, name, permit_ztl) VALUES (?, ?, 0);";
 }

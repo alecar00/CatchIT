@@ -4,22 +4,25 @@ import com.alessandro.caracciolo.catchit.dao.RiderDAO;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.model.Order;
 import com.alessandro.caracciolo.catchit.model.Rider;
+import com.alessandro.caracciolo.catchit.query.Query;
 import com.alessandro.caracciolo.catchit.query.RiderQuery;
+import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.singleton.Connector;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Time;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RiderDAODB implements RiderDAO {
+    Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
     @Override
     public void saveRider(Rider newRider) throws DAOException {
         try{
             RiderQuery.addRider(Connector.getConnection(), newRider);
         }catch(SQLException e){
-            throw new DAOException("Cant't save Rider: " + newRider.getIdRider(), e);
+            throw new DAOException("Can't save Rider: " + newRider.getIdRider(), e);
         }
     }
 
@@ -35,21 +38,30 @@ public class RiderDAODB implements RiderDAO {
 
     @Override
     public Rider getRiderById(String id) throws DAOException {
-        try {
-            ResultSet rs = RiderQuery.getRiderById(Connector.getConnection(), id);
-            return new Rider (
-                    rs.getString("id_rider"),
-                    rs.getString("name"),
-                    rs.getBoolean("permit_ztl")
+        try (Connection conn = Connector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(Query.GET_RIDER_BY_ID)) {
 
-            );
-        }catch (SQLException e) {
+            ps.setString(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Rider(
+                            rs.getString("id_rider"),
+                            rs.getString("name"),
+                            rs.getBoolean("permit_ztl")
+                    );
+                } else {
+                    return null;
+                }
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Can't get Rider: " + id, e);
             throw new DAOException("Impossibile ottenere il rider!", e);
         }
     }
 
     public List<Rider> getAvailableRiders(Order order, Time time) throws DAOException {
-        ResultSet rs = null;
+        ResultSet rs;
         List<Rider> riders = new ArrayList<>();
 
         try{
