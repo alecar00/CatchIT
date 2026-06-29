@@ -7,10 +7,10 @@ import com.alessandro.caracciolo.catchit.utils.Printer;
 
 import java.util.Scanner;
 
-import static com.alessandro.caracciolo.catchit.utils.Printer.SEPARATOR;
-import static com.alessandro.caracciolo.catchit.utils.Printer.printTitle;
+import static com.alessandro.caracciolo.catchit.utils.Printer.*;
 
 public class DeliveryingViewCLI {
+    //to be implemented
     private final DeliveryController deliveryController;
 
     public DeliveryingViewCLI() {
@@ -36,7 +36,7 @@ public class DeliveryingViewCLI {
                 handleCompleteOrder(scanner);
             } else {
                 Printer.invalidChoicePrint();
-                waitForEnter(scanner);
+                waitForEnter();
             }
         }
     }
@@ -54,18 +54,7 @@ public class DeliveryingViewCLI {
             Printer.errorPrint("\n⚠ Cannot complete order: " + e.getMessage());
         }
 
-        waitForEnter(scanner);
+        waitForEnter();
     }
 
-
-    private void clearConsole() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
-
-    private void waitForEnter(Scanner scanner) {
-        Printer.printlnOrange("\nPress Enter to continue...");
-        scanner.nextLine();
-    }
 }

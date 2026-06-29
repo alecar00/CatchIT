@@ -9,6 +9,9 @@ import com.alessandro.caracciolo.catchit.utils.Printer;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.alessandro.caracciolo.catchit.utils.Printer.clearConsole;
+import static com.alessandro.caracciolo.catchit.utils.Printer.waitForEnter;
+
 
 public class RiderHomePageViewCLI {
     private static final String SEPARATOR = "------------------------------------";
@@ -47,7 +50,7 @@ public class RiderHomePageViewCLI {
                     break;
                 default:
                     Printer.invalidChoicePrint();
-                    waitForEnter(scanner);
+                    waitForEnter();
             }
         }
     }
@@ -82,17 +85,6 @@ public class RiderHomePageViewCLI {
         } catch (BusinessException e) {
             Printer.errorPrint("\n⚠ Business error: " + e.getMessage());
         }
-        waitForEnter(scanner);
-    }
-
-    private void clearConsole() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
-
-    private void waitForEnter(Scanner scanner) {
-        Printer.printlnOrange("\nPress Enter to continue...");
-        scanner.nextLine();
+        waitForEnter();
     }
 }
