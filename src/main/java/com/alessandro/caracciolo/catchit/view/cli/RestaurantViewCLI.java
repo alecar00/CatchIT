@@ -58,7 +58,7 @@ public class RestaurantViewCLI {
         List<RiderBean> riders = processOrderController.discoverAvailableRiders(selectedOrder);
 
         if (riders.isEmpty()) {
-            Printer.errorPrint("\n❌ Warning: No riders available!");
+            Printer.errorPrint("\nWarning: No riders available!");
             waitForEnter();
             return; // Interrompe questo metodo e torna al menu degli ordini
         }
