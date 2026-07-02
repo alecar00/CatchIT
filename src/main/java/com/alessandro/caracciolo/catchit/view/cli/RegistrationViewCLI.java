@@ -12,9 +12,10 @@ import java.util.Scanner;
 import static com.alessandro.caracciolo.catchit.utils.Printer.*;
 
 public class RegistrationViewCLI {
+    RegisterController registerController = new RegisterController();
+    Scanner scanner = new Scanner(System.in);
+
     public void initialize() {
-        RegisterController registerController = new RegisterController();
-        Scanner scanner = new Scanner(System.in);
 
         boolean isDone = false;
 
@@ -24,9 +25,9 @@ public class RegistrationViewCLI {
             printlnOrange("Enter role: ");
             printlnBlu("1 - Rider");
             printlnBlu("2 - Restaurant");
-            String role = scanner.nextLine().trim();
+            String selectedRole = scanner.nextLine().trim();
 
-            if (!role.equals("1") && !role.equals("2")) {
+            if (!selectedRole.equals("1") && !selectedRole.equals("2")) {
                 invalidChoicePrint();
             } else {
                 printlnOrange("Enter username: ");
@@ -35,33 +36,13 @@ public class RegistrationViewCLI {
                 printlnOrange("Enter password: ");
                 String password = scanner.nextLine().trim();
 
-                switch (role) {
+                switch (selectedRole) {
                     case "1":
-                        role = "RIDER";
-                        UserBean userBeanRider = new UserBean(username, password, role);
-
-                        printlnOrange("Enter name: ");
-                        String name = scanner.nextLine().trim();
-                        RiderBean riderBean = new RiderBean(username, name);
-
-                        try {
-                            registerController.startRiderRegistration(userBeanRider, riderBean);
-                            successPrint("User: " + userBeanRider.getUsername() + " registered!\nRider: " + riderBean.getName() + " created!");
-                        } catch (InvalidRegistrationException | UsernameAlreadyUsed | DAOException e) {
-                            errorPrint(e.getMessage());
-                        }
+                        processRider(username, password);
                         break; // Questo break esce solo dallo switch, non dal while
 
                     case "2":
-                        role = "RESTAURANT";
-                        UserBean userBeanRestaurant = new UserBean(username, password, role);
-
-                        try {
-                            registerController.startRestaurantRegistration(userBeanRestaurant);
-                            successPrint("User: " + userBeanRestaurant.getUsername() + " registered!");
-                        } catch (InvalidRegistrationException | UsernameAlreadyUsed | DAOException e) {
-                            errorPrint(e.getMessage());
-                        }
+                        processRestaurant(username, password);
                         break;
 
                     default:
@@ -71,6 +52,33 @@ public class RegistrationViewCLI {
                 waitForEnter();
                 isDone = true;
             }
+        }
+    }
+    private void processRider(String username,String password){
+        String role = "RIDER";
+        UserBean userBeanRider = new UserBean(username, password, role);
+
+        printlnOrange("Enter name: ");
+        String name = scanner.nextLine().trim();
+        RiderBean riderBean = new RiderBean(username, name);
+
+        try {
+            registerController.startRiderRegistration(userBeanRider, riderBean);
+            successPrint("User: " + userBeanRider.getUsername() + " registered!\nRider: " + riderBean.getName() + " created!");
+        } catch (InvalidRegistrationException | UsernameAlreadyUsed | DAOException e) {
+            errorPrint(e.getMessage());
+        }
+    }
+
+    private void processRestaurant (String username, String password){
+        String role = "RESTAURANT";
+        UserBean userBeanRestaurant = new UserBean(username, password, role);
+
+        try {
+            registerController.startRestaurantRegistration(userBeanRestaurant);
+            successPrint("User: " + userBeanRestaurant.getUsername() + " registered!");
+        } catch (InvalidRegistrationException | UsernameAlreadyUsed | DAOException e) {
+            errorPrint(e.getMessage());
         }
     }
 }
