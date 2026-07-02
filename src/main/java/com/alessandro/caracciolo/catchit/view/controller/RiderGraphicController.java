@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -26,6 +27,8 @@ import java.util.logging.Logger;
 
 public class RiderGraphicController {
 
+    public HBox notificationBox;
+    public Label notificationText;
     @FXML
     private VBox ordersContainer;
     @FXML
@@ -119,17 +122,7 @@ public class RiderGraphicController {
         }
     }
 
-    public void handleLogoutButton() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/LoginGUI.fxml"));
-            Parent root = loader.load();
-
-            Stage stageAttuale = (Stage) logoutButton.getScene().getWindow();
-            stageAttuale.setScene(new Scene(root));
-            stageAttuale.show();
-        } catch (IOException e) {
-            logger.severe("Irreversible UI error: " + e.getMessage());
-            AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Login interface."));
-        }
+    public void handleLogoutButton(ActionEvent event) {
+        SceneSwitcher.switchToLogin((Node) event.getSource());
     }
 }
