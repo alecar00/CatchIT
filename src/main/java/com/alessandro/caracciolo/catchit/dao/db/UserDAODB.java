@@ -40,7 +40,7 @@ public class UserDAODB implements UserDAO {
     }
 
     @Override
-    public void saveUser(User user) throws DAOException, InvalidRegistrationException {
+    public void saveUser(User user) throws DAOException {
         Connection conn = Connector.getConnection();
 
         try{

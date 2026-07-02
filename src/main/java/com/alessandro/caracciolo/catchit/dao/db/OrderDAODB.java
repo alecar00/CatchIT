@@ -57,7 +57,7 @@ public class OrderDAODB implements OrderDAO {
     }
 
     @Override
-    public void updateOrder(Order order, Rider rider) throws DAOException {
+    public void assignOrder(Order order, Rider rider) throws DAOException {
         Connection conn = Connector.getConnection();
 
         try {

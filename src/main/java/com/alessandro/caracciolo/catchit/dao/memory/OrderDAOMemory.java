@@ -24,9 +24,20 @@ public class OrderDAOMemory implements OrderDAO {
                 "Piazza Dante 5",
                 "Marco",
                 "3339876543",
-                new Rider("R1", "Mario Rossi", true),
                 Time.valueOf("19:30:00"),
-                OrderStatus.ASSIGNED ));
+                OrderStatus.PENDING));
+        orders.add(new Order("3",
+                "Piazza della repubblica 1",
+                "Michael Jackson",
+                "3338765432",
+                Time.valueOf("19:30:00"),
+                OrderStatus.PENDING));
+        orders.add(new Order("4",
+                "Silicon Valley",
+                "Bill Gates",
+                "3459876543",
+                Time.valueOf("19:30:00"),
+                OrderStatus.PENDING));
     }
 
     @Override
@@ -41,10 +52,11 @@ public class OrderDAOMemory implements OrderDAO {
     }
 
     @Override
-    public void updateOrder(Order orderBean, Rider rider) {
+    public void assignOrder(Order orderBean, Rider rider) {
         for (Order order : orders) {
             if (order.getIdOrder().equals(orderBean.getIdOrder())) {
-                order.setStatus(OrderStatus.COMPLETED);
+                order.setStatus(OrderStatus.ASSIGNED);
+                order.setRider(rider);
             }
         }
     }

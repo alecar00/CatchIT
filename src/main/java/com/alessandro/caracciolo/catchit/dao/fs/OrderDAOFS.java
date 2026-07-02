@@ -52,7 +52,7 @@ public class OrderDAOFS implements OrderDAO {
     }
 
     @Override
-    public void updateOrder(Order order, Rider rider) throws DAOException {
+    public void assignOrder(Order order, Rider rider) throws DAOException {
         File file = new File(FS_DIR + FS_ORDER);
         if (!file.exists()) {
             throw new DAOException("Impossibile aggiornare: il file degli ordini non esiste.");

@@ -1,8 +1,6 @@
 package com.alessandro.caracciolo.catchit.dao.memory;
 
 import com.alessandro.caracciolo.catchit.dao.UserDAO;
-import com.alessandro.caracciolo.catchit.exceptions.DAOException;
-import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException;
 import com.alessandro.caracciolo.catchit.model.Role;
 import com.alessandro.caracciolo.catchit.model.User;
 
@@ -31,12 +29,12 @@ public class UserDAOMemory implements UserDAO {
     }
 
     @Override
-    public void saveUser(User user) throws DAOException, InvalidRegistrationException {
+    public void saveUser(User user){
         users.add(user);
     }
 
     @Override
-    public void deleteUser(String username) throws DAOException {
+    public void deleteUser(String username){
         users.remove(getUserByUsername(username));
     }
 
