@@ -83,6 +83,7 @@ public class DeliveryGraphicController {
 
         } catch (IOException e) {
             logger.severe("Error loading RiderHomePage: " + e.getMessage());
+            AlertHandler.showError("Error loading RiderHomePage: " + e.getMessage());
         } catch (DAOException e){
             AlertHandler.showDAOError(e);
         }
