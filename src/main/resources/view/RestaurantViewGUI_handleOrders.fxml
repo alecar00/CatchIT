@@ -46,7 +46,7 @@
                </font>
             </Label>
 
-                <ScrollPane fitToWidth="true" prefHeight="508.0" prefWidth="515.0" style="-fx-background-color: transparent;">
+                <ScrollPane fitToWidth="true" prefHeight="508.0" prefWidth="515.0" styleClass="transparent-scroll">
                     <VBox fx:id="ordersContainer" prefHeight="0.0" prefWidth="513.0" spacing="15" style="-fx-background-color: transparent;">
 
                     </VBox>

@@ -1,6 +1,5 @@
 package com.alessandro.caracciolo.catchit.view.controller;
 
-import com.alessandro.caracciolo.catchit.Main;
 import com.alessandro.caracciolo.catchit.bean.OrderBean;
 import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.controller.ProcessOrderController;
@@ -9,20 +8,17 @@ import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -222,17 +218,7 @@ public class RestaurantGraphicController {
         delay.play();
     }
 
-    public void handleLogoutButton() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/LoginGUI.fxml"));
-            Parent root = loader.load();
-
-            Stage stageAttuale = (Stage) logoutButton.getScene().getWindow();
-            stageAttuale.setScene(new Scene(root));
-            stageAttuale.show();
-        } catch (IOException e) {
-            logger.severe("Irreversible UI error: " + e.getMessage());
-            AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Login interface."));
-        }
+    public void handleLogoutButton(ActionEvent event) {
+        SceneSwitcher.switchToLogin((Node) event.getSource());
     }
 }

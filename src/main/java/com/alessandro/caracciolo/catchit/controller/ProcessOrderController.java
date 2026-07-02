@@ -102,6 +102,6 @@ public class ProcessOrderController {
         //interrogo il dao per sapere se l'ordine e' stato gia' assegnato
         Order orderDao = orderDAO.getOrderById(order.getIdOrder());
         order.checkIfNotOutdated(orderDao);
-        orderDAO.updateOrder(order, rider);
+        orderDAO.assignOrder(order, rider);
     }
 }

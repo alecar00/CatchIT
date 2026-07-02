@@ -59,7 +59,16 @@
 }
 
 .transparent-scroll {
+    -fx-background-color: transparent;
     -fx-background: transparent;
+}
+
+.transparent-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll:focused {
+    -fx-background-color: transparent;
 }
 
 .notification-box {
@@ -102,4 +111,9 @@
 
 .clickable-text {
     -fx-cursor: hand;
+}
+
+#ordersContainer .label,
+#ridersContainer .label {
+    -fx-text-fill: black;
 }
