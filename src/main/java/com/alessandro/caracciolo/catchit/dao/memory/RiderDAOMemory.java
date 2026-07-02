@@ -14,7 +14,8 @@ public class RiderDAOMemory implements RiderDAO {
     private static List<Rider> riders = new ArrayList<>();
 
     static{
-        riders.add(new Rider("1", "Pasquale Bianchi", true));
+        riders.add(new Rider("R1", "Pasquale Bianchi", true));
+        riders.add(new Rider("R2", "Luigi Verdi", false));
     }
 
     @Override
