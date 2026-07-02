@@ -31,7 +31,7 @@ public class RestaurantViewCLI {
 
                 // Se è 0, usciamo dal ciclo!
                 if ("0".equals(input.nextLine().trim())) {
-                    break;
+                    return;
                 }
             } else {
                 updateOrdersList(orders);
@@ -40,7 +40,7 @@ public class RestaurantViewCLI {
 
                 // Se la scelta è 0, usciamo dal ciclo e facciamo Logout
                 if (choice == 0) {
-                    break;
+                    return;
                 }
 
                 // Se la scelta è valida, passiamo l'ordine al metodo successivo
