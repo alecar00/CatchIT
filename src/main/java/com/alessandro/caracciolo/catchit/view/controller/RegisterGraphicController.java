@@ -7,7 +7,6 @@ import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException;
 import com.alessandro.caracciolo.catchit.exceptions.UsernameAlreadyUsed;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
