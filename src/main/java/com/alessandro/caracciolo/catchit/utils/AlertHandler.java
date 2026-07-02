@@ -21,7 +21,7 @@ public class AlertHandler {
         alert.showAndWait();
     }
 
-    public static void showDAOError(DAOException e) {
+    public static void showDAOError(Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("System Error");
         alert.setHeaderText("Data persistence issue");
