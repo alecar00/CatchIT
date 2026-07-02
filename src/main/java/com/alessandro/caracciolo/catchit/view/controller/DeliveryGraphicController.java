@@ -60,7 +60,7 @@ public class DeliveryGraphicController {
                 AlertHandler.showBusinessError(e);
             } catch (Exception e) {
                 logger.severe("Unexpected fatal error: " + e.getMessage());
-                AlertHandler.showDAOError(new DAOException("A critical system error occurred."));
+                AlertHandler.showDAOError(e);
             }
         });
     }
