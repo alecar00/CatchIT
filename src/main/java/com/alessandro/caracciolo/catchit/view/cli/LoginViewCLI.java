@@ -51,7 +51,7 @@ public class LoginViewCLI {
 
                 switch(role){
                     case 1:
-                        Printer.printlnBlu("\n✔️ Successfully logged in as RESTAURANT!");
+                        Printer.printlnBlu("\nSuccessfully logged in as RESTAURANT!");
                         Printer.waitForEnter();
 
                         RestaurantViewCLI restaurantViewCLI = new RestaurantViewCLI();
@@ -59,7 +59,7 @@ public class LoginViewCLI {
                         break;
 
                     case 2:
-                        Printer.printlnBlu("\n✔️ Successfully logged in as RIDER!");
+                        Printer.printlnBlu("\nSuccessfully logged in as RIDER!");
                         Printer.waitForEnter();
 
                         RiderHomePageViewCLI riderHomePageViewCLI = new RiderHomePageViewCLI(userBean.getUsername());
@@ -67,15 +67,15 @@ public class LoginViewCLI {
                         break;
 
                     default:
-                        Printer.errorPrint("\n❌ Unknown role. Please contact the administrator.");
+                        Printer.errorPrint("\nUnknown role. Please contact the administrator.");
                         Printer.waitForEnter();
                 }
 
             } catch (BusinessException e) {
-                Printer.errorPrint("\n❌ Invalid credentials: " + e.getMessage());
+                Printer.errorPrint("\nInvalid credentials: " + e.getMessage());
                 Printer.waitForEnter();
             } catch (DAOException e) {
-                Printer.errorPrint("\n❌ System Error: " + e.getMessage());
+                Printer.errorPrint("\nSystem Error: " + e.getMessage());
                 Printer.waitForEnter();
             }
         }

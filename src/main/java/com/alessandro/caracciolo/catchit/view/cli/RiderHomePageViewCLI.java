@@ -79,11 +79,11 @@ public class RiderHomePageViewCLI {
 
         try {
             deliveryController.startDelivery(orderId, riderId);
-            Printer.printlnBlu("\n✔️ Success! Order #" + orderId + " is now in delivery.");
+            Printer.printlnBlu("\nSuccess! Order #" + orderId + " is now in delivery.");
         } catch (DAOException e) {
-            Printer.errorPrint("\n❌ Database error: " + e.getMessage());
+            Printer.errorPrint("\nDatabase error: " + e.getMessage());
         } catch (BusinessException e) {
-            Printer.errorPrint("\n⚠ Business error: " + e.getMessage());
+            Printer.errorPrint("\nBusiness error: " + e.getMessage());
         }
         waitForEnter();
     }

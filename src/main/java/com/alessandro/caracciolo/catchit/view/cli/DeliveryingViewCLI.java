@@ -46,9 +46,9 @@ public class DeliveryingViewCLI {
 
         try {
             deliveryController.setOrderCompleted(orderId);
-            Printer.printlnBlu("\n✔️ Great job! Order #" + orderId + " marked as COMPLETED.");
+            Printer.printlnBlu("\nGreat job! Order #" + orderId + " marked as COMPLETED.");
         } catch (DAOException e) {
-            Printer.errorPrint("\n❌ Error while completing the order: " + e.getMessage());
+            Printer.errorPrint("\nError while completing the order: " + e.getMessage());
         }
 
         waitForEnter();

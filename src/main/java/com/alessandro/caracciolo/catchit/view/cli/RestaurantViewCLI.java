@@ -74,10 +74,10 @@ public class RestaurantViewCLI {
         if (choice > 0 && choice <= riders.size()) {
             try {
                 processOrderController.assignRider(selectedOrder, riders.get(choice - 1));
-                Printer.printlnBlu("\n✔️ Success!");
+                Printer.printlnBlu("\nSuccess!");
                 waitForEnter();
             } catch (DAOException | BusinessException e) {
-                Printer.errorPrint("\n❌ Error: " + e.getMessage());
+                Printer.errorPrint("\nError: " + e.getMessage());
                 waitForEnter();
             }
         } else {
