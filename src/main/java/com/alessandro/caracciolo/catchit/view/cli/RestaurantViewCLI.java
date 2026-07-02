@@ -17,71 +17,72 @@ import static com.alessandro.caracciolo.catchit.utils.Printer.waitForEnter;
 
 public class RestaurantViewCLI {
     private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
+    private final ProcessOrderController processOrderController = new ProcessOrderController();
+    private final Scanner input = new Scanner(System.in);
 
     public void initialize() {
-        ProcessOrderController processOrderController = new ProcessOrderController();
-        Scanner input = new Scanner(System.in);
+        while (true) {
+            List<OrderBean> orders = processOrderController.discoverPendingOrders();
 
-        while(true) {
-            List<OrderBean> orderBeans = processOrderController.discoverPendingOrders();
-
-            if (orderBeans.isEmpty()) {
+            if (orders.isEmpty()) {
                 clearConsole();
                 Printer.printTitle("No Pending Orders");
-
                 Printer.printlnOrange("Press Enter to refresh the list, or type '0' to Logout.");
-                String choice = input.nextLine().trim();
-                if ("0".equals(choice)) {
+
+                // Se è 0, usciamo dal ciclo!
+                if ("0".equals(input.nextLine().trim())) {
                     break;
                 }
-                continue;
+            } else {
+                updateOrdersList(orders);
+                Printer.print("\nChoose an order to assign (0 to Logout): ");
+                int choice = readIntSafely(input);
+
+                // Se la scelta è 0, usciamo dal ciclo e facciamo Logout
+                if (choice == 0) {
+                    break;
+                }
+
+                // Se la scelta è valida, passiamo l'ordine al metodo successivo
+                if (choice > 0 && choice <= orders.size()) {
+                    handleOrderSelection(orders.get(choice - 1));
+                } else {
+                    Printer.invalidChoicePrint();
+                    waitForEnter();
+                }
             }
+        }
+    }
 
-            updateOrdersList(orderBeans);
-            Printer.print("\nChoose an order to assign (0 to Logout): ");
+    private void handleOrderSelection(OrderBean selectedOrder) {
+        List<RiderBean> riders = processOrderController.discoverAvailableRiders(selectedOrder);
 
-            int orderChoice = readIntSafely(input);
+        if (riders.isEmpty()) {
+            Printer.errorPrint("\n❌ Warning: No riders available!");
+            waitForEnter();
+            return; // Interrompe questo metodo e torna al menu degli ordini
+        }
 
-            if (orderChoice == 0) break;
-            if (orderChoice < 0 || orderChoice > orderBeans.size()) {
-                Printer.invalidChoicePrint();
-                waitForEnter();
-                continue;
-            }
+        updateRidersList(riders);
+        Printer.print("\nChoose a rider (0 to go back): ");
+        int choice = readIntSafely(input);
 
-            OrderBean selectedOrder = orderBeans.get(orderChoice - 1);
+        if (choice == 0) {
+            return; // L'utente vuole tornare indietro. Il return lo riporta al while in initialize()
+        }
 
-            List<RiderBean> riderBeans = processOrderController.discoverAvailableRiders(selectedOrder);
-
-            if (riderBeans.isEmpty()) {
-                Printer.errorPrint("\n❌ Warning: No riders available for the requested time (" + selectedOrder.getTime() + ")!");
-                waitForEnter();
-                continue;
-            }
-
-            updateRidersList(riderBeans);
-            Printer.print("\nChoose a rider to assign the order to (0 to go back): ");
-
-            int riderChoice = readIntSafely(input);
-
-            if(riderChoice == 0) continue;
-            if (riderChoice < 0 || riderChoice > riderBeans.size()) {
-                Printer.invalidChoicePrint();
-                waitForEnter();
-                continue;
-            }
-
-            RiderBean selectedRider = riderBeans.get(riderChoice - 1);
-
+        if (choice > 0 && choice <= riders.size()) {
             try {
-                processOrderController.assignRider(selectedOrder, selectedRider);
-                Printer.printlnBlu("\n✔️ Order #" + selectedOrder.getIdOrder() + " successfully assigned to " + selectedRider.getName() + "!");
+                processOrderController.assignRider(selectedOrder, riders.get(choice - 1));
+                Printer.printlnBlu("\n✔️ Success!");
                 waitForEnter();
             } catch (DAOException | BusinessException e) {
-                Printer.errorPrint("\n❌ Unable to assign order: " + e.getMessage());
-                logger.severe("Error in assignRider: " + e.getMessage());
+                Printer.errorPrint("\n❌ Error: " + e.getMessage());
                 waitForEnter();
             }
+        } else {
+            Printer.invalidChoicePrint();
+            waitForEnter();
         }
     }
 
@@ -104,8 +105,6 @@ public class RestaurantViewCLI {
             nOrder++;
         }
     }
-
-
     private int readIntSafely(Scanner scanner) {
         try {
             return Integer.parseInt(scanner.nextLine().trim());
@@ -113,5 +112,4 @@ public class RestaurantViewCLI {
             return -1;
         }
     }
-
 }
