@@ -53,8 +53,8 @@ public class DeliveryGraphicController {
                 handleDeliveredButtonClick("idOrder");
                 AlertHandler.showSuccess("Delivery Completed", "Order successfully marked as delivered.");
             } catch (DAOException e) {
-                logger.severe("Database error during delivery update: " + e.getMessage());
                 AlertHandler.showDAOError(e);
+                logger.severe("Database error during delivery update: " + e.getMessage());
             } catch (BusinessException e) {
                 logger.warning("Business logic violation: " + e.getMessage());
                 AlertHandler.showBusinessError(e);
