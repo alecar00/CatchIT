@@ -13,5 +13,15 @@
     "username": "R2",
     "password": "password",
     "role": "RIDER"
+  },
+  {
+    "username": "R100",
+    "password": "password",
+    "role": "RIDER"
+  },
+  {
+    "username": "R0",
+    "password": "password",
+    "role": "RIDER"
   }
 ]
