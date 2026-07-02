@@ -30,7 +30,7 @@ public class OrderDAOMemory implements OrderDAO {
                 "Piazza della repubblica 1",
                 "Michael Jackson",
                 "3338765432",
-                Time.valueOf("19:30:00"),
+                Time.valueOf("20:30:00"),
                 OrderStatus.PENDING));
         orders.add(new Order("4",
                 "Silicon Valley",
