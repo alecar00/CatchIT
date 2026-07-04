@@ -60,7 +60,6 @@
 
 .transparent-scroll {
     -fx-background-color: transparent;
-    -fx-background: transparent;
 }
 
 .transparent-scroll > .viewport {
