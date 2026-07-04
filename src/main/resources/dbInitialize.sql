@@ -62,6 +62,7 @@ INSERT INTO User (username, password, role) VALUES
                                                    ('DaAlessandro', 'admin', 'RESTAURANT'),
                                                    ('R1', 'password', 'RIDER'),
                                                    ('R2', 'password', 'RIDER');
+                                                   ('R3', 'password', 'RIDER')
 );
 
 INSERT INTO Orders (address, costumer, tel_number, status, id_rider, id_restaurant, delivery_time)
