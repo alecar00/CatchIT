@@ -4,6 +4,7 @@ import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.exceptions.NotificationException;
 import com.alessandro.caracciolo.catchit.singleton.Configs;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -17,10 +18,10 @@ public class TelegramNotification implements  Notification {
     private static final String BOT_TOKEN = System.getenv("TELEGRAM_BOT_TOKEN");
     private static final String CHAT_ID = System.getenv("TELEGRAM_CHAT_ID");
 
+    @Override
     public void sendNotification(RiderBean rider, String messaggio) throws NotificationException {
 
         String urlString = "https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage";
-
 
         String safeMessage = messaggio.replace("\"", "\\\"");
         String jsonPayload = "{\"chat_id\": \"" + CHAT_ID + "\", \"text\": \"" + safeMessage + "\"}";
@@ -35,9 +36,16 @@ public class TelegramNotification implements  Notification {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() != 200) {
-                logger.warning("Error Telegram API: " + response.body());
+                logger.warning(() -> "Error Telegram API: " + response.body());
+                throw new NotificationException("Error Telegram API: " + response.body());
             }
-        } catch (Exception e) {
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.severe("Thread interrupted: " + e.getMessage());
+            throw new NotificationException("Thread interrupted: " + e.getMessage());
+
+        } catch (IOException e) {
             logger.severe("Impossible to connect to Telegram API: " + e.getMessage());
             throw new NotificationException("Impossible to connect to Telegram API: " + e.getMessage());
         }
