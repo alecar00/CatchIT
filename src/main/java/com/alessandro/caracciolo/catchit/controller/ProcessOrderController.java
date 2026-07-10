@@ -1,5 +1,7 @@
 package com.alessandro.caracciolo.catchit.controller;
 
+import com.alessandro.caracciolo.catchit.api.Notification;
+import com.alessandro.caracciolo.catchit.api.TelegramNotification;
 import com.alessandro.caracciolo.catchit.bean.OrderBean;
 import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.dao.DAOFactory;
@@ -18,10 +20,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ProcessOrderController {
-
+    private final Notification notification = new TelegramNotification();
     private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
 
     public List<RiderBean> discoverAvailableRiders(OrderBean orderBean) {
+        logger.info("Finding available Riders");
         Order order = new Order(
                 orderBean.getIdOrder(),
                 orderBean.getAddress(),
@@ -35,6 +38,7 @@ public class ProcessOrderController {
 
         try {
             List<Rider> riders = riderDAO.getAvailableRiders(order, order.getTime());
+            logger.info("Found " + riders.size() + " available Riders");
             return riders.stream()
                     .map(rs -> new RiderBean(rs.getIdRider(), rs.getName(), rs.isPermitZTL()))
                     .toList();
@@ -69,6 +73,7 @@ public class ProcessOrderController {
                                           rs.getStatus());
             ordersBean.add(orderBean);
         }
+        logger.info("Found " + ordersBean.size() + " orders");
         return ordersBean;
     }
 
@@ -99,9 +104,14 @@ public class ProcessOrderController {
 
         OrderDAO orderDAO = DAOFactory.getDAOFactory().createOrderDAO();
 
-        //interrogo il dao per sapere se l'ordine e' stato gia' assegnato
+        //interrogo il dao per sapere se l'ordine è stato gia' assegnato
         Order orderDao = orderDAO.getOrderById(order.getIdOrder());
         order.checkIfNotOutdated(orderDao);
         orderDAO.assignOrder(order, rider);
+
+        logger.info("Order assigned\nSending notification...");
+
+        notification.sendNotification(riderBean, "🛵 Nuovo Ordine Assegnato!\nOrdine #" + order.getIdOrder());
+        logger.info("Notification Sent!");
     }
 }

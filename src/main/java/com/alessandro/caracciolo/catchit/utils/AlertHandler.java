@@ -60,4 +60,12 @@ public class AlertHandler {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    public static void showNotificationError(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Notification Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

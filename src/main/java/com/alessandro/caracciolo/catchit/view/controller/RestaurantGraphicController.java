@@ -5,6 +5,7 @@ import com.alessandro.caracciolo.catchit.bean.RiderBean;
 import com.alessandro.caracciolo.catchit.controller.ProcessOrderController;
 import com.alessandro.caracciolo.catchit.exceptions.BusinessException;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
+import com.alessandro.caracciolo.catchit.exceptions.NotificationException;
 import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import javafx.animation.PauseTransition;
@@ -183,6 +184,9 @@ public class RestaurantGraphicController {
         } catch (BusinessException e) {
             logger.warning("Business logic violation during rider assignment: " + e.getMessage());
             AlertHandler.showBusinessError(e);
+        } catch (NotificationException e) {
+            logger.severe("Notification exception during rider assignment: " + e.getMessage());
+            AlertHandler.showNotificationError("Error on notification!");
         } catch (Exception e) {
             logger.severe("Unexpected fatal error: " + e.getMessage());
             AlertHandler.showDAOError(new DAOException("A critical system error occurred."));
