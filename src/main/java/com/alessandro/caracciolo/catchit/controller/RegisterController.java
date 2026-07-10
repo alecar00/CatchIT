@@ -30,8 +30,9 @@ public class RegisterController {
 
         try{
             userFromDao = userDAO.getUserByUsername(userBean.getUsername());
-        } catch(DAOException _){
-            logger.severe("Error in checking if user exists");
+        } catch(DAOException e){
+            logger.severe("Error in checking if user exists" + e.getMessage());
+            throw new DAOException("Error in checking if user exists");
         }
 
         if(userFromDao != null){
@@ -47,8 +48,7 @@ public class RegisterController {
             }
         }catch(DAOException e){
             logger.severe("Error in registerUser: " + e.getMessage());
-            Printer.errorPrint("Error during registration.");
-            throw new DAOException();
+            throw new DAOException("Error in user registration");
         }
 
     }
