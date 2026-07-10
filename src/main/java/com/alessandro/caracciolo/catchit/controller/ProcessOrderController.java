@@ -38,11 +38,11 @@ public class ProcessOrderController {
 
         try {
             List<Rider> riders = riderDAO.getAvailableRiders(order, order.getTime());
-            logger.info("Found " + riders.size() + " available Riders");
+            logger.info(() -> "Found " + riders.size() + " available Riders");
             return riders.stream()
                     .map(rs -> new RiderBean(rs.getIdRider(), rs.getName(), rs.isPermitZTL()))
                     .toList();
-        } catch(Exception e) {
+        } catch(Exception e){
             logger.log(Level.WARNING, "Error while fetching available riders", e);
             return new ArrayList<>();
         }
@@ -73,7 +73,7 @@ public class ProcessOrderController {
                                           rs.getStatus());
             ordersBean.add(orderBean);
         }
-        logger.info("Found " + ordersBean.size() + " orders");
+        logger.info(() -> "Found " + ordersBean.size() + " orders");
         return ordersBean;
     }
 

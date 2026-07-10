@@ -12,8 +12,6 @@ import com.alessandro.caracciolo.catchit.model.Rider;
 import com.alessandro.caracciolo.catchit.model.Role;
 import com.alessandro.caracciolo.catchit.model.User;
 import com.alessandro.caracciolo.catchit.singleton.Configs;
-import com.alessandro.caracciolo.catchit.utils.Printer;
-
 import java.util.logging.Logger;
 
 public class RegisterController {
