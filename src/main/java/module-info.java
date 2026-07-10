@@ -10,6 +10,7 @@ module com.alessandro.caracciolo.catchit {
     requires com.google.gson;
     requires org.checkerframework.checker.qual;
     requires java.logging;
+    requires java.net.http;
     opens com.alessandro.caracciolo.catchit to javafx.fxml;
     exports com.alessandro.caracciolo.catchit;
     exports com.alessandro.caracciolo.catchit.controller;
