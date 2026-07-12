@@ -41,19 +41,7 @@ public class ProcessOrderViewCLI {
                 return;
 
             } else if (!inputStr.isEmpty() && !orders.isEmpty()) {
-                try {
-                    int choice = Integer.parseInt(inputStr);
-
-                    if (choice > 0 && choice <= orders.size()) {
-                        handleOrderSelection(orders.get(choice - 1));
-                    } else {
-                        Printer.invalidChoicePrint();
-                        waitForEnter();
-                    }
-                } catch (NumberFormatException e) {
-                    Printer.invalidChoicePrint();
-                    waitForEnter();
-                }
+                processInputChoice(inputStr, orders);
             }
         }
     }
@@ -114,6 +102,23 @@ public class ProcessOrderViewCLI {
             return Integer.parseInt(scanner.nextLine().trim());
         } catch (NumberFormatException _) {
             return -1;
+        }
+    }
+
+    private void processInputChoice(String inputStr, List<OrderBean> orders) {
+        try {
+            int choice = Integer.parseInt(inputStr);
+
+            if (choice > 0 && choice <= orders.size()) {
+                handleOrderSelection(orders.get(choice - 1));
+            } else {
+                Printer.invalidChoicePrint();
+                waitForEnter();
+            }
+        } catch (NumberFormatException _) {
+            // Nota: in Java recenti puoi usare _ per le eccezioni ignorate, altrimenti metti "e"
+            Printer.invalidChoicePrint();
+            waitForEnter();
         }
     }
 }
