@@ -56,7 +56,7 @@ public class Printer {
         printlnOrange("   Consumer: " + orderBean.getConsumer());
         printlnOrange("   Address: " + orderBean.getAddress());
         printlnOrange("   Time: " + orderBean.getTime());
-        printlnOrange("   Rider: " + (orderBean.getRider() != null ? orderBean.getRider() : "NOT ASSIGNED"));
+        printlnOrange("   Rider: " + (orderBean.getRider() != null ? orderBean.getRider().getName() : "NOT ASSIGNED"));
         printlnOrange("   Status: " + orderBean.getStatus());
         printlnBlu(SEPARATOR);
     }
