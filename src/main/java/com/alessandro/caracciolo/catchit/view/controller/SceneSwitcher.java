@@ -88,9 +88,13 @@ public class SceneSwitcher {
         }
     }
 
-    public static void switchToDelivery(Node sourceNode) {
+    public static void switchToDelivery(Node sourceNode, String idOrder) {
         try {FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/DeliveryView.fxml"));
             Parent root = loader.load();
+
+            DeliveryGraphicController controller = loader.getController();
+
+            controller.initData(idOrder);
 
             Stage stage = (Stage) sourceNode.getScene().getWindow();
             stage.setScene(new Scene(root));

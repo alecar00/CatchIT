@@ -97,7 +97,7 @@ public class RiderGraphicController {
             deliveryController.startDelivery(order.getIdOrder(), riderId);
             AlertHandler.showSuccess("Delivery Started", "Order #" + order.getIdOrder() + " is now in delivery.");
 
-            SceneSwitcher.switchToDelivery((Node) event.getSource());
+            SceneSwitcher.switchToDelivery((Node) event.getSource(), order.getIdOrder());
 
         } catch (DAOException e) {
             logger.severe("Error starting delivery: " + e.getMessage());
