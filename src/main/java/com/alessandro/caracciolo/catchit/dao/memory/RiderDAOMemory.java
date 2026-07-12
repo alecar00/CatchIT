@@ -38,10 +38,11 @@ public class RiderDAOMemory implements RiderDAO {
 
     @Override
     public List<Rider> getAvailableRiders(Order selectedOrder, Time time) {
-        List<Rider> availableRiders = riders;
+        List<Rider> availableRiders = new ArrayList<>(riders);
+
         for (Order order : orders) {
-            if (order.getTime().equals(time)) {
-                availableRiders.remove(order.getRider());
+            if (order.getTime().equals(time) && order.getRider() != null) {
+                availableRiders.removeIf(r -> r.getIdRider().equals(order.getRider().getIdRider()));
             }
         }
         return availableRiders;

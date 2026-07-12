@@ -53,14 +53,14 @@ public class DeliveryGraphicController {
             try {
                 handleDeliveredButtonClick(idOrder);
                 AlertHandler.showSuccess("Delivery Completed", "Order successfully marked as delivered.");
-            } catch (DAOException exception) {
-                AlertHandler.showDAOError(exception);
-                logger.severe("Database error during delivery update: " + exception.getMessage());
+            } catch (DAOException e) {
+                AlertHandler.showDAOError(e);
+                logger.severe("Database error during delivery update: " + e);
             } catch (BusinessException e) {
-                logger.warning("Business logic violation: " + e.getMessage());
+                logger.warning("Business logic violation: " + e);
                 AlertHandler.showBusinessError(e);
             } catch (Exception e) {
-                logger.severe("Unexpected fatal error: " + e.getMessage());
+                logger.severe("Unexpected fatal error: " + e);
                 AlertHandler.showDAOError(e);
             }
         });

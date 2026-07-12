@@ -76,9 +76,13 @@ public class UIFactory {
 
     public static Button createStartDeliveryButton() {
         Button btnDelivery = new Button("Start Delivery");
-        btnDelivery.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; " +
-                "-fx-background-radius: 20; -fx-padding: 8 30; " +
-                "-fx-font-weight: bold; -fx-font-size: 13;");
+        btnDelivery.setStyle("-fx-background-color: #2196f3;" +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 20;" +
+                "-fx-padding: 8 30; " +
+                "-fx-font-weight: bold; " +
+                "-fx-cursor: hand;" +
+                "-fx-font-size: 13;");
 
         return btnDelivery;
     }
