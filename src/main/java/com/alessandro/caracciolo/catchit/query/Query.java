@@ -33,4 +33,6 @@ public class Query {
     public static final String DELETE_USER = "DELETE FROM User WHERE username = ?;";
 
     public static final String INSERT_RIDER = "INSERT INTO Rider (id_rider, name, permit_ztl) VALUES (?, ?, 0);";
+
+    public static final String GET_ORDERS = "SELECT * FROM ORDERS;";
 }
