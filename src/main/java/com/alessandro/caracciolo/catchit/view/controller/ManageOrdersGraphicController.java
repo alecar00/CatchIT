@@ -5,14 +5,13 @@ import com.alessandro.caracciolo.catchit.controller.ManageOrdersController;
 import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
+import com.alessandro.caracciolo.catchit.view.utils.UIFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -39,7 +38,6 @@ public class ManageOrdersGraphicController {
     private VBox ordersContainer;
 
     private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
-    private static final String FONT_SIZE = "-fx-font-size: 12;";
     private ManageOrdersController appController;
 
     public void initialize() {
@@ -64,37 +62,7 @@ public class ManageOrdersGraphicController {
     }
 
     private VBox createOrderCard(OrderBean order) {
-        VBox card = new VBox(10);
-
-        card.setStyle("-fx-background-color: #c5e1f5; " +
-                "-fx-background-radius: 10; " +
-                "-fx-padding: 15; " +
-                "-fx-border-color: #2196f3; " +
-                "-fx-border-width: 3; " +
-                "-fx-border-radius: 10;");
-
-        Label lblId = new Label("ID: #" + order.getIdOrder());
-        lblId.setFont(Font.font("System", FontWeight.BOLD, 14));
-
-        Label lblAddress = new Label("Address: " + order.getAddress());
-        lblAddress.setStyle(FONT_SIZE);
-
-        Label lblConsumer = new Label("Customer: " + order.getConsumer());
-        lblConsumer.setStyle(FONT_SIZE);
-
-        Label lblTime = new Label("Time: " + order.getTime());
-        lblTime.setStyle(FONT_SIZE);
-
-        String riderName = (order.getRider() != null) ? order.getRider().getName() : "NOT ASSIGNED";
-        Label lblRider = new Label("Rider: " + riderName);
-        lblRider.setStyle(FONT_SIZE);
-
-        Label lblStatus = new Label("Status: " + order.getStatus());
-        lblStatus.setStyle(FONT_SIZE);
-
-        card.getChildren().addAll(lblId, lblAddress, lblConsumer, lblTime, lblRider);
-
-        return card;
+        return UIFactory.createOrderCard(order);
     }
 
     private void refreshInterface() {

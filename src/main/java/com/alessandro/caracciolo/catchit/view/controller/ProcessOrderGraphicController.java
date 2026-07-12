@@ -8,6 +8,7 @@ import com.alessandro.caracciolo.catchit.exceptions.DAOException;
 import com.alessandro.caracciolo.catchit.exceptions.NotificationException;
 import com.alessandro.caracciolo.catchit.singleton.Configs;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
+import com.alessandro.caracciolo.catchit.view.utils.UIFactory;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,40 +75,13 @@ public class ProcessOrderGraphicController {
     }
 
     private VBox createOrderCard(OrderBean order) {
-        VBox card = new VBox(10);
+        VBox card = UIFactory.createShortOrderCard(order);
 
-        card.setStyle("-fx-background-color: #c5e1f5; " +
-                "-fx-background-radius: 10; " +
-                "-fx-padding: 15; " +
-                "-fx-border-color: #2196f3; " +
-                "-fx-border-width: 3; " +
-                "-fx-border-radius: 10;");
-
-        Label lblId = new Label("ID: #" + order.getIdOrder());
-        lblId.setFont(Font.font("System", FontWeight.BOLD, 14));
-
-        Label lblAddress = new Label("Address: " + order.getAddress());
-        lblAddress.setStyle(FONT_SIZE);
-
-        Label lblConsumer = new Label("Customer: " + order.getConsumer());
-        lblConsumer.setStyle(FONT_SIZE);
-
-        Label lblTime = new Label("Time: " + order.getTime());
-        lblTime.setStyle(FONT_SIZE);
-
-        Button btnAssegna = new Button("Assign");
-        btnAssegna.setStyle("-fx-background-color: #2196f3; " +
-                "-fx-text-fill: white; " +
-                "-fx-background-radius: 20;" +
-                "-fx-padding: 8 30; " +
-                "-fx-font-weight: bold; " +
-                "-fx-cursor: hand;" +
-                "-fx-font-size: 13;");
+        Button btnAssegna = UIFactory.createAssignButton();
 
         btnAssegna.setOnAction(event -> handleOrderClick(order, card));
 
-        card.getChildren().addAll(lblId, lblAddress, lblConsumer, lblTime, btnAssegna);
-
+        card.getChildren().add(btnAssegna);
         return card;
     }
 
@@ -181,6 +155,7 @@ public class ProcessOrderGraphicController {
     }
 
     private void handleAssignClick(RiderBean riderBean, OrderBean orderBean) {
+        logger.info(() -> "Trying to assign: " + orderBean.getIdOrder() + " to: " + riderBean.getIdRider());
         try {
             appController.assignRider(orderBean, riderBean);
             showSuccessNotification(orderBean.getIdOrder(), riderBean.getName());
