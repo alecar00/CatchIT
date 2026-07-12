@@ -23,13 +23,15 @@ import javafx.util.Duration;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class RestaurantGraphicController {
+public class ProcessOrderGraphicController {
     @FXML
     public HBox notificationBox;
     @FXML
     public Label notificationText;
     @FXML
     public Button logoutButton;
+    @FXML
+    public Button backButton;
     @FXML
     private Label statusLabel;
     @FXML
@@ -94,9 +96,13 @@ public class RestaurantGraphicController {
         lblTime.setStyle(FONT_SIZE);
 
         Button btnAssegna = new Button("Assign");
-        btnAssegna.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; " +
-                "-fx-background-radius: 20; -fx-padding: 8 30; " +
-                "-fx-font-weight: bold; -fx-font-size: 13;");
+        btnAssegna.setStyle("-fx-background-color: #2196f3; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 20;" +
+                "-fx-padding: 8 30; " +
+                "-fx-font-weight: bold; " +
+                "-fx-cursor: hand;" +
+                "-fx-font-size: 13;");
 
         btnAssegna.setOnAction(event -> handleOrderClick(order, card));
 
@@ -122,7 +128,8 @@ public class RestaurantGraphicController {
                 "-fx-padding: 15; " +
                 "-fx-border-color: #2196f3; " +
                 "-fx-border-width: 3; " +
-                "-fx-border-radius: 10;");
+                "-fx-border-radius: 10;" +
+                "-fx-cursor: hand;");
 
         Label lblName = new Label("Name: " + rider.getName());
         lblName.setFont(Font.font("System", FontWeight.BOLD, 14));
@@ -224,5 +231,9 @@ public class RestaurantGraphicController {
 
     public void handleLogoutButton(ActionEvent event) {
         SceneSwitcher.switchToLogin((Node) event.getSource());
+    }
+
+    public void handleBackButton(ActionEvent event) {
+        SceneSwitcher.switchToManageOrders((Node) event.getSource());
     }
 }
