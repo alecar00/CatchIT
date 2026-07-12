@@ -106,6 +106,9 @@ public class RiderGraphicController {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/DeliveryView.fxml"));
             Parent rootOrdini = loader.load();
 
+            DeliveryGraphicController deliveryController = loader.getController();
+            deliveryController.initData(order.getIdOrder());
+
             Stage stageAttuale = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             stageAttuale.setScene(new Scene(rootOrdini));

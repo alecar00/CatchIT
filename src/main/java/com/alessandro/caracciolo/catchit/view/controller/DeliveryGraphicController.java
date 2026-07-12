@@ -31,6 +31,7 @@ public class DeliveryGraphicController {
     DeliveryController deliveryController = new DeliveryController();
 
     private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
+    private String idOrder;
 
     public void initialize() {
         // Imposto una coordinata di esempio (es. Tor Vergata)
@@ -50,7 +51,7 @@ public class DeliveryGraphicController {
 
         deliveredButton.setOnAction(event -> {
             try {
-                handleDeliveredButtonClick("idOrder");
+                handleDeliveredButtonClick(idOrder);
                 AlertHandler.showSuccess("Delivery Completed", "Order successfully marked as delivered.");
             } catch (DAOException exception) {
                 AlertHandler.showDAOError(exception);
@@ -65,9 +66,12 @@ public class DeliveryGraphicController {
         });
     }
 
+    public void initData(String idOrder){
+        this.idOrder = idOrder;
+    }
+
     private void handleDeliveredButtonClick(String idOrder) throws DAOException, BusinessException, IOException {
         deliveryController.setOrderCompleted(idOrder);
-        AlertHandler.showSuccess("Delivery Completed", "Order #" + idOrder + " marked as completed.");
 
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RiderHomePage.fxml"));
         Parent root = loader.load();
