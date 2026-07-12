@@ -75,10 +75,13 @@ public class SceneSwitcher {
         }
     }
 
-    public static void switchToRider(Node sourceNode) {
+    public static void switchToRider(Node sourceNode, String idRider) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RiderView.fxml"));
             Parent root = loader.load();
+
+            RiderGraphicController riderGraphicController = loader.getController();
+            riderGraphicController.initData(idRider);
 
             Stage stage = (Stage) sourceNode.getScene().getWindow();
             stage.setScene(new Scene(root));
