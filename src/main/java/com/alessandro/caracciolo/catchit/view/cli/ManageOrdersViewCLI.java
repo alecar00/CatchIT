@@ -24,27 +24,24 @@ public class ManageOrdersViewCLI {
             if (orders.isEmpty()) {
                 clearConsole();
                 Printer.printTitle("No Orders");
-                Printer.printlnOrange("Press Enter to refresh the list, or type '0' to Logout.");
                 logger.info("No Orders found");
-
-                // Se è 0, usciamo dal ciclo!
-                if ("0".equals(input.nextLine().trim())) {
-                    return;
-                }
+                Printer.printlnOrange("Press Enter to refresh the list, or type '0' to Logout.");
             } else {
                 updateOrdersList(orders);
                 Printer.print("Press Enter to refresh the list, type '1' to process orders or '0' to Logout.");
-                int choice = readIntSafely(input);
-
-                logger.info(() -> "Pressed: " + choice);
-                // Se la scelta è 0, usciamo dal ciclo e facciamo Logout
-                if (choice == 0) {
-                    return;
-                } else if (choice == 1) {
-                    ProcessOrderViewCLI processOrderViewCLI = new ProcessOrderViewCLI();
-                    processOrderViewCLI.initialize();
-                }
             }
+            String choice = input.nextLine().trim();
+            logger.info(() -> "User input: " + (choice.isEmpty() ? "ENTER (Refresh)" : choice));
+
+            if ("0".equals(choice)) {
+                return;
+
+            } else if ("1".equals(choice) && !orders.isEmpty()) {
+                ProcessOrderViewCLI processOrderViewCLI = new ProcessOrderViewCLI();
+                processOrderViewCLI.initialize();
+
+            }
+
         }
     }
 
@@ -55,13 +52,6 @@ public class ManageOrdersViewCLI {
         for (OrderBean orderBean : orderBeans) {
             Printer.printCompleteOrder(orderBean, nOrder);
             nOrder++;
-        }
-    }
-    private int readIntSafely(Scanner scanner) {
-        try {
-            return Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException _) {
-            return -1;
         }
     }
 
