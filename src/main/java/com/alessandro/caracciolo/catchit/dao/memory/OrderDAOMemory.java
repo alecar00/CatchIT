@@ -99,4 +99,9 @@ public class OrderDAOMemory implements OrderDAO {
             }
         }
     }
+
+    @Override
+    public List<Order> getOrders() throws DAOException {
+        return orders;
+    }
 }

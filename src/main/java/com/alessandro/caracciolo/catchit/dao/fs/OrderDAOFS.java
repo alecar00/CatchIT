@@ -162,6 +162,25 @@ public class OrderDAOFS implements OrderDAO {
         //To be implemented
     }
 
+    @Override
+    public List<Order> getOrders() throws DAOException {
+        List<Order> allOrders = new ArrayList<>();
+        File file = new File(FS_DIR + FS_ORDER);
+
+        if (!file.exists() || file.length() == 0) {
+            return allOrders;
+        }
+
+        try (FileReader reader = new FileReader(file)) {
+            Type listType = new TypeToken<ArrayList<Order>>() {}.getType();
+            allOrders = gson.fromJson(reader, listType);
+        } catch (IOException e) {
+            throw new DAOException("Impossibile leggere gli ordini dal File System.", e);
+        }
+
+        return allOrders;
+    }
+
     private File openOrderFile() throws DAOException {
         File file = new File(FS_DIR + FS_ORDER);
         if (!file.exists()) {

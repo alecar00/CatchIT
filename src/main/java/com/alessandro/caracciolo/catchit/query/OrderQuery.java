@@ -36,4 +36,9 @@ public class OrderQuery {
         stmt.setString(1, orderId);
         return stmt.executeUpdate();
     }
+
+    public static ResultSet getOrders(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(Query.GET_ORDERS);
+        return stmt.executeQuery();
+    }
 }

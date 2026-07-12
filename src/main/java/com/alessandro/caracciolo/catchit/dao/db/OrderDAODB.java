@@ -36,20 +36,7 @@ public class OrderDAODB implements OrderDAO {
         List<Order> orders = new ArrayList<>();
 
         try (ResultSet rs = OrderQuery.getPendingOrders(Connector.getConnection(), OrderStatus.PENDING)) {
-            while (rs.next()) {
-                String statusString = rs.getString(STATUS);
-                OrderStatus status = OrderStatus.valueOf(statusString);
-
-                var order = new Order(rs.getString(ID_ORDER),
-                        rs.getString(ADDRESS),
-                        rs.getString(COSTUMER),
-                        rs.getString(TEL_NUMBER),
-                        rs.getTime(DELIVERY_TIME),
-                        //rs.getDate("date"),
-                        //rs.getString("id_restaurant"),
-                        status);
-                orders.add(order);
-            }
+            extractOrders(orders, rs);
         } catch (SQLException e) {
             throw new DAOException("Impossibile recuperare gli ordini!",e);
         }
@@ -143,18 +130,7 @@ public class OrderDAODB implements OrderDAO {
         List<Order> riderOrders = new ArrayList<>();
 
         try (ResultSet rs = OrderQuery.getRiderOrders(Connector.getConnection(), riderId)) {
-            while (rs.next()) {
-                String statusString = rs.getString(STATUS);
-                OrderStatus status = OrderStatus.valueOf(statusString);
-
-                var order = new Order(rs.getString(ID_ORDER),
-                        rs.getString(ADDRESS),
-                        rs.getString(COSTUMER),
-                        rs.getString(TEL_NUMBER),
-                        rs.getTime(DELIVERY_TIME),
-                        status);
-                riderOrders.add(order);
-            }
+            extractOrders(riderOrders, rs);
         } catch (SQLException e) {
             logger.severe(e.getMessage());
             throw new DAOException("Impossibile recuperare gli ordini!",e);
@@ -184,6 +160,35 @@ public class OrderDAODB implements OrderDAO {
             }catch (SQLException e) {
                 logger.log(Level.SEVERE, AUTOCOMMIT_WARNING, e);
             }
+        }
+    }
+
+    @Override
+    public List<Order> getOrders() throws DAOException {
+        List<Order> orders = new ArrayList<>();
+
+        try (ResultSet rs = OrderQuery.getOrders(Connector.getConnection())) {
+            extractOrders(orders, rs);
+        } catch (SQLException e) {
+            throw new DAOException("Impossibile recuperare gli ordini!",e);
+        }
+        return orders;
+    }
+
+    private void extractOrders(List<Order> orders, ResultSet rs) throws SQLException {
+        while (rs.next()) {
+            String statusString = rs.getString(STATUS);
+            OrderStatus status = OrderStatus.valueOf(statusString);
+
+            var order = new Order(rs.getString(ID_ORDER),
+                    rs.getString(ADDRESS),
+                    rs.getString(COSTUMER),
+                    rs.getString(TEL_NUMBER),
+                    rs.getTime(DELIVERY_TIME),
+                    //rs.getDate("date"),
+                    //rs.getString("id_restaurant"),
+                    status);
+            orders.add(order);
         }
     }
 }

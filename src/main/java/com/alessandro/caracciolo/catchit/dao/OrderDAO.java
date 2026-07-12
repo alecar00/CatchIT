@@ -31,4 +31,6 @@ public interface OrderDAO {
     List<Order> getOrdersByRider(String riderId) throws DAOException;
 
     void setOrderInDelivery(String orderId) throws DAOException;
+
+    List<Order> getOrders() throws DAOException;
 }
