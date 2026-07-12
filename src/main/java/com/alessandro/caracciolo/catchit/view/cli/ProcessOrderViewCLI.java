@@ -28,6 +28,7 @@ public class ProcessOrderViewCLI {
                 clearConsole();
                 Printer.printTitle("No Pending Orders");
                 Printer.printlnOrange("Press Enter to refresh the list, or type '0' to Logout.");
+                logger.info("No Pending Orders found.");
 
                 // Se è 0, usciamo dal ciclo!
                 if ("0".equals(input.nextLine().trim())) {
@@ -37,7 +38,7 @@ public class ProcessOrderViewCLI {
                 updateOrdersList(orders);
                 Printer.print("\nChoose an order to assign (0 to go Back): ");
                 int choice = readIntSafely(input);
-
+                logger.info(() -> "Pressed: " + choice);
                 // Se la scelta è 0, usciamo dal ciclo e facciamo Logout
                 if (choice == 0) {
                     return;
