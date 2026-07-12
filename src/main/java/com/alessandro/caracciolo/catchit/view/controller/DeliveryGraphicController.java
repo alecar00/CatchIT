@@ -65,27 +65,18 @@ public class DeliveryGraphicController {
         });
     }
 
-    private void handleDeliveredButtonClick(String idOrder) throws DAOException, BusinessException {
-        try {
-            deliveryController.setOrderCompleted(idOrder);
-            AlertHandler.showSuccess("Delivery Completed", "Order #" + idOrder + " marked as completed.");
+    private void handleDeliveredButtonClick(String idOrder) throws DAOException, BusinessException, IOException {
+        deliveryController.setOrderCompleted(idOrder);
+        AlertHandler.showSuccess("Delivery Completed", "Order #" + idOrder + " marked as completed.");
 
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RiderHomePage.fxml"));
-            Parent root = loader.load();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RiderHomePage.fxml"));
+        Parent root = loader.load();
 
-            RiderGraphicController controller = loader.getController();
-            controller.initData(idOrder);
+        RiderGraphicController controller = loader.getController();
+        controller.initData(idOrder);
 
-            Stage stageAttuale = (Stage) deliveredButton.getScene().getWindow();
-
-            stageAttuale.setScene(new Scene(root));
-            stageAttuale.show();
-
-        } catch (IOException e) {
-            logger.severe("Error loading RiderHomePage: " + e.getMessage());
-            AlertHandler.showError("Error loading RiderHomePage: " + e.getMessage());
-        } catch (DAOException e){
-            AlertHandler.showDAOError(e);
-        }
+        Stage stageAttuale = (Stage) deliveredButton.getScene().getWindow();
+        stageAttuale.setScene(new Scene(root));
+        stageAttuale.show();
     }
 }
