@@ -29,22 +29,20 @@
 
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <fx:define>
-                        <ToggleGroup fx:id="roleGroup" />
+                        <ToggleGroup fx:id="roleGroup"/>
                     </fx:define>
 
-                    <children>
-                        <ToggleButton fx:id="riderButton"
-                                      toggleGroup="$roleGroup"
-                                      onAction="#handleRiderClick"
-                                      prefHeight="14.0" prefWidth="553.0"
-                                      styleClass="role-toggle-button" text="Rider" />
+                    <ToggleButton fx:id="riderButton"
+                                  toggleGroup="$roleGroup"
+                                  onAction="#handleRiderClick"
+                                  prefHeight="14.0" prefWidth="553.0"
+                                  styleClass="role-toggle-button" text="Rider"/>
 
-                        <ToggleButton fx:id="restaurantButton"
-                                      toggleGroup="$roleGroup"
-                                      onAction="#handleRestaurantClick"
-                                      prefHeight="14.0" prefWidth="553.0"
-                                      styleClass="role-toggle-button" text="Restaurant" />
-                    </children>
+                    <ToggleButton fx:id="restaurantButton"
+                                  toggleGroup="$roleGroup"
+                                  onAction="#handleRestaurantClick"
+                                  prefHeight="14.0" prefWidth="553.0"
+                                  styleClass="role-toggle-button" text="Restaurant"/>
                 </HBox>
                 <Button fx:id="registerButton" mnemonicParsing="false" onAction="#handleRegisterClick" prefHeight="38.0" prefWidth="553.0" styleClass="orange-button" text="Register" />
                 <Label fx:id="cancelButton" onMouseClicked="#handleCancelClick" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="624.0" text="Cancel" textFill="#2196f3" underline="true" styleClass="clickable-text"/>
