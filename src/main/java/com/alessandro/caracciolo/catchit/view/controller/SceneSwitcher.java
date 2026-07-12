@@ -20,7 +20,7 @@ public class SceneSwitcher {
 
     public static void switchToLogin(Node sourceNode) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/LoginGUI.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/LoginView.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) sourceNode.getScene().getWindow();
@@ -29,6 +29,75 @@ public class SceneSwitcher {
         } catch (IOException e) {
             logger.severe("Irreversible UI error: " + e.getMessage());
             AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Login interface."));
+        }
+    }
+
+    public static void switchToManageOrders(Node sourceNode) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RestaurantView_manageOrders.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            logger.severe("Irreversible UI error: " + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Manage Orders interface."));
+        }
+    }
+
+    public static void switchToPendingOrders(Node sourceNode) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RestaurantView_ProcessOrder.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            logger.severe("Irreversible UI error: " + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Pending Orders interface."));
+        }
+    }
+
+    public static void switchToRegister(Node sourceNode) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RegisterView.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            logger.severe("Irreversible UI error: " + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Register interface."));
+        }
+    }
+
+    public static void switchToRider(Node sourceNode) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RiderView.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            logger.severe("Irreversible UI error: " + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Rider interface."));
+        }
+    }
+
+    public static void switchToDelivery(Node sourceNode) {
+        try {FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/DeliveryView.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            logger.severe("Irreversible UI error: " + e.getMessage());
+            AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Delivery interface."));
         }
     }
 }
