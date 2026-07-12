@@ -25,6 +25,7 @@ public class ManageOrdersViewCLI {
                 clearConsole();
                 Printer.printTitle("No Orders");
                 Printer.printlnOrange("Press Enter to refresh the list, or type '0' to Logout.");
+                logger.info("No Orders found");
 
                 // Se è 0, usciamo dal ciclo!
                 if ("0".equals(input.nextLine().trim())) {
@@ -35,6 +36,7 @@ public class ManageOrdersViewCLI {
                 Printer.print("Press Enter to refresh the list, type '1' to process orders or '0' to Logout.");
                 int choice = readIntSafely(input);
 
+                logger.info(() -> "Pressed: " + choice);
                 // Se la scelta è 0, usciamo dal ciclo e facciamo Logout
                 if (choice == 0) {
                     return;
