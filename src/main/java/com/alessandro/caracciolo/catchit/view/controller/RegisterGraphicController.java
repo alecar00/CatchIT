@@ -8,15 +8,14 @@ import com.alessandro.caracciolo.catchit.exceptions.InvalidRegistrationException
 import com.alessandro.caracciolo.catchit.exceptions.UsernameAlreadyUsed;
 import com.alessandro.caracciolo.catchit.utils.AlertHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 
 import java.io.IOException;
 
@@ -85,18 +84,7 @@ public class RegisterGraphicController {
         riderFieldsBox.setManaged(true);
     }
 
-    public void handleCancelClick() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginGUI.fxml"));
-            Parent root = loader.load();
-
-            Stage stageAttuale = (Stage) cancelButton.getScene().getWindow();
-
-            stageAttuale.setScene(new Scene(root));
-            stageAttuale.show();
-
-        } catch (IOException _) {
-            AlertHandler.showError("Error: Can't load login page!");
-        }
+    public void handleCancelClick(@MonotonicNonNull MouseEvent event) {
+        SceneSwitcher.switchToLogin((Node) event.getSource());
     }
 }
