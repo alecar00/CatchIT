@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 public class SceneSwitcher {
     private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
+    private static final String UI_ERROR_MSG = "Irreversible UI error: ";
 
     private SceneSwitcher() { }
 
@@ -27,7 +28,7 @@ public class SceneSwitcher {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            logger.severe("Irreversible UI error: " + e.getMessage());
+            logger.severe(() -> UI_ERROR_MSG + e.getMessage());
             AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Login interface."));
         }
     }
@@ -41,7 +42,7 @@ public class SceneSwitcher {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            logger.severe("Irreversible UI error: " + e.getMessage());
+            logger.severe(() -> UI_ERROR_MSG + e.getMessage());
             AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Manage Orders interface."));
         }
     }
@@ -55,7 +56,7 @@ public class SceneSwitcher {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            logger.severe("Irreversible UI error: " + e.getMessage());
+            logger.severe(() -> UI_ERROR_MSG + e.getMessage());
             AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Pending Orders interface."));
         }
     }
@@ -69,7 +70,7 @@ public class SceneSwitcher {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            logger.severe("Irreversible UI error: " + e.getMessage());
+            logger.severe(() -> UI_ERROR_MSG + e.getMessage());
             AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Register interface."));
         }
     }
@@ -83,7 +84,7 @@ public class SceneSwitcher {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            logger.severe("Irreversible UI error: " + e.getMessage());
+            logger.severe(() -> UI_ERROR_MSG + e.getMessage());
             AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Rider interface."));
         }
     }
@@ -100,7 +101,7 @@ public class SceneSwitcher {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            logger.severe("Irreversible UI error: " + e.getMessage());
+            logger.severe(() -> UI_ERROR_MSG + e.getMessage());
             AlertHandler.showDAOError(new DAOException("Fatal error: Unable to load the Delivery interface."));
         }
     }
