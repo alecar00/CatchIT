@@ -51,6 +51,16 @@ public class Printer {
         printlnBlu(SEPARATOR);
     }
 
+    public static void printCompleteOrder(OrderBean orderBean, int nOrder) {
+        printlnOrange("-" + nOrder + ") Order ID: #" + orderBean.getIdOrder());
+        printlnOrange("   Consumer: " + orderBean.getConsumer());
+        printlnOrange("   Address: " + orderBean.getAddress());
+        printlnOrange("   Time: " + orderBean.getTime());
+        printlnOrange("   Rider: " + (orderBean.getRider() != null ? orderBean.getRider() : "NOT ASSIGNED"));
+        printlnOrange("   Status: " + orderBean.getStatus());
+        printlnBlu(SEPARATOR);
+    }
+
     public static void printRider(RiderBean riderBean, int index) {
         printlnOrange("-" + index + ") Rider ID: " + riderBean.getIdRider());
         printlnOrange("   Name: " + riderBean.getName());
