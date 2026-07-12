@@ -73,7 +73,7 @@ public class OrderDAODB implements OrderDAO {
         //TO DO: togliere la dao da dentro la dao?
         logger.info(() -> "getOrderById: " +  idOrder);
         RiderDAO riderDAO = DAOFactory.getDAOFactory().createRiderDAO();
-        try (ResultSet rs = OrderQuery.getOrderById(Connector.getConnection(), idOrder);){
+        try (ResultSet rs = OrderQuery.getOrderById(Connector.getConnection(), idOrder)){
             if (rs.next()) {
                 String idRider = rs.getString("id_rider");
                 Rider rider;

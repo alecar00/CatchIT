@@ -81,7 +81,7 @@ public class OrderDAOMemory implements OrderDAO {
     }
 
     @Override
-    public List<Order> getOrdersByRider(String riderId) throws DAOException {
+    public List<Order> getOrdersByRider(String riderId) {
         List <Order> riderOrders = new ArrayList<>();
         for (Order order : orders) {
             if (order.getRider() != null && order.getRider().getIdRider().equals(riderId)) {
@@ -92,7 +92,7 @@ public class OrderDAOMemory implements OrderDAO {
     }
 
     @Override
-    public void setOrderInDelivery(String orderId) throws DAOException {
+    public void setOrderInDelivery(String orderId) {
         for (Order order : orders) {
             if (order.getIdOrder().equals(orderId)) {
                 order.setStatus(OrderStatus.IN_DELIVERY);
@@ -101,7 +101,7 @@ public class OrderDAOMemory implements OrderDAO {
     }
 
     @Override
-    public List<Order> getOrders() throws DAOException {
+    public List<Order> getOrders() {
         return orders;
     }
 }

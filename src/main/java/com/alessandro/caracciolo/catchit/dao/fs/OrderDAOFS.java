@@ -153,12 +153,12 @@ public class OrderDAOFS implements OrderDAO {
     }
 
     @Override
-    public List<Order> getOrdersByRider(String riderId) throws DAOException {
+    public List<Order> getOrdersByRider(String riderId) {
         return List.of();
     }
 
     @Override
-    public void setOrderInDelivery(String orderId) throws DAOException {
+    public void setOrderInDelivery(String orderId) {
         //To be implemented
     }
 
