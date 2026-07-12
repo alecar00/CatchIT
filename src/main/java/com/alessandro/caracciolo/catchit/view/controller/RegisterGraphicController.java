@@ -17,7 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 
-import java.io.IOException;
 
 public class RegisterGraphicController {
 
