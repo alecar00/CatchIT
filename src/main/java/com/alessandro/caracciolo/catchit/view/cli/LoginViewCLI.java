@@ -54,8 +54,8 @@ public class LoginViewCLI {
                         Printer.printlnBlu("\nSuccessfully logged in as RESTAURANT!");
                         Printer.waitForEnter();
 
-                        RestaurantViewCLI restaurantViewCLI = new RestaurantViewCLI();
-                        restaurantViewCLI.initialize();
+                        ManageOrdersViewCLI manageOrdersViewCLI = new ManageOrdersViewCLI();
+                        manageOrdersViewCLI.initialize();
                         break;
 
                     case 2:
