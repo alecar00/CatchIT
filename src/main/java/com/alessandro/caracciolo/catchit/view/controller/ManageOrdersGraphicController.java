@@ -85,8 +85,8 @@ public class ManageOrdersGraphicController {
         Label lblTime = new Label("Time: " + order.getTime());
         lblTime.setStyle(FONT_SIZE);
 
-        String rider = (order.getRider() != null) ? order.getRider().getName() : "NOT ASSIGNED";
-        Label lblRider = new Label("Rider: " + rider);
+        String riderName = (order.getRider() != null) ? order.getRider().getName() : "NOT ASSIGNED";
+        Label lblRider = new Label("Rider: " + riderName);
         lblRider.setStyle(FONT_SIZE);
 
         Label lblStatus = new Label("Status: " + order.getStatus());
