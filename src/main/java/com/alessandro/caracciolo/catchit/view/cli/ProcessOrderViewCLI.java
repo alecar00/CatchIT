@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import static com.alessandro.caracciolo.catchit.utils.Printer.clearConsole;
 import static com.alessandro.caracciolo.catchit.utils.Printer.waitForEnter;
 
-public class RestaurantViewCLI {
+public class ProcessOrderViewCLI {
     private static final Logger logger = Logger.getLogger(Configs.LOGGER_NAME);
     private final ProcessOrderController processOrderController = new ProcessOrderController();
     private final Scanner input = new Scanner(System.in);
@@ -35,7 +35,7 @@ public class RestaurantViewCLI {
                 }
             } else {
                 updateOrdersList(orders);
-                Printer.print("\nChoose an order to assign (0 to Logout): ");
+                Printer.print("\nChoose an order to assign (0 to go Back): ");
                 int choice = readIntSafely(input);
 
                 // Se la scelta è 0, usciamo dal ciclo e facciamo Logout
@@ -88,7 +88,7 @@ public class RestaurantViewCLI {
 
     private void updateRidersList(List<RiderBean> riderBeans) {
         clearConsole();
-        Printer.printTitle("Available Riders\t0 - Back");
+        Printer.printTitle("Available Riders\t0 - to go Back");
         int nRider = 1;
         for (RiderBean rider : riderBeans) {
             Printer.printRider(rider, nRider);
@@ -98,7 +98,7 @@ public class RestaurantViewCLI {
 
     private void updateOrdersList(List<OrderBean> orderBeans) {
         clearConsole();
-        Printer.printTitle("Pending Orders\t0 - Logout");
+        Printer.printTitle("Pending Orders\t0 - to go Back");
         int nOrder = 1;
         for (OrderBean orderBean : orderBeans) {
             Printer.printOrder(orderBean, nOrder);
