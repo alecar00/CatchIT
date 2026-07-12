@@ -73,7 +73,7 @@ public class DeliveryGraphicController {
     private void handleDeliveredButtonClick(String idOrder) throws DAOException, BusinessException, IOException {
         deliveryController.setOrderCompleted(idOrder);
 
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RiderHomePage.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/RiderView.fxml"));
         Parent root = loader.load();
 
         RiderGraphicController controller = loader.getController();
