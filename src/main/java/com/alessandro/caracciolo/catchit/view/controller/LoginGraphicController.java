@@ -40,7 +40,7 @@ public class LoginGraphicController {
             if (typeOfUser == 1) {
                 SceneSwitcher.switchToManageOrders((Node) event.getSource());
             } else if (typeOfUser == 2) {
-                SceneSwitcher.switchToRider((Node) event.getSource());
+                SceneSwitcher.switchToRider((Node) event.getSource(), userBean.getUsername());
             }
 
         } catch (DAOException e) {
